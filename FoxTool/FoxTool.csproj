@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAC1DBAD-3056-4F39-8FA5-CFD764DFCCCC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FoxTool</RootNamespace>
+    <AssemblyName>FoxTool</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FoxConverter.cs" />
+    <Compile Include="Fox\FoxValueVisitor.cs" />
+    <Compile Include="Fox\Classes\AmbientOcclusionSettings.cs" />
+    <Compile Include="Fox\Classes\AnimGraphLayerDescription.cs" />
+    <Compile Include="Fox\Classes\AnimGraphLayersDescription.cs" />
+    <Compile Include="Fox\Classes\BounderDescription.cs" />
+    <Compile Include="Fox\Classes\BoxShape.cs" />
+    <Compile Include="Fox\Classes\ChCharacterInstance.cs" />
+    <Compile Include="Fox\Classes\ChCharacterLocatorData.cs" />
+    <Compile Include="Fox\Classes\ChCharacterLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\ChCharacterObjectCreator.cs" />
+    <Compile Include="Fox\Classes\ChDamageDefinition.cs" />
+    <Compile Include="Fox\Classes\ChDamageSet.cs" />
+    <Compile Include="Fox\Classes\ChDamageTranslationRuleData.cs" />
+    <Compile Include="Fox\Classes\ChFileResourceContainer.cs" />
+    <Compile Include="Fox\Classes\ChFileResourceContainerData.cs" />
+    <Compile Include="Fox\Classes\ClipData.cs" />
+    <Compile Include="Fox\Classes\ClothDescription.cs" />
+    <Compile Include="Fox\Classes\CollectibleBlockControllerData.cs" />
+    <Compile Include="Fox\Classes\ColorCorrectionData.cs" />
+    <Compile Include="Fox\Classes\ConnectModelDescription.cs" />
+    <Compile Include="Fox\Classes\Data.cs" />
+    <Compile Include="Fox\Classes\DataElement.cs" />
+    <Compile Include="Fox\Classes\DataIdentifier.cs" />
+    <Compile Include="Fox\Classes\DataSet.cs" />
+    <Compile Include="Fox\Classes\DebugFlyCameraLocator.cs" />
+    <Compile Include="Fox\Classes\DecalArray.cs" />
+    <Compile Include="Fox\Classes\DemoBlockPositionSetter.cs" />
+    <Compile Include="Fox\Classes\DemoControlCharacterDesc.cs" />
+    <Compile Include="Fox\Classes\DemoData.cs" />
+    <Compile Include="Fox\Classes\DemoFileProxy.cs" />
+    <Compile Include="Fox\Classes\DemoModelDataNode.cs" />
+    <Compile Include="Fox\Classes\DemoRelativePlayParameter.cs" />
+    <Compile Include="Fox\Classes\DemoResource.cs" />
+    <Compile Include="Fox\Classes\DemoStreamAnimation.cs" />
+    <Compile Include="Fox\Classes\DesFixData.cs" />
+    <Compile Include="Fox\Classes\DesParamData.cs" />
+    <Compile Include="Fox\Classes\DestructionModelDescription.cs" />
+    <Compile Include="Fox\Classes\DirectionalLight.cs" />
+    <Compile Include="Fox\Classes\EffectDescription.cs" />
+    <Compile Include="Fox\Classes\Entity.cs" />
+    <Compile Include="Fox\Classes\EntityPtrArrayEntity.cs" />
+    <Compile Include="Fox\Classes\EspionageRadioData.cs" />
+    <Compile Include="Fox\Classes\EventDataUnit.cs" />
+    <Compile Include="Fox\Classes\FacialMaskElement.cs" />
+    <Compile Include="Fox\Classes\FacialSettingData.cs" />
+    <Compile Include="Fox\Classes\FoxTargetDescription.cs" />
+    <Compile Include="Fox\Classes\FxLocatorData.cs" />
+    <Compile Include="Fox\Classes\FxLocatorGroup.cs" />
+    <Compile Include="Fox\Classes\GameScript.cs" />
+    <Compile Include="Fox\Classes\GeomDescription.cs" />
+    <Compile Include="Fox\Classes\GeoModuleCondition.cs" />
+    <Compile Include="Fox\Classes\GeomSkeletonDescription.cs" />
+    <Compile Include="Fox\Classes\GeoTrap.cs" />
+    <Compile Include="Fox\Classes\GeoTrapScriptCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\GeoxCollisionPrimitivePack.cs" />
+    <Compile Include="Fox\Classes\GeoxPath2.cs" />
+    <Compile Include="Fox\Classes\GeoxPathEdge.cs" />
+    <Compile Include="Fox\Classes\GeoxPathNode.cs" />
+    <Compile Include="Fox\Classes\GeoxPathPack.cs" />
+    <Compile Include="Fox\Classes\GeoxPathWall.cs" />
+    <Compile Include="Fox\Classes\GeoxTargetDesc.cs" />
+    <Compile Include="Fox\Classes\GeoxTextureMaterialRegister.cs" />
+    <Compile Include="Fox\Classes\GkPathLineTarget.cs" />
+    <Compile Include="Fox\Classes\GlobalCameraSettings.cs" />
+    <Compile Include="Fox\Classes\GraphxSpatialGraphDataEdge.cs" />
+    <Compile Include="Fox\Classes\GraphxSpatialGraphDataNode.cs" />
+    <Compile Include="Fox\Classes\Group.cs" />
+    <Compile Include="Fox\Classes\GrPluginSettings.cs" />
+    <Compile Include="Fox\Classes\GrReflectionSetting.cs" />
+    <Compile Include="Fox\Classes\GrxAreaSSAOParameters.cs" />
+    <Compile Include="Fox\Classes\GrxLineSSAOParameters.cs" />
+    <Compile Include="Fox\Classes\GzTitleBootData.cs" />
+    <Compile Include="Fox\Classes\HudBootData.cs" />
+    <Compile Include="Fox\Classes\LangData.cs" />
+    <Compile Include="Fox\Classes\LightArray.cs" />
+    <Compile Include="Fox\Classes\LipAdjustData.cs" />
+    <Compile Include="Fox\Classes\Locator.cs" />
+    <Compile Include="Fox\Classes\Material.cs" />
+    <Compile Include="Fox\Classes\MbdvcBootData.cs" />
+    <Compile Include="Fox\Classes\MbdvcBootData2.cs" />
+    <Compile Include="Fox\Classes\MessageBoxProxy.cs" />
+    <Compile Include="Fox\Classes\ModelDescription.cs" />
+    <Compile Include="Fox\Classes\NavxBounderLocator.cs" />
+    <Compile Include="Fox\Classes\NavxNavBlock.cs" />
+    <Compile Include="Fox\Classes\NavxNavigableParameter.cs" />
+    <Compile Include="Fox\Classes\NavxSquareGraphBounderData.cs" />
+    <Compile Include="Fox\Classes\NavxSwitchBounderData.cs" />
+    <Compile Include="Fox\Classes\NavxWorldGenerateParameter.cs" />
+    <Compile Include="Fox\Classes\ObjectBrush.cs" />
+    <Compile Include="Fox\Classes\ObjectBrushPluginBushCompositeDataElement.cs" />
+    <Compile Include="Fox\Classes\ObjectBrushPluginBushDataElement.cs" />
+    <Compile Include="Fox\Classes\ObjectBrushPluginClone.cs" />
+    <Compile Include="Fox\Classes\OccluderArray.cs" />
+    <Compile Include="Fox\Classes\ParameterMaskElement.cs" />
+    <Compile Include="Fox\Classes\PartsDesc.cs" />
+    <Compile Include="Fox\Classes\PhAssociationParam.cs" />
+    <Compile Include="Fox\Classes\PhBallsocketConstraintParam.cs" />
+    <Compile Include="Fox\Classes\PhMultiHingeConstraintParam.cs" />
+    <Compile Include="Fox\Classes\PhMultiShoulderConstraintParam.cs" />
+    <Compile Include="Fox\Classes\PhObjectDesc.cs" />
+    <Compile Include="Fox\Classes\PhPrimitiveShapeParam.cs" />
+    <Compile Include="Fox\Classes\PhRigidBodyParam.cs" />
+    <Compile Include="Fox\Classes\PhVehicleAxisParam.cs" />
+    <Compile Include="Fox\Classes\PhVehicleNormalEngineParam.cs" />
+    <Compile Include="Fox\Classes\PhxAssociation.cs" />
+    <Compile Include="Fox\Classes\PhxAssociationUnitElement.cs" />
+    <Compile Include="Fox\Classes\PhxVehicleAxis.cs" />
+    <Compile Include="Fox\Classes\PhxVehicleNormalEngine.cs" />
+    <Compile Include="Fox\Classes\PhxWheelAssociationUnitParam.cs" />
+    <Compile Include="Fox\Classes\PhxWheelConstraintParam.cs" />
+    <Compile Include="Fox\Classes\PhysicsDescription.cs" />
+    <Compile Include="Fox\Classes\PivotTransformEntity.cs" />
+    <Compile Include="Fox\Classes\PointLight.cs" />
+    <Compile Include="Fox\Classes\RadioData.cs" />
+    <Compile Include="Fox\Classes\ShearTransformEntity.cs" />
+    <Compile Include="Fox\Classes\SimAssociationUnit.cs" />
+    <Compile Include="Fox\Classes\SimAssociationUnitParam.cs" />
+    <Compile Include="Fox\Classes\SimClothSettingData.cs" />
+    <Compile Include="Fox\Classes\SimDescription.cs" />
+    <Compile Include="Fox\Classes\SimEngineOnPhysicsParam.cs" />
+    <Compile Include="Fox\Classes\SimHitGroupControl.cs" />
+    <Compile Include="Fox\Classes\SimHitGroupControlParam.cs" />
+    <Compile Include="Fox\Classes\SimInertialControl.cs" />
+    <Compile Include="Fox\Classes\SimInertialControlParam.cs" />
+    <Compile Include="Fox\Classes\SimObjectParam.cs" />
+    <Compile Include="Fox\Classes\SimOnPhysics.cs" />
+    <Compile Include="Fox\Classes\SimWindControl.cs" />
+    <Compile Include="Fox\Classes\SimWindControlParam.cs" />
+    <Compile Include="Fox\Classes\SoundAreaEdge.cs" />
+    <Compile Include="Fox\Classes\SoundAreaGlobal.cs" />
+    <Compile Include="Fox\Classes\SoundAreaGroup.cs" />
+    <Compile Include="Fox\Classes\SoundAreaMember.cs" />
+    <Compile Include="Fox\Classes\SoundAreaParameter.cs" />
+    <Compile Include="Fox\Classes\SoundDataFileInfo.cs" />
+    <Compile Include="Fox\Classes\SoundDescription.cs" />
+    <Compile Include="Fox\Classes\SoundPackage.cs" />
+    <Compile Include="Fox\Classes\SoundPhysicsParameter.cs" />
+    <Compile Include="Fox\Classes\SoundSource.cs" />
+    <Compile Include="Fox\Classes\SphereShape.cs" />
+    <Compile Include="Fox\Classes\SpotLight.cs" />
+    <Compile Include="Fox\Classes\StageBlockControllerData.cs" />
+    <Compile Include="Fox\Classes\StageLightFadeData.cs" />
+    <Compile Include="Fox\Classes\StaticModel.cs" />
+    <Compile Include="Fox\Classes\StaticModelArray.cs" />
+    <Compile Include="Fox\Classes\StaticModelArrayLinkTarget.cs" />
+    <Compile Include="Fox\Classes\StaticModelArrayLocator.cs" />
+    <Compile Include="Fox\Classes\StaticModelArrayPathFilter.cs" />
+    <Compile Include="Fox\Classes\SubtitlesBlockControllerData.cs" />
+    <Compile Include="Fox\Classes\SubtitlesGenerator.cs" />
+    <Compile Include="Fox\Classes\SubtitlesPackage.cs" />
+    <Compile Include="Fox\Classes\TerrainBlock.cs" />
+    <Compile Include="Fox\Classes\TerrainDecalPack.cs" />
+    <Compile Include="Fox\Classes\TerrainMaterialConfigration.cs" />
+    <Compile Include="Fox\Classes\TerrainRender.cs" />
+    <Compile Include="Fox\Classes\TexturePackLoadConditioner.cs" />
+    <Compile Include="Fox\Classes\TimeSection.cs" />
+    <Compile Include="Fox\Classes\TppAmbientParameter.cs" />
+    <Compile Include="Fox\Classes\TppAnimateObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppAnimateObjectLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppAreaEdgeParameter.cs" />
+    <Compile Include="Fox\Classes\TppAtmosphere.cs" />
+    <Compile Include="Fox\Classes\TppAttackEmplacementLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppAttackEmplacementObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppBinaryLocatedGimmickData.cs" />
+    <Compile Include="Fox\Classes\TppBirdLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppBirdObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppBirdPerchesOnPath.cs" />
+    <Compile Include="Fox\Classes\TppBreakableObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppBreakableObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppBreakableObjectLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppBreakableStreetLampModel.cs" />
+    <Compile Include="Fox\Classes\TppCameraDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppCautionLocatorData.cs" />
+    <Compile Include="Fox\Classes\TppCautionLocatorSetData.cs" />
+    <Compile Include="Fox\Classes\TppCheckPointLocator.cs" />
+    <Compile Include="Fox\Classes\TppCheckPointTrapExecDataElement.cs" />
+    <Compile Include="Fox\Classes\TppCollectibleFileResources.cs" />
+    <Compile Include="Fox\Classes\TppCombatLocatorData.cs" />
+    <Compile Include="Fox\Classes\TppCombatLocatorSetData.cs" />
+    <Compile Include="Fox\Classes\TppCommandPostLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppCommandPostObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppCommonInterrogationData.cs" />
+    <Compile Include="Fox\Classes\TppCoverPoint.cs" />
+    <Compile Include="Fox\Classes\TppCpRadioData.cs" />
+    <Compile Include="Fox\Classes\TppDamageFilterExposure.cs" />
+    <Compile Include="Fox\Classes\TppDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppDemoParameter.cs" />
+    <Compile Include="Fox\Classes\TppDemoPuppetLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppDemoPuppetObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppDirtyModelData.cs" />
+    <Compile Include="Fox\Classes\TppDoorLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppDoorObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppElectricCableData.cs" />
+    <Compile Include="Fox\Classes\TppEnemyCombatDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppEnemyConversationData.cs" />
+    <Compile Include="Fox\Classes\TppEnemyCooperationDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppEspionageRadioLocator.cs" />
+    <Compile Include="Fox\Classes\TppEventSequenceManagerData.cs" />
+    <Compile Include="Fox\Classes\TppFloorRainSplashData.cs" />
+    <Compile Include="Fox\Classes\TppGadgetDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppGadgetLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppGadgetObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppGimmickLocatorData.cs" />
+    <Compile Include="Fox\Classes\TppGimmickPartsInstanceData.cs" />
+    <Compile Include="Fox\Classes\TppGlobalVolumetricFog.cs" />
+    <Compile Include="Fox\Classes\TppGlobalVolumetricFogParam.cs" />
+    <Compile Include="Fox\Classes\TppGroupVehicleDefaultRideRouteInfo.cs" />
+    <Compile Include="Fox\Classes\TppGroupVehicleRouteInfo.cs" />
+    <Compile Include="Fox\Classes\TppGuardTargetData.cs" />
+    <Compile Include="Fox\Classes\TppHandLightLensFlareRoot.cs" />
+    <Compile Include="Fox\Classes\TppHelicopterRendezvousPoint.cs" />
+    <Compile Include="Fox\Classes\TppHostageLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppHostageObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppHostageObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppHumanEnemyCreator.cs" />
+    <Compile Include="Fox\Classes\TppHumanEnemyDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppHumanEnemyLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppHumanEnemyMissionParameter.cs" />
+    <Compile Include="Fox\Classes\TppHumanEnemyObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppHumanEnemyRealizerConfigulation.cs" />
+    <Compile Include="Fox\Classes\TppLadderData.cs" />
+    <Compile Include="Fox\Classes\TppLadderEntryPointData.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareAsymmetricField.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareField.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareMaterial.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareRateGraph.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareRoot.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareRootBase.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareShape.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareShapeArray.cs" />
+    <Compile Include="Fox\Classes\TppLensFlareShapeCircle.cs" />
+    <Compile Include="Fox\Classes\TppLightAreaShape.cs" />
+    <Compile Include="Fox\Classes\TppLightProbe.cs" />
+    <Compile Include="Fox\Classes\TppLightProbeArray.cs" />
+    <Compile Include="Fox\Classes\TppLightProbeSHCoefficients.cs" />
+    <Compile Include="Fox\Classes\TppLocationData.cs" />
+    <Compile Include="Fox\Classes\TppMarkCharacterInterrogationParamData.cs" />
+    <Compile Include="Fox\Classes\TppMarkerDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppMarkerLocator.cs" />
+    <Compile Include="Fox\Classes\TppMissionBlockData.cs" />
+    <Compile Include="Fox\Classes\TppMissionParameterData.cs" />
+    <Compile Include="Fox\Classes\TppModelMarkerFilterSettings.cs" />
+    <Compile Include="Fox\Classes\TppMusicParameter.cs" />
+    <Compile Include="Fox\Classes\TppNewPlayerPadParameter.cs" />
+    <Compile Include="Fox\Classes\TppNightVision.cs" />
+    <Compile Include="Fox\Classes\TppNightVisionParam.cs" />
+    <Compile Include="Fox\Classes\TppNoiseArea.cs" />
+    <Compile Include="Fox\Classes\TppNvgFilterNoise.cs" />
+    <Compile Include="Fox\Classes\TppNVGSetterData.cs" />
+    <Compile Include="Fox\Classes\TppObjectBrushPluginBush.cs" />
+    <Compile Include="Fox\Classes\TppObjectBrushPluginBushComposite.cs" />
+    <Compile Include="Fox\Classes\TppObjectBrushPluginFlutteringGrass.cs" />
+    <Compile Include="Fox\Classes\TppObjectBrushPluginSkeletonModel.cs" />
+    <Compile Include="Fox\Classes\TppOcean.cs" />
+    <Compile Include="Fox\Classes\TppOutOfMissionRangeEffect.cs" />
+    <Compile Include="Fox\Classes\TppPermeableStaticModel.cs" />
+    <Compile Include="Fox\Classes\TppPhaseControlParameter.cs" />
+    <Compile Include="Fox\Classes\TppPhysicsObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppPickableLocator.cs" />
+    <Compile Include="Fox\Classes\TppPlacedLocator.cs" />
+    <Compile Include="Fox\Classes\TppPlayerDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppPlayerLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppPlayerObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppPlayerObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppRadioConditionManagerData.cs" />
+    <Compile Include="Fox\Classes\TppRainFilter.cs" />
+    <Compile Include="Fox\Classes\TppRainFilterInterrupt.cs" />
+    <Compile Include="Fox\Classes\TppRatLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppRatObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppReflectionSettingTrapCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppRequestWeatherTagTrapExecDataElement.cs" />
+    <Compile Include="Fox\Classes\TppRouteSet.cs" />
+    <Compile Include="Fox\Classes\TppSearchLightObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppSearchLightObjectLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppSecurityCameraCreator.cs" />
+    <Compile Include="Fox\Classes\TppSecurityCameraLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppSecurityCameraObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppSecurityCameraRealizerConfigulation.cs" />
+    <Compile Include="Fox\Classes\TppSkeletalModel.cs" />
+    <Compile Include="Fox\Classes\TppSkyClouds3.cs" />
+    <Compile Include="Fox\Classes\TppSkyClouds3Param.cs" />
+    <Compile Include="Fox\Classes\TppSkyEffectControler.cs" />
+    <Compile Include="Fox\Classes\TppSoundWorld.cs" />
+    <Compile Include="Fox\Classes\TppSpecialCharacterInterrogationData.cs" />
+    <Compile Include="Fox\Classes\TppSquadInstanceManagerData.cs" />
+    <Compile Include="Fox\Classes\TppStrykerDefaultParameter2.cs" />
+    <Compile Include="Fox\Classes\TppStrykerRealizerConfigulation.cs" />
+    <Compile Include="Fox\Classes\TppStrykerSoundDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppSunLightFlare.cs" />
+    <Compile Include="Fox\Classes\TppSupportHelicopterDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppSupportHelicopterLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppSupportHelicopterObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppSwitchGadgetLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppSwitchGadgetObjectCreator.cs" />
+    <Compile Include="Fox\Classes\TppTextureLoader.cs" />
+    <Compile Include="Fox\Classes\TppTonemap.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckCharacterCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckIsCharacterCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckIsCharacterWithIdCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckIsEnemyCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckIsInCameraCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckIsInViewCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckIsPlayerCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapCheckIsPushPadCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapConditionChangeActiveLightArea.cs" />
+    <Compile Include="Fox\Classes\TppTrapExecChangeGlobalWindCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapExecDamageCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapExecHostageAreaCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapExecSoldierInGuardTowerCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapExecSoldierNoticeLightOffCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapExecThunderLightningCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapFrontLineCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapMainGuardIndexCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppTrapRainFilterCallbackDataElement.cs" />
+    <Compile Include="Fox\Classes\TppUICommonBootData.cs" />
+    <Compile Include="Fox\Classes\TppVehicleDrivingParameter.cs" />
+    <Compile Include="Fox\Classes\TppVehicleLocatorParameter.cs" />
+    <Compile Include="Fox\Classes\TppVehicleObjectFactory.cs" />
+    <Compile Include="Fox\Classes\TppVehicleSoundDefaultParameter.cs" />
+    <Compile Include="Fox\Classes\TppVfxFileLoader.cs" />
+    <Compile Include="Fox\Classes\TppWaterDropsOnCameraLens.cs" />
+    <Compile Include="Fox\Classes\TppWeatherCloudShadowSettings.cs" />
+    <Compile Include="Fox\Classes\TppWeatherRainData.cs" />
+    <Compile Include="Fox\Classes\TppWeatherThunder.cs" />
+    <Compile Include="Fox\Classes\TransformData.cs" />
+    <Compile Include="Fox\Classes\TransformEntity.cs" />
+    <Compile Include="Fox\Classes\UiAnimWorkMemoryData.cs" />
+    <Compile Include="Fox\Classes\UiFontDataElement.cs" />
+    <Compile Include="Fox\Classes\UiFontGroupData.cs" />
+    <Compile Include="Fox\Classes\UiGraphEntry.cs" />
+    <Compile Include="Fox\Classes\UiPaletteData.cs" />
+    <Compile Include="Fox\Classes\VehicleDescription.cs" />
+    <Compile Include="Fox\Classes\WindGlobal.cs" />
+    <Compile Include="Fox\Classes\WindParameter.cs" />
+    <Compile Include="Fox\Containers\FoxDynamicArray.cs" />
+    <Compile Include="Fox\Containers\FoxList.cs" />
+    <Compile Include="Fox\Containers\FoxListBase.cs" />
+    <Compile Include="Fox\Containers\FoxStaticArray.cs" />
+    <Compile Include="Fox\Containers\FoxStringMap.cs" />
+    <Compile Include="Fox\Enum\FoxFlags.cs" />
+    <Compile Include="Fox\Enum\FoxSwitch.cs" />
+    <Compile Include="Fox\Enum\TppAnimateObjectLocatorParameter_GimmickTypes.cs" />
+    <Compile Include="Fox\FoxClass.cs" />
+    <Compile Include="Fox\FoxContainerType.cs" />
+    <Compile Include="Fox\FoxDataType.cs" />
+    <Compile Include="Fox\FoxStruct.cs" />
+    <Compile Include="Fox\FoxValue.cs" />
+    <Compile Include="Fox\IFoxEnum.cs" />
+    <Compile Include="Fox\FoxEnumType.cs" />
+    <Compile Include="Fox\FoxEnumValue.cs" />
+    <Compile Include="Fox\FoxKeyValuePair.cs" />
+    <Compile Include="Fox\IFoxContainer.cs" />
+    <Compile Include="Fox\FoxContainerVisitor.cs" />
+    <Compile Include="Fox\FoxFile.cs" />
+    <Compile Include="Fox\FoxHash.cs" />
+    <Compile Include="Fox\FoxName.cs" />
+    <Compile Include="Fox\FoxEntity.cs" />
+    <Compile Include="Fox\FoxProperty.cs" />
+    <Compile Include="Fox\FoxContainerFactory.cs" />
+    <Compile Include="Fox\IFoxKeyValuePair.cs" />
+    <Compile Include="Fox\IFoxStringMap.cs" />
+    <Compile Include="Fox\IFoxValue.cs" />
+    <Compile Include="Fox\Types\FoxColor.cs" />
+    <Compile Include="Fox\Types\FoxDouble.cs" />
+    <Compile Include="Fox\Types\FoxEntityHandle.cs" />
+    <Compile Include="Fox\Types\FoxEntityLink.cs" />
+    <Compile Include="Fox\Types\FoxEntityPtr.cs" />
+    <Compile Include="Fox\Types\FoxFilePtr.cs" />
+    <Compile Include="Fox\Types\FoxBool.cs" />
+    <Compile Include="Fox\Types\FoxFloat.cs" />
+    <Compile Include="Fox\Types\FoxInt16.cs" />
+    <Compile Include="Fox\Types\FoxInt32.cs" />
+    <Compile Include="Fox\Types\FoxInt64.cs" />
+    <Compile Include="Fox\Types\FoxInt8.cs" />
+    <Compile Include="Fox\Types\FoxMatrix3.cs" />
+    <Compile Include="Fox\Types\FoxMatrix4.cs" />
+    <Compile Include="Fox\Types\FoxPath.cs" />
+    <Compile Include="Fox\Types\FoxQuat.cs" />
+    <Compile Include="Fox\Types\FoxString.cs" />
+    <Compile Include="Fox\Types\FoxUInt64.cs" />
+    <Compile Include="Fox\Types\FoxUInt8.cs" />
+    <Compile Include="Fox\Types\FoxUInt16.cs" />
+    <Compile Include="Fox\Types\FoxUInt32.cs" />
+    <Compile Include="Fox\Types\FoxVector3.cs" />
+    <Compile Include="Fox\Types\FoxVector4.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CityHash\CityHash.csproj">
+      <Project>{87E39AF8-C118-4A0E-8C3B-9B1BECC2D016}</Project>
+      <Name>CityHash</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dictionary.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
