@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using System.Xml.Schema;
 
 namespace FoxTool.Fox.Containers
 {
@@ -52,6 +53,16 @@ namespace FoxTool.Fox.Containers
             return _map.Count;
         }
 
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
         public void WriteXml(XmlWriter writer)
         {
             if (_map.Any())
@@ -62,7 +73,6 @@ namespace FoxTool.Fox.Containers
                     writer.WriteStartElement("value");
                     writer.WriteAttributeString("key",
                         pair.Key.Name ?? String.Format("0x{0:X8}", pair.Key.Hash.HashValue));
-                    pair.Value.WriteXmlAttributes(writer);
                     writer.WriteEndElement();
                 }
             }

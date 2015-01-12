@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace FoxTool.Fox
 {
-    internal class FoxEntity
+    public class FoxEntity : IXmlSerializable
     {
         private readonly List<FoxProperty> _dynamicProperties;
         private readonly List<FoxProperty> _staticProperties;
@@ -86,6 +90,41 @@ namespace FoxTool.Fox
             {
                 dynamicProperty.ResolveNames(nameMap);
             }
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("class", ClassName);
+            writer.WriteAttributeString("addr", String.Format("0x{0:X8}", Address));
+
+            writer.WriteStartElement("staticProperties");
+            foreach (var staticProperty in StaticProperties)
+            {
+                writer.WriteStartElement("property");
+                staticProperty.WriteXml(writer);
+                writer.WriteEndElement();
+
+            }
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("dynamicProperties");
+            foreach (var dynamicProperty in DynamicProperties)
+            {
+                writer.WriteStartElement("property");
+                dynamicProperty.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
         }
     }
 }

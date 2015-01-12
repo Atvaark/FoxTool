@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using System.Xml.Schema;
 
 namespace FoxTool.Fox.Containers
 {
@@ -53,6 +54,16 @@ namespace FoxTool.Fox.Containers
             return _values.Count;
         }
 
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void WriteXml(XmlWriter writer)
         {
             if (_values.Any())
@@ -60,7 +71,8 @@ namespace FoxTool.Fox.Containers
                 writer.WriteAttributeString("arraySize", _values.Count().ToString());
                 foreach (var value in _values)
                 {
-                    value.WriteXmlElement(writer);
+                    writer.WriteStartElement("value");
+                    writer.WriteEndElement();
                 }
             }
         }

@@ -31,14 +31,6 @@ namespace FoxTool.Fox.Types
             writer.Write(Alpha);
         }
 
-        public override void WriteXmlAttributes(XmlWriter writer)
-        {
-            writer.WriteAttributeString("r", Red.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("g", Green.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("b", Blue.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("a", Alpha.ToString("N6", CultureInfo.InvariantCulture));
-        }
-
         public override int Size()
         {
             return 4*sizeof (float);
@@ -46,6 +38,19 @@ namespace FoxTool.Fox.Types
 
         public override void ResolveNames(Dictionary<ulong, string> nameMap)
         {
+        }
+
+        public override void ReadXml(XmlReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("r", Red.ToString("N6", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("g", Green.ToString("N6", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("b", Blue.ToString("N6", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("a", Alpha.ToString("N6", CultureInfo.InvariantCulture));
         }
 
         public override string ToString()

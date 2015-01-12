@@ -46,7 +46,21 @@ namespace FoxTool.Fox.Types
             writer.Write(Row3Value3);
         }
 
-        public override void WriteXmlAttributes(XmlWriter writer)
+        public override int Size()
+        {
+            return 9*sizeof (float);
+        }
+
+        public override void ResolveNames(Dictionary<ulong, string> nameMap)
+        {
+        }
+
+        public override void ReadXml(XmlReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("Row1");
             writer.WriteAttributeString("Column1", Row1Value1.ToString("N6", CultureInfo.InvariantCulture));
@@ -63,15 +77,6 @@ namespace FoxTool.Fox.Types
             writer.WriteAttributeString("Column2", Row3Value2.ToString("N6", CultureInfo.InvariantCulture));
             writer.WriteAttributeString("Column3", Row3Value3.ToString("N6", CultureInfo.InvariantCulture));
             writer.WriteEndElement();
-        }
-
-        public override int Size()
-        {
-            return 9*sizeof (float);
-        }
-
-        public override void ResolveNames(Dictionary<ulong, string> nameMap)
-        {
         }
 
         public override string ToString()

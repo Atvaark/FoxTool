@@ -1,39 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace FoxTool.Fox.Types
 {
-    public class FoxPath : FoxValue
+    public class FoxPath : IFoxValue
     {
         public FoxHash PathHash { get; set; }
         public string Path { get; set; }
 
-        public override void Read(Stream input)
+        public void Read(Stream input)
         {
             PathHash = FoxHash.ReadFoxHash(input);
         }
 
-        public override void Write(Stream output)
+        public void Write(Stream output)
         {
             PathHash.Write(output);
         }
 
-        public override int Size()
+        public int Size()
         {
             return FoxHash.Size;
         }
 
-        public override void ResolveNames(Dictionary<ulong, string> nameMap)
+        public void ResolveNames(Dictionary<ulong, string> nameMap)
         {
             string name;
             nameMap.TryGetValue(PathHash.HashValue, out name);
             Path = name;
         }
 
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return Path ?? String.Format("0x{0:X8}", PathHash.HashValue);
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteString(ToString());
         }
     }
 }

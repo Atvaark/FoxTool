@@ -12,6 +12,12 @@ namespace FoxTool
 
         private static void Main(string[] args)
         {
+            //using (FileStream input = new FileStream(@"E:\Games\Metal Gear Solid Ground Zeroes\Fpk\ombs_common_fpkd\Assets\tpp\level\location\ombs\block_common\ombs_common_env_fox2.fox", FileMode.Open))
+            //{
+            //    FoxConverter.CompileFox(input);
+            //}
+
+
             if (args.Length != 1)
             {
                 ShowUsageInfo();
@@ -95,7 +101,7 @@ namespace FoxTool
                 try
                 {
                     var foxFile = FoxFile.ReadFoxFile(input, HashNameDictionary);
-                    FoxConverter.ConvertToFox(foxFile, output);
+                    FoxConverter.DecompileFox(foxFile, output);
                 }
                 catch (Exception e)
                 {

@@ -389,7 +389,6 @@
     <Compile Include="Fox\FoxContainerType.cs" />
     <Compile Include="Fox\FoxDataType.cs" />
     <Compile Include="Fox\FoxStruct.cs" />
-    <Compile Include="Fox\FoxValue.cs" />
     <Compile Include="Fox\IFoxEnum.cs" />
     <Compile Include="Fox\FoxEnumType.cs" />
     <Compile Include="Fox\FoxEnumValue.cs" />

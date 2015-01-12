@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace FoxTool.Fox
 {
-    internal class FoxFile
+
+    [XmlRoot("fox")]
+    public class FoxFile : IXmlSerializable
     {
         private readonly List<FoxClass> _classes;
         private readonly List<FoxEntity> _entities;
@@ -17,12 +24,12 @@ namespace FoxTool.Fox
             _names = new List<FoxName>();
         }
 
-        public IEnumerable<FoxClass> Classes
+        public List<FoxClass> Classes
         {
             get { return _classes; }
         }
 
-        public IEnumerable<FoxEntity> Entities
+        public List<FoxEntity> Entities
         {
             get { return _entities; }
         }
@@ -124,6 +131,44 @@ namespace FoxTool.Fox
                 }
             }
             return nameMap;
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            //writer.WriteStartElement("fox");
+            writer.WriteAttributeString("formatVersion", "2");
+            writer.WriteAttributeString("fileVersion", "0");
+            writer.WriteAttributeString("originalVersion",
+                String.Format(CultureInfo.InvariantCulture, "{0:ddd MMM dd HH:mm:ss UTCzzz yyyy}", DateTime.Now));
+            writer.WriteStartElement("classes");
+            foreach (var foxClass in Classes)
+            {
+                writer.WriteStartElement("class");
+                foxClass.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("entities");
+            foreach (var foxEntity in Entities)
+            {
+                writer.WriteStartElement("entity");
+                foxEntity.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+
+            //writer.WriteEndElement();
         }
     }
 }

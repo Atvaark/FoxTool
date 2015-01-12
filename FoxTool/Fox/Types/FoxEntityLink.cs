@@ -34,17 +34,6 @@ namespace FoxTool.Fox.Types
             writer.Write(EntityHandle);
         }
 
-        public override void WriteXmlAttributes(XmlWriter writer)
-        {
-            string packagePath = PackagePath ?? String.Format("0x{0:X8}", PackagePathHash.HashValue);
-            string archivePath = ArchivePath ?? String.Format("0x{0:X8}", ArchivePathHash.HashValue);
-            string nameInArchive = NameInArchive ?? String.Format("0x{0:X8}", NameInArchiveHash.HashValue);
-            writer.WriteAttributeString("packagePath", packagePath);
-            writer.WriteAttributeString("archivePath", archivePath);
-            writer.WriteAttributeString("nameInArchive", nameInArchive);
-            writer.WriteString(String.Format("0x{0:X8}", EntityHandle));
-        }
-
         public override int Size()
         {
             return 3*FoxHash.Size + sizeof (ulong);
@@ -55,6 +44,22 @@ namespace FoxTool.Fox.Types
             PackagePath = ResolveName(nameMap, PackagePathHash.HashValue);
             ArchivePath = ResolveName(nameMap, ArchivePathHash.HashValue);
             NameInArchive = ResolveName(nameMap, NameInArchiveHash.HashValue);
+        }
+
+        public override void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void WriteXml(XmlWriter writer)
+        {
+            string packagePath = PackagePath ?? String.Format("0x{0:X8}", PackagePathHash.HashValue);
+            string archivePath = ArchivePath ?? String.Format("0x{0:X8}", ArchivePathHash.HashValue);
+            string nameInArchive = NameInArchive ?? String.Format("0x{0:X8}", NameInArchiveHash.HashValue);
+            writer.WriteAttributeString("packagePath", packagePath);
+            writer.WriteAttributeString("archivePath", archivePath);
+            writer.WriteAttributeString("nameInArchive", nameInArchive);
+            writer.WriteString(String.Format("0x{0:X8}", EntityHandle));
         }
 
         private string ResolveName(Dictionary<ulong, string> nameMap, ulong hashValue)

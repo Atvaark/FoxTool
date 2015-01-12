@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Xml.Schema;
 
 namespace FoxTool.Fox
 {
@@ -9,15 +10,14 @@ namespace FoxTool.Fox
         public abstract void Read(Stream input);
         public abstract void Write(Stream output);
 
-        public void WriteXmlElement(XmlWriter writer)
-        {
-            writer.WriteStartElement("value");
-            WriteXmlAttributes(writer);
-            writer.WriteEndElement();
-        }
-
-        public abstract void WriteXmlAttributes(XmlWriter writer);
         public abstract int Size();
         public abstract void ResolveNames(Dictionary<ulong, string> nameMap);
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+        public abstract void ReadXml(XmlReader reader);
+        public abstract void WriteXml(XmlWriter writer);
     }
 }

@@ -1,6 +1,10 @@
-﻿namespace FoxTool.Fox
+﻿using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+
+namespace FoxTool.Fox
 {
-    internal class FoxClass
+    public class FoxClass : IXmlSerializable
     {
         public string Name { get; set; }
         public string Super { get; set; }
@@ -30,6 +34,23 @@
                 hashCode = (hashCode*397) ^ (TestUnknown != null ? TestUnknown.GetHashCode() : 0);
                 return hashCode;
             }
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("name", Name);
+            writer.WriteAttributeString("super", Super);
+            writer.WriteAttributeString("version", Version);
         }
     }
 }
