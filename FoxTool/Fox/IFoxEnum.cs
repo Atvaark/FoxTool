@@ -1,6 +1,6 @@
 ﻿namespace FoxTool.Fox
 {
-    interface IFoxEnum
+    internal interface IFoxEnum
     {
     }
 }

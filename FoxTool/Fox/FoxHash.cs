@@ -20,5 +20,11 @@ namespace FoxTool.Fox
             BinaryReader reader = new BinaryReader(input, Encoding.Default, true);
             HashValue = reader.ReadUInt64();
         }
+
+        public void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(HashValue);
+        }
     }
 }

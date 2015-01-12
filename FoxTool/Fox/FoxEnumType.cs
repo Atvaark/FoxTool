@@ -1,8 +1,8 @@
 ﻿namespace FoxTool.Fox
 {
-    enum FoxEnumType
+    internal enum FoxEnumType
     {
         FoxSwitch = 0,
-        FoxFlags = 1,
+        FoxFlags = 1
     }
 }

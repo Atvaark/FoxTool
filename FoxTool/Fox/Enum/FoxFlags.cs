@@ -2,7 +2,7 @@
 
 namespace FoxTool.Fox.Enum
 {
-    class FoxFlags : IFoxEnum
+    public class FoxFlags : IFoxEnum
     {
         private readonly List<FoxEnumValue> _values;
 

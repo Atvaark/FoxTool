@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FoxTool.Fox
 {
-    internal class FoxContainerVisitor
+    public class FoxContainerVisitor
     {
         public FoxContainerVisitor()
         {

@@ -60,7 +60,7 @@ namespace FoxTool
                 Console.WriteLine("Decompiling {0}", file.FullName);
                 DecompileFile(file);
             }
-            else if(Directory.Exists(path))
+            else if (Directory.Exists(path))
             {
                 foreach (var file in GetFileList(new DirectoryInfo(path), true, extensions))
                 {
@@ -104,7 +104,6 @@ namespace FoxTool
             }
         }
 
-
         private static List<FileInfo> GetFileList(DirectoryInfo fileDirectory, bool recursively, List<string> extensions)
         {
             List<FileInfo> files = new List<FileInfo>();
@@ -115,7 +114,9 @@ namespace FoxTool
                     files.AddRange(GetFileList(directory, recursively, extensions));
                 }
             }
-            files.AddRange(fileDirectory.GetFiles().Where(f => extensions.Contains(f.Extension, StringComparer.CurrentCultureIgnoreCase)));
+            files.AddRange(
+                fileDirectory.GetFiles()
+                    .Where(f => extensions.Contains(f.Extension, StringComparer.CurrentCultureIgnoreCase)));
             return files;
         }
 
@@ -134,7 +135,7 @@ namespace FoxTool
         private static ulong HashFileName(string text)
         {
             const ulong seed0 = 0x9ae16a3b2f90404f;
-            ulong seed1 = (uint)((text[0]) << 16) + (uint)text.Length;
+            ulong seed1 = (uint) ((text[0]) << 16) + (uint) text.Length;
             ulong hash2 = CityHash.CityHash.CityHash64WithSeeds(text + "\0", seed0, seed1) & 0xFFFFFFFFFFFF;
             return hash2;
         }

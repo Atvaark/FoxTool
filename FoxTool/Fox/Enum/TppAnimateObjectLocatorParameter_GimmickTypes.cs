@@ -3,7 +3,12 @@
     //name=TppAnimateObjectLocatorParameter_GimmickTypes
     public class TppAnimateObjectLocatorParameterGimmickTypes : FoxSwitch
     {
-        private static readonly TppAnimateObjectLocatorParameterGimmickTypes Instance = new TppAnimateObjectLocatorParameterGimmickTypes();
+        private static readonly TppAnimateObjectLocatorParameterGimmickTypes Instance =
+            new TppAnimateObjectLocatorParameterGimmickTypes();
+
+        public static readonly FoxEnumValue TypeAnimateDefault = new FoxEnumValue("TYPE_ANIMATE_DEFAULT", 0);
+        public static readonly FoxEnumValue TypeAnimatedBreakable = new FoxEnumValue("TYPE_ANIMATED_BREAKABLE", 1);
+        public static readonly FoxEnumValue TypeCurtain = new FoxEnumValue("TYPE_CURTAIN", 2);
 
         protected TppAnimateObjectLocatorParameterGimmickTypes()
         {
@@ -11,9 +16,5 @@
             _values.Add(TypeAnimatedBreakable);
             _values.Add(TypeCurtain);
         }
-
-        public static readonly FoxEnumValue TypeAnimateDefault = new FoxEnumValue("TYPE_ANIMATE_DEFAULT", 0);
-        public static readonly FoxEnumValue TypeAnimatedBreakable = new FoxEnumValue("TYPE_ANIMATED_BREAKABLE", 1);
-        public static readonly FoxEnumValue TypeCurtain = new FoxEnumValue("TYPE_CURTAIN", 2);
     }
 }

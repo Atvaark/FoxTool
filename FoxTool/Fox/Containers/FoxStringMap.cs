@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace FoxTool.Fox.Containers
 {
-    internal class FoxStringMap<T> : IFoxStringMap<T> where T : IFoxValue, new()
+    public class FoxStringMap<T> : IFoxStringMap<T> where T : IFoxValue, new()
     {
         private readonly Dictionary<FoxName, T> _map;
 
@@ -64,7 +64,6 @@ namespace FoxTool.Fox.Containers
                         pair.Key.Name ?? String.Format("0x{0:X8}", pair.Key.Hash.HashValue));
                     pair.Value.WriteXmlAttributes(writer);
                     writer.WriteEndElement();
-
                 }
             }
         }
@@ -81,6 +80,5 @@ namespace FoxTool.Fox.Containers
         {
             return GetEnumerator();
         }
-
     }
 }

@@ -9,7 +9,8 @@
 
         protected bool Equals(FoxClass other)
         {
-            return string.Equals(Name, other.Name) && string.Equals(Super, other.Super) && string.Equals(TestUnknown, other.TestUnknown);
+            return string.Equals(Name, other.Name) && string.Equals(Super, other.Super) &&
+                   string.Equals(TestUnknown, other.TestUnknown);
         }
 
         public override bool Equals(object obj)

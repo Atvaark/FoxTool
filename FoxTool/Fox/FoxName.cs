@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FoxTool.Fox
 {
-    internal class FoxName
+    public class FoxName
     {
         public FoxHash Hash { get; set; }
         public string Name { get; set; }

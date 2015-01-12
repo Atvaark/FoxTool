@@ -40,7 +40,6 @@ namespace FoxTool
             return new string(binaryReader.ReadChars(count));
         }
 
-
         internal static bool IsPrintable(this string s)
         {
             return s.Any(c => char.IsControl(c) || char.IsHighSurrogate(c) || char.IsLowSurrogate(c)) == false;

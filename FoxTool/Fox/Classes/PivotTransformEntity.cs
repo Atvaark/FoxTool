@@ -2,7 +2,7 @@
 
 namespace FoxTool.Fox.Classes
 {
-    class PivotTransformEntity : DataElement
+    internal class PivotTransformEntity : DataElement
     {
         // Static properties
         public FoxEntityHandle Owner { get; set; }

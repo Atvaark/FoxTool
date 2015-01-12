@@ -41,7 +41,6 @@ namespace FoxTool.Fox
             return foxFile;
         }
 
-
         private void GenerateClasses()
         {
             FoxClass entityClass = new FoxClass
@@ -120,12 +119,11 @@ namespace FoxTool.Fox
                 if (nameMap.ContainsKey(name.Hash.HashValue) == false)
                 {
                     // TODO: What should be done with hashed names that look like: /as/XXXXXX.ftex
-                    if(name.Name.IsPrintable())
+                    if (name.Name.IsPrintable())
                         nameMap.Add(name.Hash.HashValue, name.Name);
                 }
             }
             return nameMap;
         }
-
     }
 }

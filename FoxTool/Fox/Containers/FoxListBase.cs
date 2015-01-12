@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace FoxTool.Fox.Containers
 {
-    internal class FoxListBase<T> : IFoxContainer, IEnumerable<T> where T : IFoxValue, new()
+    public class FoxListBase<T> : IFoxContainer, IEnumerable<T> where T : IFoxValue, new()
     {
         private readonly List<T> _values;
 

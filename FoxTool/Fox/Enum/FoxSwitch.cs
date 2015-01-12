@@ -2,7 +2,6 @@
 
 namespace FoxTool.Fox.Enum
 {
-
     // Test data:
     ////<enums>
     ////    <enum type="switch" name="TppLensFlareShapeOffsetType">
