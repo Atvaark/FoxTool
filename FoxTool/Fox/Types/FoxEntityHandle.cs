@@ -14,6 +14,12 @@ namespace FoxTool.Fox.Types
             Handle = reader.ReadUInt64();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(Handle);
+        }
+
         public override int Size()
         {
             return sizeof (ulong);

@@ -22,6 +22,14 @@ namespace FoxTool.Fox.Types
             Alpha = reader.ReadSingle();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(Red);
+            writer.Write(Green);
+            writer.Write(Blue);
+            writer.Write(Alpha);
+        }
 
         public override void WriteXmlAttributes(XmlWriter writer)
         {
@@ -42,7 +50,8 @@ namespace FoxTool.Fox.Types
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "r={0:N6}, g={1:N6}, b={2:N6}, a={3:N6}", Red, Green, Blue, Alpha);
+            return string.Format(CultureInfo.InvariantCulture, "r={0:N6}, g={1:N6}, b={2:N6}, a={3:N6}", Red, Green,
+                Blue, Alpha);
         }
     }
 }

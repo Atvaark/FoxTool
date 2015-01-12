@@ -14,6 +14,10 @@ namespace FoxTool.Fox.Types
             FileNameHash = FoxHash.ReadFoxHash(input);
         }
 
+        public override void Write(Stream output)
+        {
+            FileNameHash.Write(output);
+        }
 
         public override int Size()
         {

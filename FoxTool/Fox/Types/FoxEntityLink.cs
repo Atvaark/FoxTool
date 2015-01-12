@@ -25,6 +25,15 @@ namespace FoxTool.Fox.Types
             EntityHandle = reader.ReadUInt64();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            PackagePathHash.Write(output);
+            ArchivePathHash.Write(output);
+            NameInArchiveHash.Write(output);
+            writer.Write(EntityHandle);
+        }
+
         public override void WriteXmlAttributes(XmlWriter writer)
         {
             string packagePath = PackagePath ?? String.Format("0x{0:X8}", PackagePathHash.HashValue);
@@ -60,8 +69,10 @@ namespace FoxTool.Fox.Types
             string packagePath = PackagePath ?? String.Format("0x{0:X8}", PackagePathHash.HashValue);
             string archivePath = ArchivePath ?? String.Format("0x{0:X8}", ArchivePathHash.HashValue);
             string nameInArchive = NameInArchive ?? String.Format("0x{0:X8}", NameInArchiveHash.HashValue);
-            return string.Format("packagePath=\"{0}\", archivePath=\"{1}\", nameInArchive=\"{2}\", EntityHandle=\"0x{3:X8}\"",
-                packagePath, archivePath, nameInArchive, EntityHandle);
+            return
+                string.Format(
+                    "packagePath=\"{0}\", archivePath=\"{1}\", nameInArchive=\"{2}\", EntityHandle=\"0x{3:X8}\"",
+                    packagePath, archivePath, nameInArchive, EntityHandle);
         }
     }
 }

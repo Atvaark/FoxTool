@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace FoxTool.Fox.Types
 {
     public class FoxString : FoxValue
     {
-        public FoxHash Hash { get; set; }
-        public string Data { get; set; }
+        public FoxHash StringHash { get; set; }
+        public string String { get; set; }
 
         public override void Read(Stream input)
         {
-            Hash = FoxHash.ReadFoxHash(input);
+            StringHash = FoxHash.ReadFoxHash(input);
         }
 
+        public override void Write(Stream output)
+        {
+            StringHash.Write(output);
+        }
 
         public override int Size()
         {
@@ -24,13 +27,13 @@ namespace FoxTool.Fox.Types
         public override void ResolveNames(Dictionary<ulong, string> nameMap)
         {
             string name;
-            nameMap.TryGetValue(Hash.HashValue, out name);
-            Data = name;
+            nameMap.TryGetValue(StringHash.HashValue, out name);
+            String = name;
         }
 
         public override string ToString()
         {
-            return Data ?? String.Format("0x{0:X8}", Hash.HashValue);
+            return String ?? String.Format("0x{0:X8}", StringHash.HashValue);
         }
     }
 }

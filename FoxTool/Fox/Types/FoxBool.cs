@@ -13,7 +13,13 @@ namespace FoxTool.Fox.Types
             BinaryReader reader = new BinaryReader(input, Encoding.Default, true);
             Value = reader.ReadBoolean();
         }
-        
+
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(Value);
+        }
+
         public override int Size()
         {
             return sizeof (bool);

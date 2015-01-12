@@ -22,6 +22,14 @@ namespace FoxTool.Fox.Types
             NotUsed = reader.ReadSingle();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(X);
+            writer.Write(Y);
+            writer.Write(Z);
+            writer.Write(NotUsed);
+        }
 
         public override void WriteXmlAttributes(XmlWriter writer)
         {

@@ -22,6 +22,15 @@ namespace FoxTool.Fox.Types
             W = reader.ReadSingle();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(X);
+            writer.Write(Y);
+            writer.Write(Z);
+            writer.Write(W);
+        }
+
         public override void WriteXmlAttributes(XmlWriter writer)
         {
             writer.WriteAttributeString("x", X.ToString("N6", CultureInfo.InvariantCulture));

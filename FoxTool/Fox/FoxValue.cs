@@ -7,6 +7,7 @@ namespace FoxTool.Fox
     public abstract class FoxValue : IFoxValue
     {
         public abstract void Read(Stream input);
+        public abstract void Write(Stream output);
 
         public void WriteXmlElement(XmlWriter writer)
         {
@@ -19,6 +20,7 @@ namespace FoxTool.Fox
         {
             writer.WriteString(ToString());
         }
+
         public abstract int Size();
         public abstract void ResolveNames(Dictionary<ulong, string> nameMap);
     }

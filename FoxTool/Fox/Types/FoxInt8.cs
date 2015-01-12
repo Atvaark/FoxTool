@@ -14,6 +14,11 @@ namespace FoxTool.Fox.Types
             Value = reader.ReadSByte();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(Value);
+        }
 
         public override int Size()
         {

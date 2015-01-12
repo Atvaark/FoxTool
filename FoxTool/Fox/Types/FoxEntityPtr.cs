@@ -14,6 +14,11 @@ namespace FoxTool.Fox.Types
             EntityPtr = reader.ReadUInt64();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(EntityPtr);
+        }
 
         public override int Size()
         {

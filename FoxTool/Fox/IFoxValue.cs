@@ -7,6 +7,7 @@ namespace FoxTool.Fox
     public interface IFoxValue
     {
         void Read(Stream input);
+        void Write(Stream output);
         void WriteXmlElement(XmlWriter writer);
         void WriteXmlAttributes(XmlWriter writer);
         int Size();

@@ -32,6 +32,19 @@ namespace FoxTool.Fox.Types
             Row3Value3 = reader.ReadSingle();
         }
 
+        public override void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            writer.Write(Row1Value1);
+            writer.Write(Row1Value2);
+            writer.Write(Row1Value3);
+            writer.Write(Row2Value1);
+            writer.Write(Row2Value2);
+            writer.Write(Row2Value3);
+            writer.Write(Row3Value1);
+            writer.Write(Row3Value2);
+            writer.Write(Row3Value3);
+        }
 
         public override void WriteXmlAttributes(XmlWriter writer)
         {
