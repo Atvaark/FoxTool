@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -20,7 +17,7 @@ namespace FoxTool
             };
 
             XmlWriter writer = XmlWriter.Create(output, settings);
-            XmlSerializer serializer = new XmlSerializer(typeof(FoxFile) );
+            XmlSerializer serializer = new XmlSerializer(typeof (FoxFile));
             serializer.Serialize(writer, foxFile);
             writer.Close();
         }

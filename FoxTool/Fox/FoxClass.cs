@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
@@ -10,6 +11,23 @@ namespace FoxTool.Fox
         public string Super { get; set; }
         public string TestUnknown { get; set; }
         public string Version { get; set; }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("name", Name);
+            writer.WriteAttributeString("super", Super);
+            writer.WriteAttributeString("version", Version);
+        }
 
         protected bool Equals(FoxClass other)
         {
@@ -34,23 +52,6 @@ namespace FoxTool.Fox
                 hashCode = (hashCode*397) ^ (TestUnknown != null ? TestUnknown.GetHashCode() : 0);
                 return hashCode;
             }
-        }
-
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteAttributeString("name", Name);
-            writer.WriteAttributeString("super", Super);
-            writer.WriteAttributeString("version", Version);
         }
     }
 }

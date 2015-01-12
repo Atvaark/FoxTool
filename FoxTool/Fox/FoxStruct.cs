@@ -9,7 +9,6 @@ namespace FoxTool.Fox
     {
         public abstract void Read(Stream input);
         public abstract void Write(Stream output);
-
         public abstract int Size();
         public abstract void ResolveNames(Dictionary<ulong, string> nameMap);
 
@@ -17,6 +16,7 @@ namespace FoxTool.Fox
         {
             return null;
         }
+
         public abstract void ReadXml(XmlReader reader);
         public abstract void WriteXml(XmlWriter writer);
     }

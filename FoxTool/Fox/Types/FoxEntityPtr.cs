@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -33,12 +34,7 @@ namespace FoxTool.Fox.Types
 
         public void ReadXml(XmlReader reader)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override string ToString()
-        {
-            return string.Format("0x{0:X8}", EntityPtr);
+            throw new NotImplementedException();
         }
 
         public XmlSchema GetSchema()
@@ -49,6 +45,11 @@ namespace FoxTool.Fox.Types
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteString(ToString());
+        }
+
+        public override string ToString()
+        {
+            return string.Format("0x{0:X8}", EntityPtr);
         }
     }
 }

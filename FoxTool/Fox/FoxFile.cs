@@ -9,7 +9,6 @@ using System.Xml.Serialization;
 
 namespace FoxTool.Fox
 {
-
     [XmlRoot("fox")]
     public class FoxFile : IXmlSerializable
     {
@@ -37,6 +36,44 @@ namespace FoxTool.Fox
         public IEnumerable<FoxName> Names
         {
             get { return _names; }
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            //writer.WriteStartElement("fox");
+            writer.WriteAttributeString("formatVersion", "2");
+            writer.WriteAttributeString("fileVersion", "0");
+            writer.WriteAttributeString("originalVersion",
+                String.Format(CultureInfo.InvariantCulture, "{0:ddd MMM dd HH:mm:ss UTCzzz yyyy}", DateTime.Now));
+            writer.WriteStartElement("classes");
+            foreach (var foxClass in Classes)
+            {
+                writer.WriteStartElement("class");
+                foxClass.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("entities");
+            foreach (var foxEntity in Entities)
+            {
+                writer.WriteStartElement("entity");
+                foxEntity.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+
+            //writer.WriteEndElement();
         }
 
         public static FoxFile ReadFoxFile(Stream input, Dictionary<ulong, string> hashNameDictionary)
@@ -131,44 +168,6 @@ namespace FoxTool.Fox
                 }
             }
             return nameMap;
-        }
-
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            //writer.WriteStartElement("fox");
-            writer.WriteAttributeString("formatVersion", "2");
-            writer.WriteAttributeString("fileVersion", "0");
-            writer.WriteAttributeString("originalVersion",
-                String.Format(CultureInfo.InvariantCulture, "{0:ddd MMM dd HH:mm:ss UTCzzz yyyy}", DateTime.Now));
-            writer.WriteStartElement("classes");
-            foreach (var foxClass in Classes)
-            {
-                writer.WriteStartElement("class");
-                foxClass.WriteXml(writer);
-                writer.WriteEndElement();
-            }
-            writer.WriteEndElement();
-
-            writer.WriteStartElement("entities");
-            foreach (var foxEntity in Entities)
-            {
-                writer.WriteStartElement("entity");
-                foxEntity.WriteXml(writer);
-                writer.WriteEndElement();
-            }
-            writer.WriteEndElement();
-
-            //writer.WriteEndElement();
         }
     }
 }

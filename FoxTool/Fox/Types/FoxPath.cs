@@ -38,11 +38,6 @@ namespace FoxTool.Fox.Types
             throw new NotImplementedException();
         }
 
-        public override string ToString()
-        {
-            return Path ?? String.Format("0x{0:X8}", PathHash.HashValue);
-        }
-
         public XmlSchema GetSchema()
         {
             return null;
@@ -51,6 +46,11 @@ namespace FoxTool.Fox.Types
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteString(ToString());
+        }
+
+        public override string ToString()
+        {
+            return Path ?? String.Format("0x{0:X8}", PathHash.HashValue);
         }
     }
 }

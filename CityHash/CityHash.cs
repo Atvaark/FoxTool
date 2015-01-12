@@ -28,7 +28,6 @@
 // writing a program that systematically explores some of the space of
 // possible hash functions, by using SIMD instructions, or by
 // compromising on hash quality.
-
 using System;
 using System.Text;
 using uint8 = System.Byte;

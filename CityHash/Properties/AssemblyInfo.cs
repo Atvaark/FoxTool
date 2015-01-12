@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+
 [assembly: AssemblyTitle("CityHash")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]

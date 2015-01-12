@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -34,12 +35,7 @@ namespace FoxTool.Fox.Types
 
         public void ReadXml(XmlReader reader)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString(CultureInfo.InvariantCulture);
+            throw new NotImplementedException();
         }
 
         public XmlSchema GetSchema()
@@ -50,6 +46,11 @@ namespace FoxTool.Fox.Types
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteString(ToString());
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
