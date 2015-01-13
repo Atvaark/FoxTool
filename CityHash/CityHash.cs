@@ -1,4 +1,5 @@
-﻿// Copyright (c) 2011 Google, Inc.
+﻿#region License
+// Copyright (c) 2011 Google, Inc.
 // Copyright (c) 2014 Atvaark
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,6 +29,7 @@
 // writing a program that systematically explores some of the space of
 // possible hash functions, by using SIMD instructions, or by
 // compromising on hash quality.
+#endregion
 using System;
 using System.Text;
 using uint8 = System.Byte;
@@ -213,11 +215,15 @@ namespace CityHash
             return Fmix(Mur(c, Mur(b, Mur(a, d))));
         }
 
-        // Hash function for a byte array. Most useful in 32-bit binaries.
-        public static uint32 CityHash32(string s, Encoding encoding = null)
+        // Hash function for a string. Most useful in 32-bit binaries.
+        public static uint32 CityHash32(string s)
+		{
+            return CityHash32(s, Encoding.Default);
+		}
+
+        // Hash function for a string. Most useful in 32-bit binaries.
+        public static uint32 CityHash32(string s, Encoding encoding)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             return CityHash32(encoding.GetBytes(s));
         }
 
@@ -415,10 +421,13 @@ namespace CityHash
             return ShiftMix(r*K0 + vs)*K2;
         }
 
-        public static uint64 CityHash64(string s, Encoding encoding = null)
+        public static uint64 CityHash64(string s)
+		{
+			return CityHash64(s, Encoding.Default);
+		}
+		
+        public static uint64 CityHash64(string s, Encoding encoding)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             return CityHash64(encoding.GetBytes(s));
         }
 
@@ -468,29 +477,39 @@ namespace CityHash
                 HashLen16(v.High, w.High) + x);
         }
 
-        public static uint64 CityHash64WithSeed(string s, uint64 seed, Encoding encoding = null)
+        // Hash function for a string. For convenience, a 64-bit seed is also
+        // hashed into the result.
+        public static uint64 CityHash64WithSeed(string s, uint64 seed)
+		{
+			return CityHash64WithSeed(s, seed, Encoding.Default);
+		}
+
+        // Hash function for a string. For convenience, a 64-bit seed is also
+        // hashed into the result.
+        public static uint64 CityHash64WithSeed(string s, uint64 seed, Encoding encoding)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             return CityHash64WithSeed(encoding.GetBytes(s), seed);
         }
 
-        // Hash function for a byte array. For convenience, a 64-bit seed is also
-        // hashed into the result.
         private static uint64 CityHash64WithSeed(byte[] s, uint64 seed)
         {
             return CityHash64WithSeeds(s, K2, seed);
         }
-
-        public static uint64 CityHash64WithSeeds(string s, uint64 seed0, uint64 seed1, Encoding encoding = null)
-        {
-            if (encoding == null)
-                encoding = Encoding.Default;
-            return CityHash64WithSeeds(encoding.GetBytes(s), seed0, seed1);
-        }
-
+		
         // Hash function for a byte array. For convenience, two seeds are also
         // hashed into the result.
+        public static uint64 CityHash64WithSeeds(string s, uint64 seed0, uint64 seed1)
+        {
+            return CityHash64WithSeeds(s, seed0, seed1, Encoding.Default);
+        }
+
+        // Hash function for a string. For convenience, two seeds are also
+        // hashed into the result.
+        public static uint64 CityHash64WithSeeds(string s, uint64 seed0, uint64 seed1, Encoding encoding)
+        {
+            return CityHash64WithSeeds(encoding.GetBytes(s), seed0, seed1);
+        }
+		
         private static uint64 CityHash64WithSeeds(byte[] s, uint64 seed0, uint64 seed1)
         {
             return HashLen16(CityHash64(s) - seed0, seed1);
@@ -537,15 +556,20 @@ namespace CityHash
             return new uint128(a ^ b, HashLen16(b, a));
         }
 
-        public static uint128 CityHash128WithSeed(string s, uint128 seed, Encoding encoding = null)
+        // Hash function for a string. For convenience, a 128-bit seed is also
+        // hashed into the result.
+        public static uint128 CityHash128WithSeed(string s, uint128 seed)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
+            return CityHash128WithSeed(s, seed, Encoding.Default);
+        }
+		
+        // Hash function for a string. For convenience, a 128-bit seed is also
+        // hashed into the result.
+        public static uint128 CityHash128WithSeed(string s, uint128 seed, Encoding encoding)
+        {
             return CityHash128WithSeed(encoding.GetBytes(s), 0, seed);
         }
 
-        // Hash function for a byte array. For convenience, a 128-bit seed is also
-        // hashed into the result.
         private static uint128 CityHash128WithSeed(byte[] s, int offset, uint128 seed)
         {
             uint len = (uint) (s.Length - offset);
@@ -611,14 +635,18 @@ namespace CityHash
                 HashLen16(x + w.High, y + v.High));
         }
 
+        // Hash function for a string.
+        public static uint128 CityHash128(string s)
+		{
+			return CityHash128(s, Encoding.Default);
+		}
+
+        // Hash function for a string.
         public static uint128 CityHash128(string s, Encoding encoding = null)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             return CityHash128(encoding.GetBytes(s));
         }
 
-        // Hash function for a byte array.
         private static uint128 CityHash128(byte[] s)
         {
             int len = s.Length;
@@ -636,10 +664,14 @@ namespace CityHash
         }
 
         // Requires len >= 240.
-        public static void CityHashCrc256Long(string s, uint32 seed, out UInt256 result, Encoding encoding = null)
+        public static void CityHashCrc256Long(string s, uint32 seed, out UInt256 result)
+		{
+			CityHashCrc256Long(s, seed, Encoding.Default, out result);
+		}
+		
+        // Requires len >= 240.
+        public static void CityHashCrc256Long(string s, uint32 seed, Encoding encoding, out UInt256 result)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             CityHashCrc256Long(encoding.GetBytes(s), seed, out result);
         }
 
@@ -724,10 +756,13 @@ namespace CityHash
         }
 
         // Requires len < 240.
-        public static void CityHashCrc256Short(string s, out UInt256 result, Encoding encoding = null)
+        public static void CityHashCrc256Short(string s, out UInt256 result)
+		{
+			CityHashCrc256Short(s, Encoding.Default, out result);
+		}
+        // Requires len < 240.
+        public static void CityHashCrc256Short(string s, Encoding encoding, out UInt256 result)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             CityHashCrc256Short(encoding.GetBytes(s), out result);
         }
 
@@ -739,10 +774,13 @@ namespace CityHash
             CityHashCrc256Long(buf, ~(uint32) (len), out result);
         }
 
-        public static void CityHashCrc256(string s, out UInt256 result, Encoding encoding = null)
+        public static void CityHashCrc256(string s, out UInt256 result)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
+            CityHashCrc256(s, Encoding.Default, out result);
+        }
+		
+        public static void CityHashCrc256(string s, Encoding encoding, out UInt256 result)
+        {
             CityHashCrc256(encoding.GetBytes(s), out result);
         }
 
@@ -759,10 +797,13 @@ namespace CityHash
             }
         }
 
-        public static uint128 CityHashCrc128WithSeed(string s, uint128 seed, Encoding encoding = null)
+        public static uint128 CityHashCrc128WithSeed(string s, uint128 seed)
+		{
+			return CityHashCrc128WithSeed(s, seed , Encoding.Default);
+		}
+		
+        public static uint128 CityHashCrc128WithSeed(string s, uint128 seed, Encoding encoding)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             return CityHashCrc128WithSeed(encoding.GetBytes(s), seed);
         }
 
@@ -781,10 +822,13 @@ namespace CityHash
                 HashLen16(Rotate(v, 32), u*K0 + result.High.High));
         }
 
-        public static uint128 CityHashCrc128(string s, Encoding encoding = null)
+        public static uint128 CityHashCrc128(string s)
+		{
+			return CityHashCrc128(s, Encoding.Default);
+		}
+		
+        public static uint128 CityHashCrc128(string s, Encoding encoding)
         {
-            if (encoding == null)
-                encoding = Encoding.Default;
             return CityHashCrc128(encoding.GetBytes(s));
         }
 
