@@ -26,7 +26,6 @@ namespace FoxTool.Fox.Containers
                 {
                     Hash = hash
                 };
-                // TODO: Refactor this. It's copied all over the containers.
                 T value = new T();
                 value.Read(input);
                 input.AlignRead(16);
@@ -53,6 +52,11 @@ namespace FoxTool.Fox.Containers
             return _map.Count;
         }
 
+        public bool Any()
+        {
+            return _map.Any();
+        }
+
         public XmlSchema GetSchema()
         {
             return null;
@@ -60,7 +64,14 @@ namespace FoxTool.Fox.Containers
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            while (reader.LocalName == "value")
+            {
+                FoxName key = new FoxName();
+                T value = new T();
+                key.Name = reader.GetAttribute("key");
+                value.ReadXml(reader);
+                _map.Add(key, value);
+            }
         }
 
         public void WriteXml(XmlWriter writer)
@@ -73,6 +84,7 @@ namespace FoxTool.Fox.Containers
                     writer.WriteStartElement("value");
                     writer.WriteAttributeString("key",
                         pair.Key.Name ?? String.Format("0x{0:X8}", pair.Key.Hash.HashValue));
+                    pair.Value.WriteXml(writer);
                     writer.WriteEndElement();
                 }
             }

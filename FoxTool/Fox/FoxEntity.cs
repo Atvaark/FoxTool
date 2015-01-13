@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -43,7 +44,45 @@ namespace FoxTool.Fox
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            ClassName = reader.GetAttribute("class");
+            string addr = reader.GetAttribute("addr");
+            Address = addr.StartsWith("0x")
+                ? uint.Parse(addr.Substring(2, addr.Length - 2), NumberStyles.AllowHexSpecifier)
+                : uint.Parse(addr);
+
+            var isEmptyElement = reader.IsEmptyElement;
+            reader.ReadStartElement("entity");
+            if (isEmptyElement) return;
+
+
+            bool staticPropertiesElementEmpty = reader.IsEmptyElement;
+            reader.ReadStartElement("staticProperties");
+            if (staticPropertiesElementEmpty == false)
+            {
+                while (reader.LocalName == "property")
+                {
+                    FoxProperty staticProperty = new FoxProperty();
+                    staticProperty.ReadXml(reader);
+                    _staticProperties.Add(staticProperty);
+                }
+                reader.ReadEndElement();
+            }
+
+            bool dynamicPropertiesElementEmpty = reader.IsEmptyElement;
+            reader.ReadStartElement("dynamicProperties");
+
+            if (dynamicPropertiesElementEmpty == false)
+            {
+                while (reader.LocalName == "property")
+                {
+                    FoxProperty dynamicProperty = new FoxProperty();
+                    dynamicProperty.ReadXml(reader);
+                    _dynamicProperties.Add(dynamicProperty);
+                }
+                reader.ReadEndElement();
+            }
+
+            reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)

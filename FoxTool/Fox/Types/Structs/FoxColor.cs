@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace FoxTool.Fox.Types
+namespace FoxTool.Fox.Types.Structs
 {
     public class FoxColor : FoxStruct
     {
@@ -43,7 +42,14 @@ namespace FoxTool.Fox.Types
 
         public override void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            Red = float.Parse(reader.GetAttribute("r"), CultureInfo.InvariantCulture);
+            Green = float.Parse(reader.GetAttribute("g"), CultureInfo.InvariantCulture);
+            Blue = float.Parse(reader.GetAttribute("b"), CultureInfo.InvariantCulture);
+            Alpha = float.Parse(reader.GetAttribute("a"), CultureInfo.InvariantCulture);
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+                reader.ReadEndElement();
         }
 
         public override void WriteXml(XmlWriter writer)

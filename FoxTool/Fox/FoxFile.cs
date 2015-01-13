@@ -15,6 +15,9 @@ namespace FoxTool.Fox
         private readonly List<FoxClass> _classes;
         private readonly List<FoxEntity> _entities;
         private readonly List<FoxName> _names;
+        private string _fileVersion = "0";
+        private string _formatVersion = "2";
+        private DateTime _originalVersion = DateTime.Now;
 
         public FoxFile()
         {
@@ -38,6 +41,24 @@ namespace FoxTool.Fox
             get { return _names; }
         }
 
+        public string FormatVersion
+        {
+            get { return _formatVersion; }
+            set { _formatVersion = value; }
+        }
+
+        public string FileVersion
+        {
+            get { return _fileVersion; }
+            set { _fileVersion = value; }
+        }
+
+        public DateTime OriginalVersion
+        {
+            get { return _originalVersion; }
+            set { _originalVersion = value; }
+        }
+
         public XmlSchema GetSchema()
         {
             return null;
@@ -45,16 +66,53 @@ namespace FoxTool.Fox
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            FormatVersion = reader.GetAttribute("formatVersion");
+            FileVersion = reader.GetAttribute("fileVersion");
+            DateTime originalVersion;
+            DateTime.TryParseExact(reader.GetAttribute("originalVersion"), "ddd MMM dd HH:mm:ss UTCzzz yyyy",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out originalVersion);
+            OriginalVersion = originalVersion;
+
+            bool isEmptyElement = reader.IsEmptyElement;
+            reader.ReadStartElement("fox");
+            if (isEmptyElement) return;
+
+            bool isClassesElementEmpty = reader.IsEmptyElement;
+            reader.ReadStartElement("classes");
+            if (isClassesElementEmpty == false)
+            {
+                while (reader.LocalName == "class")
+                {
+                    FoxClass foxClass = new FoxClass();
+                    foxClass.ReadXml(reader);
+                    _classes.Add(foxClass);
+                }
+                reader.ReadEndElement();
+            }
+
+            bool isEntitiesElementEmpty = reader.IsEmptyElement;
+            reader.ReadStartElement("entities");
+            if (isEntitiesElementEmpty == false)
+            {
+                while (reader.LocalName == "entity")
+                {
+                    FoxEntity foxEntity = new FoxEntity();
+                    foxEntity.ReadXml(reader);
+                    _entities.Add(foxEntity);
+                }
+                reader.ReadEndElement();
+            }
+
+            reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)
         {
-            //writer.WriteStartElement("fox");
-            writer.WriteAttributeString("formatVersion", "2");
-            writer.WriteAttributeString("fileVersion", "0");
+            writer.WriteAttributeString("formatVersion", FormatVersion);
+            writer.WriteAttributeString("fileVersion", FileVersion);
             writer.WriteAttributeString("originalVersion",
-                String.Format(CultureInfo.InvariantCulture, "{0:ddd MMM dd HH:mm:ss UTCzzz yyyy}", DateTime.Now));
+                String.Format(CultureInfo.InvariantCulture, "{0:ddd MMM dd HH:mm:ss UTCzzz yyyy}", OriginalVersion));
             writer.WriteStartElement("classes");
             foreach (var foxClass in Classes)
             {
@@ -72,8 +130,6 @@ namespace FoxTool.Fox
                 writer.WriteEndElement();
             }
             writer.WriteEndElement();
-
-            //writer.WriteEndElement();
         }
 
         public static FoxFile ReadFoxFile(Stream input, Dictionary<ulong, string> hashNameDictionary)

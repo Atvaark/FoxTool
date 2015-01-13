@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
@@ -35,7 +36,22 @@ namespace FoxTool.Fox.Types
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            string hash = reader.GetAttribute("hash");
+            if (hash != null)
+            {
+                FileNameHash = new FoxHash();
+                FileNameHash.HashValue = hash.StartsWith("0x")
+                    ? ulong.Parse(hash.Substring(2, hash.Length - 2), NumberStyles.AllowHexSpecifier)
+                    : ulong.Parse(hash);
+            }
+
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+            {
+                FileName = reader.ReadContentAsString();
+                reader.ReadEndElement();
+            }
         }
 
         public XmlSchema GetSchema()
@@ -45,7 +61,9 @@ namespace FoxTool.Fox.Types
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteString(ToString());
+            if (String.IsNullOrEmpty(FileName))
+                FileNameHash.WriteXml(writer);
+            writer.WriteString(FileName);
         }
 
         public override string ToString()

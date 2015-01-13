@@ -30,11 +30,14 @@ namespace FoxTool
 
         private static FoxFile ReadFoxFile(Stream input)
         {
-            FoxFile foxFile;
-
-            XmlReader reader = new XmlTextReader(input);
+            var xmlReaderSettings = new XmlReaderSettings
+            {
+                IgnoreComments = true,
+                IgnoreWhitespace = true
+            };
+            XmlReader reader = XmlReader.Create(input, xmlReaderSettings);
             XmlSerializer serializer = new XmlSerializer(typeof (FoxFile));
-            foxFile = (FoxFile) serializer.Deserialize(reader);
+            var foxFile = (FoxFile) serializer.Deserialize(reader);
             return foxFile;
         }
     }

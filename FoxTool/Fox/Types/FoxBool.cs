@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -34,7 +33,13 @@ namespace FoxTool.Fox.Types
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+            {
+                Value = bool.Parse(reader.ReadString());
+                reader.ReadEndElement();
+            }
         }
 
         public XmlSchema GetSchema()

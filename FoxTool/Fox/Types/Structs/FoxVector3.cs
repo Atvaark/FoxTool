@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace FoxTool.Fox.Types
+namespace FoxTool.Fox.Types.Structs
 {
-    public class FoxQuat : FoxStruct
+    public class FoxVector3 : FoxStruct
     {
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
-        public float W { get; set; }
+        private float NotUsed { get; set; }
 
         public override void Read(Stream input)
         {
@@ -20,7 +19,7 @@ namespace FoxTool.Fox.Types
             X = reader.ReadSingle();
             Y = reader.ReadSingle();
             Z = reader.ReadSingle();
-            W = reader.ReadSingle();
+            NotUsed = reader.ReadSingle();
         }
 
         public override void Write(Stream output)
@@ -29,7 +28,7 @@ namespace FoxTool.Fox.Types
             writer.Write(X);
             writer.Write(Y);
             writer.Write(Z);
-            writer.Write(W);
+            writer.Write(NotUsed);
         }
 
         public override int Size()
@@ -43,7 +42,13 @@ namespace FoxTool.Fox.Types
 
         public override void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            X = float.Parse(reader.GetAttribute("x"), CultureInfo.InvariantCulture);
+            Y = float.Parse(reader.GetAttribute("y"), CultureInfo.InvariantCulture);
+            Z = float.Parse(reader.GetAttribute("z"), CultureInfo.InvariantCulture);
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+                reader.ReadEndElement();
         }
 
         public override void WriteXml(XmlWriter writer)
@@ -51,13 +56,11 @@ namespace FoxTool.Fox.Types
             writer.WriteAttributeString("x", X.ToString("N6", CultureInfo.InvariantCulture));
             writer.WriteAttributeString("y", Y.ToString("N6", CultureInfo.InvariantCulture));
             writer.WriteAttributeString("z", Z.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("w", W.ToString("N6", CultureInfo.InvariantCulture));
         }
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "x=\"{0:N6}\", y=\"{1:N6}\", z=\"{2:N6}\", w=\"{3:N6}\"",
-                X, Y, Z, W);
+            return string.Format(CultureInfo.InvariantCulture, "x=\"{0:N6}\", y=\"{1:N6}\", z=\"{2:N6}\"", X, Y, Z);
         }
     }
 }

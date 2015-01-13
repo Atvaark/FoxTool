@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -34,7 +34,16 @@ namespace FoxTool.Fox.Types
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+            {
+                string handle = reader.ReadString();
+                Handle = handle.StartsWith("0x")
+                    ? ulong.Parse(handle.Substring(2, handle.Length - 2), NumberStyles.AllowHexSpecifier)
+                    : ulong.Parse(handle);
+                reader.ReadEndElement();
+            }
         }
 
         public XmlSchema GetSchema()

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
@@ -19,7 +18,10 @@ namespace FoxTool.Fox
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            Name = reader.GetAttribute("name");
+            Super = reader.GetAttribute("super");
+            Version = reader.GetAttribute("version");
+            reader.ReadStartElement("class");
         }
 
         public void WriteXml(XmlWriter writer)

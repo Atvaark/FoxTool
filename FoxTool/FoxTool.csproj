@@ -404,10 +404,10 @@
     <Compile Include="Fox\IFoxKeyValuePair.cs" />
     <Compile Include="Fox\IFoxStringMap.cs" />
     <Compile Include="Fox\IFoxValue.cs" />
-    <Compile Include="Fox\Types\FoxColor.cs" />
+    <Compile Include="Fox\Types\Structs\FoxColor.cs" />
     <Compile Include="Fox\Types\FoxDouble.cs" />
     <Compile Include="Fox\Types\FoxEntityHandle.cs" />
-    <Compile Include="Fox\Types\FoxEntityLink.cs" />
+    <Compile Include="Fox\Types\Structs\FoxEntityLink.cs" />
     <Compile Include="Fox\Types\FoxEntityPtr.cs" />
     <Compile Include="Fox\Types\FoxFilePtr.cs" />
     <Compile Include="Fox\Types\FoxBool.cs" />
@@ -416,17 +416,17 @@
     <Compile Include="Fox\Types\FoxInt32.cs" />
     <Compile Include="Fox\Types\FoxInt64.cs" />
     <Compile Include="Fox\Types\FoxInt8.cs" />
-    <Compile Include="Fox\Types\FoxMatrix3.cs" />
-    <Compile Include="Fox\Types\FoxMatrix4.cs" />
+    <Compile Include="Fox\Types\Structs\FoxMatrix3.cs" />
+    <Compile Include="Fox\Types\Structs\FoxMatrix4.cs" />
     <Compile Include="Fox\Types\FoxPath.cs" />
-    <Compile Include="Fox\Types\FoxQuat.cs" />
+    <Compile Include="Fox\Types\Structs\FoxQuat.cs" />
     <Compile Include="Fox\Types\FoxString.cs" />
     <Compile Include="Fox\Types\FoxUInt64.cs" />
     <Compile Include="Fox\Types\FoxUInt8.cs" />
     <Compile Include="Fox\Types\FoxUInt16.cs" />
     <Compile Include="Fox\Types\FoxUInt32.cs" />
-    <Compile Include="Fox\Types\FoxVector3.cs" />
-    <Compile Include="Fox\Types\FoxVector4.cs" />
+    <Compile Include="Fox\Types\Structs\FoxVector3.cs" />
+    <Compile Include="Fox\Types\Structs\FoxVector4.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

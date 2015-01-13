@@ -35,7 +35,13 @@ namespace FoxTool.Fox.Types
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+            {
+                Value = float.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                reader.ReadEndElement();
+            }
         }
 
         public XmlSchema GetSchema()

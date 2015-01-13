@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -55,6 +54,11 @@ namespace FoxTool.Fox.Containers
             return _values.Count;
         }
 
+        public bool Any()
+        {
+            return _values.Any();
+        }
+
         public XmlSchema GetSchema()
         {
             return null;
@@ -62,7 +66,12 @@ namespace FoxTool.Fox.Containers
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            while (reader.LocalName == "value")
+            {
+                T value = new T();
+                value.ReadXml(reader);
+                _values.Add(value);
+            }
         }
 
         public void WriteXml(XmlWriter writer)
@@ -73,6 +82,7 @@ namespace FoxTool.Fox.Containers
                 foreach (var value in _values)
                 {
                     writer.WriteStartElement("value");
+                    value.WriteXml(writer);
                     writer.WriteEndElement();
                 }
             }

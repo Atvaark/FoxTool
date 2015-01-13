@@ -10,5 +10,6 @@ namespace FoxTool.Fox
         void ResolveNames(Dictionary<ulong, string> nameMap);
         void Accept(FoxContainerVisitor visitor);
         int Count();
+        bool Any();
     }
 }

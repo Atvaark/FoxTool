@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -8,23 +7,13 @@ using System.Xml.Serialization;
 
 namespace FoxTool.Fox
 {
-    [XmlType("property")]
     public class FoxProperty : IXmlSerializable
     {
         private const int HeaderSize = 32;
-
-        [XmlAttribute("name")]
         public string Name { get; set; }
-
         public ulong NameHash { get; set; }
-
-        [XmlAttribute("type")]
         public FoxDataType DataType { get; set; }
-
-        [XmlAttribute("container")]
         public FoxContainerType ContainerType { get; set; }
-
-        //[XmlElement]
         public IFoxContainer Container { get; set; }
         // TODO: Find which of the values in Read() is the enum type.
         public string EnumName { get; set; }
@@ -36,7 +25,19 @@ namespace FoxTool.Fox
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            Name = reader.GetAttribute("name");
+            string dataType = reader.GetAttribute("type");
+            DataType = ExtensionMethods.ParseFoxDataType(dataType);
+            string containerType = reader.GetAttribute("container");
+            ContainerType = ExtensionMethods.ParseFoxContainerType(containerType);
+            bool emptyElement = reader.IsEmptyElement;
+            reader.ReadStartElement("property");
+            Container = FoxContainerFactory.CreateTypedFromTypes(DataType, ContainerType);
+            if (emptyElement == false)
+            {
+                Container.ReadXml(reader);
+                reader.ReadEndElement();
+            }
         }
 
         public void WriteXml(XmlWriter writer)

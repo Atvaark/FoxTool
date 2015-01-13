@@ -45,6 +45,78 @@ namespace FoxTool
             return s.Any(c => char.IsControl(c) || char.IsHighSurrogate(c) || char.IsLowSurrogate(c)) == false;
         }
 
+        internal static FoxContainerType ParseFoxContainerType(string foxContainerType)
+        {
+            switch (foxContainerType)
+            {
+                case "StaticArray":
+                    return FoxContainerType.StaticArray;
+                case "DynamicArray":
+                    return FoxContainerType.DynamicArray;
+                case "StringMap":
+                    return FoxContainerType.StringMap;
+                case "List":
+                    return FoxContainerType.List;
+                default:
+                    throw new ArgumentOutOfRangeException("foxContainerType");
+            }
+        }
+
+        internal static FoxDataType ParseFoxDataType(string foxDataType)
+        {
+            switch (foxDataType)
+            {
+                case "int8":
+                    return FoxDataType.FoxInt8;
+                case "uint8":
+                    return FoxDataType.FoxUInt8;
+                case "int16":
+                    return FoxDataType.FoxInt16;
+                case "uint16":
+                    return FoxDataType.FoxUInt16;
+                case "int32":
+                    return FoxDataType.FoxInt32;
+                case "uint32":
+                    return FoxDataType.FoxUInt32;
+                case "int64":
+                    return FoxDataType.FoxInt64;
+                case "uint64":
+                    return FoxDataType.FoxUInt64;
+                case "float":
+                    return FoxDataType.FoxFloat;
+                case "double":
+                    return FoxDataType.FoxDouble;
+                case "bool":
+                    return FoxDataType.FoxBool;
+                case "String":
+                    return FoxDataType.FoxString;
+                case "Path":
+                    return FoxDataType.FoxPath;
+                case "EntityPtr":
+                    return FoxDataType.FoxEntityPtr;
+                case "Vector3":
+                    return FoxDataType.FoxVector3;
+                case "Vector4":
+                    return FoxDataType.FoxVector4;
+                case "Quat":
+                    return FoxDataType.FoxQuat;
+                case "Matrix3":
+                    return FoxDataType.FoxMatrix3;
+                case "Matrix4":
+                    return FoxDataType.FoxMatrix4;
+                case "Color":
+                    return FoxDataType.FoxColor;
+                case "FilePtr":
+                    return FoxDataType.FoxFilePtr;
+                case "EntityHandle":
+                    return FoxDataType.FoxEntityHandle;
+                case "EntityLink":
+                    return FoxDataType.FoxEntityLink;
+                default:
+                    throw new ArgumentOutOfRangeException("foxDataType");
+            }
+        }
+
         internal static string ToXmlName(this FoxDataType type)
         {
             switch (type)

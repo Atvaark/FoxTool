@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace FoxTool.Fox.Types
+namespace FoxTool.Fox.Types.Structs
 {
     public class FoxVector4 : FoxStruct
     {
@@ -43,7 +42,14 @@ namespace FoxTool.Fox.Types
 
         public override void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            X = float.Parse(reader.GetAttribute("x"), CultureInfo.InvariantCulture);
+            Y = float.Parse(reader.GetAttribute("y"), CultureInfo.InvariantCulture);
+            Z = float.Parse(reader.GetAttribute("z"), CultureInfo.InvariantCulture);
+            W = float.Parse(reader.GetAttribute("w"), CultureInfo.InvariantCulture);
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+                reader.ReadEndElement();
         }
 
         public override void WriteXml(XmlWriter writer)

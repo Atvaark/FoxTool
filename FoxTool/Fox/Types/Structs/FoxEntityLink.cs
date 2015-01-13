@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace FoxTool.Fox.Types
+namespace FoxTool.Fox.Types.Structs
 {
     public class FoxEntityLink : FoxStruct
     {
@@ -48,17 +49,38 @@ namespace FoxTool.Fox.Types
 
         public override void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            PackagePath = reader.GetAttribute("packagePath");
+            ArchivePath = reader.GetAttribute("archivePath");
+            NameInArchive = reader.GetAttribute("nameInArchive");
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+            {
+                string value = reader.ReadString();
+                EntityHandle = value.StartsWith("0x")
+                    ? ulong.Parse(value.Substring(2, value.Length - 2), NumberStyles.AllowHexSpecifier)
+                    : ulong.Parse(value);
+                reader.ReadEndElement();
+            }
         }
 
         public override void WriteXml(XmlWriter writer)
         {
-            string packagePath = PackagePath ?? String.Format("0x{0:X8}", PackagePathHash.HashValue);
-            string archivePath = ArchivePath ?? String.Format("0x{0:X8}", ArchivePathHash.HashValue);
-            string nameInArchive = NameInArchive ?? String.Format("0x{0:X8}", NameInArchiveHash.HashValue);
-            writer.WriteAttributeString("packagePath", packagePath);
-            writer.WriteAttributeString("archivePath", archivePath);
-            writer.WriteAttributeString("nameInArchive", nameInArchive);
+            // HACK: HashName should should only be set once. Either in ReadFoxHash or the constructor of FoxHash.
+            PackagePathHash.HashName = "packagePathHash";
+            ArchivePathHash.HashName = "archivePathHash";
+            NameInArchiveHash.HashName = "nameInArchiveHash";
+
+
+            if (String.IsNullOrEmpty(PackagePath))
+                PackagePathHash.WriteXml(writer);
+            writer.WriteAttributeString("packagePath", PackagePath);
+            if (String.IsNullOrEmpty(ArchivePath))
+                ArchivePathHash.WriteXml(writer);
+            writer.WriteAttributeString("archivePath", ArchivePath);
+            if (String.IsNullOrEmpty(NameInArchive))
+                NameInArchiveHash.WriteXml(writer);
+            writer.WriteAttributeString("nameInArchive", NameInArchive);
             writer.WriteString(String.Format("0x{0:X8}", EntityHandle));
         }
 

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace FoxTool.Fox.Types
+namespace FoxTool.Fox.Types.Structs
 {
     internal class FoxMatrix3 : FoxStruct
     {
@@ -58,7 +57,24 @@ namespace FoxTool.Fox.Types
 
         public override void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            var isEmptyElement = reader.IsEmptyElement;
+            reader.ReadStartElement("value");
+            if (isEmptyElement == false)
+            {
+                Row1Value1 = float.Parse(reader.GetAttribute("Column1"), CultureInfo.InvariantCulture);
+                Row1Value2 = float.Parse(reader.GetAttribute("Column2"), CultureInfo.InvariantCulture);
+                Row1Value3 = float.Parse(reader.GetAttribute("Column3"), CultureInfo.InvariantCulture);
+                reader.ReadStartElement("Row1");
+                Row2Value1 = float.Parse(reader.GetAttribute("Column1"), CultureInfo.InvariantCulture);
+                Row2Value2 = float.Parse(reader.GetAttribute("Column2"), CultureInfo.InvariantCulture);
+                Row2Value3 = float.Parse(reader.GetAttribute("Column3"), CultureInfo.InvariantCulture);
+                reader.ReadStartElement("Row2");
+                Row3Value1 = float.Parse(reader.GetAttribute("Column1"), CultureInfo.InvariantCulture);
+                Row3Value2 = float.Parse(reader.GetAttribute("Column2"), CultureInfo.InvariantCulture);
+                Row3Value3 = float.Parse(reader.GetAttribute("Column3"), CultureInfo.InvariantCulture);
+                reader.ReadStartElement("Row3");
+                reader.ReadEndElement();
+            }
         }
 
         public override void WriteXml(XmlWriter writer)

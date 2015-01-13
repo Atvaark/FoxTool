@@ -2,6 +2,7 @@
 using System.IO;
 using FoxTool.Fox.Containers;
 using FoxTool.Fox.Types;
+using FoxTool.Fox.Types.Structs;
 
 namespace FoxTool.Fox
 {
@@ -9,6 +10,13 @@ namespace FoxTool.Fox
     {
         public static IFoxContainer ReadContainer(Stream input, FoxDataType dataType, FoxContainerType containerType,
             short valueCount)
+        {
+            var container = CreateTypedFromTypes(dataType, containerType);
+            container.Read(input, valueCount);
+            return container;
+        }
+
+        public static IFoxContainer CreateTypedFromTypes(FoxDataType dataType, FoxContainerType containerType)
         {
             IFoxContainer container;
             switch (dataType)
@@ -85,7 +93,6 @@ namespace FoxTool.Fox
                 default:
                     throw new ArgumentOutOfRangeException("dataType");
             }
-            container.Read(input, valueCount);
             return container;
         }
 
