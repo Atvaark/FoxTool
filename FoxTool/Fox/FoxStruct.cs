@@ -11,6 +11,8 @@ namespace FoxTool.Fox
         public abstract void Write(Stream output);
         public abstract int Size();
         public abstract void ResolveNames(Dictionary<ulong, string> nameMap);
+        public abstract void CalculateHashes();
+        public abstract void CollectNames(List<FoxName> names);
 
         public XmlSchema GetSchema()
         {

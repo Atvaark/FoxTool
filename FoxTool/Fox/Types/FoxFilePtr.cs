@@ -34,6 +34,17 @@ namespace FoxTool.Fox.Types
             FileName = name;
         }
 
+        public void CalculateHashes()
+        {
+            ulong hash = Hashing.HashString(FileName);
+            FileNameHash = new FoxHash {HashValue = hash};
+        }
+
+        public void CollectNames(List<FoxName> names)
+        {
+            names.Add(new FoxName(FileName, FileNameHash));
+        }
+
         public void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;

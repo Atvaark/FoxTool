@@ -10,5 +10,7 @@ namespace FoxTool.Fox
         void Write(Stream output);
         int Size();
         void ResolveNames(Dictionary<ulong, string> nameMap);
+        void CalculateHashes();
+        void CollectNames(List<FoxName> names);
     }
 }

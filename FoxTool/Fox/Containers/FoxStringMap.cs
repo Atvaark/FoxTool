@@ -33,6 +33,16 @@ namespace FoxTool.Fox.Containers
             }
         }
 
+        public void Write(Stream output)
+        {
+            foreach (var pair in _map)
+            {
+                pair.Key.Hash.Write(output);
+                pair.Value.Write(output);
+                output.AlignWrite(16, 0x00);
+            }
+        }
+
         public void ResolveNames(Dictionary<ulong, string> nameMap)
         {
             foreach (var pair in _map)
@@ -55,6 +65,24 @@ namespace FoxTool.Fox.Containers
         public bool Any()
         {
             return _map.Any();
+        }
+
+        public void CalculateHashes()
+        {
+            foreach (var pair in _map)
+            {
+                pair.Key.CalculateHash();
+                pair.Value.CalculateHashes();
+            }
+        }
+
+        public void CollectNames(List<FoxName> names)
+        {
+            foreach (var pair in _map)
+            {
+                names.Add(pair.Key);
+                pair.Value.CollectNames(names);
+            }
         }
 
         public XmlSchema GetSchema()

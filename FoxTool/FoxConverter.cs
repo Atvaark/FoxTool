@@ -22,10 +22,12 @@ namespace FoxTool
             writer.Close();
         }
 
-        public static FoxFile CompileFox(Stream input)
+        public static void CompileFox(Stream input, Stream output)
         {
-            var foxFile = ReadFoxFile(input);
-            return foxFile;
+            FoxFile foxFile = ReadFoxFile(input);
+            foxFile.CalculateHashes();
+            foxFile.CollectNames();
+            foxFile.Write(output);
         }
 
         private static FoxFile ReadFoxFile(Stream input)

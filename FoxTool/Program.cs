@@ -12,18 +12,6 @@ namespace FoxTool
 
         private static void Main(string[] args)
         {
-            foreach (
-                var file in
-                    GetFileList(new DirectoryInfo(@"E:\Games\Metal Gear Solid Ground Zeroes\Fpk\"), true,
-                        new List<string> {".fox"}))
-            {
-                Console.WriteLine("Compiling {0}", file.FullName);
-                using (FileStream fileStream = new FileStream(file.FullName, FileMode.Open))
-                {
-                    FoxConverter.CompileFox(fileStream);
-                }
-            }
-
             if (args.Length != 1)
             {
                 ShowUsageInfo();
@@ -136,20 +124,12 @@ namespace FoxTool
         {
             foreach (var line in File.ReadAllLines(path))
             {
-                ulong hash = HashFileName(line);
+                ulong hash = Hashing.HashString(line);
                 if (HashNameDictionary.ContainsKey(hash) == false)
                 {
                     HashNameDictionary.Add(hash, line);
                 }
             }
-        }
-
-        private static ulong HashFileName(string text)
-        {
-            const ulong seed0 = 0x9ae16a3b2f90404f;
-            ulong seed1 = (uint) ((text[0]) << 16) + (uint) text.Length;
-            ulong hash2 = CityHash.CityHash.CityHash64WithSeeds(text + "\0", seed0, seed1) & 0xFFFFFFFFFFFF;
-            return hash2;
         }
     }
 }

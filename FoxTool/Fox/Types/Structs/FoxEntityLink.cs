@@ -47,6 +47,23 @@ namespace FoxTool.Fox.Types.Structs
             NameInArchive = ResolveName(nameMap, NameInArchiveHash.HashValue);
         }
 
+        public override void CalculateHashes()
+        {
+            ulong packagePathHash = Hashing.HashString(PackagePath);
+            PackagePathHash = new FoxHash {HashValue = packagePathHash};
+            ulong archivePathHash = Hashing.HashString(ArchivePath);
+            ArchivePathHash = new FoxHash {HashValue = archivePathHash};
+            ulong nameInArchiveHash = Hashing.HashString(NameInArchive);
+            NameInArchiveHash = new FoxHash {HashValue = nameInArchiveHash};
+        }
+
+        public override void CollectNames(List<FoxName> names)
+        {
+            names.Add(new FoxName(PackagePath, PackagePathHash));
+            names.Add(new FoxName(ArchivePath, ArchivePathHash));
+            names.Add(new FoxName(NameInArchive, NameInArchiveHash));
+        }
+
         public override void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;

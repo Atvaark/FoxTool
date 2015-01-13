@@ -76,6 +76,14 @@ namespace FoxTool.Fox.Types.Structs
         {
         }
 
+        public override void CalculateHashes()
+        {
+        }
+
+        public override void CollectNames(List<FoxName> names)
+        {
+        }
+
         public override void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;

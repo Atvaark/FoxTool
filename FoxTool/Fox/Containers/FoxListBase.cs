@@ -36,6 +36,14 @@ namespace FoxTool.Fox.Containers
             }
         }
 
+        public void Write(Stream output)
+        {
+            foreach (var value in _values)
+            {
+                value.Write(output);
+            }
+        }
+
         public void ResolveNames(Dictionary<ulong, string> nameMap)
         {
             foreach (var value in _values)
@@ -57,6 +65,22 @@ namespace FoxTool.Fox.Containers
         public bool Any()
         {
             return _values.Any();
+        }
+
+        public void CalculateHashes()
+        {
+            foreach (var value in _values)
+            {
+                value.CalculateHashes();
+            }
+        }
+
+        public void CollectNames(List<FoxName> names)
+        {
+            foreach (var value in _values)
+            {
+                value.CollectNames(names);
+            }
         }
 
         public XmlSchema GetSchema()

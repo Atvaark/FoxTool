@@ -12,6 +12,16 @@ namespace FoxTool.Fox
     {
         public const int Size = sizeof (ulong);
         private string _hashName = "hash";
+
+        public FoxHash()
+        {
+        }
+
+        public FoxHash(ulong hashValue)
+        {
+            HashValue = hashValue;
+        }
+
         public ulong HashValue { get; set; }
 
         public string HashName
@@ -58,6 +68,24 @@ namespace FoxTool.Fox
         {
             BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
             writer.Write(HashValue);
+        }
+
+        protected bool Equals(FoxHash other)
+        {
+            return HashValue == other.HashValue;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((FoxHash) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashValue.GetHashCode();
         }
     }
 }

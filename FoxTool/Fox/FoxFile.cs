@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -12,6 +13,9 @@ namespace FoxTool.Fox
     [XmlRoot("fox")]
     public class FoxFile : IXmlSerializable
     {
+        private const int HeaderSize = 32;
+        private const uint MagicNumber1 = 0x786f62f2;
+        private const uint MagicNumber2 = 0x35;
         private readonly List<FoxClass> _classes;
         private readonly List<FoxEntity> _entities;
         private readonly List<FoxName> _names;
@@ -31,7 +35,7 @@ namespace FoxTool.Fox
             get { return _classes; }
         }
 
-        public List<FoxEntity> Entities
+        public IEnumerable<FoxEntity> Entities
         {
             get { return _entities; }
         }
@@ -224,6 +228,55 @@ namespace FoxTool.Fox
                 }
             }
             return nameMap;
+        }
+
+        public void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            long headerPosition = output.Position;
+            output.Position += HeaderSize;
+            foreach (var foxEntity in Entities)
+            {
+                foxEntity.Write(output);
+            }
+            int offsetHashMap = (int) output.Position;
+            foreach (var foxName in Names)
+            {
+                foxName.Write(output);
+            }
+
+            output.AlignWrite(16, 0x00);
+            writer.Write(new byte[] {0x00, 0x00, 0x65, 0x6E, 0x64});
+            output.AlignWrite(16, 0x00);
+
+            long endPosition = output.Position;
+            output.Position = headerPosition;
+            int entityCount = Entities.Count();
+            writer.Write(MagicNumber1);
+            writer.Write(MagicNumber2);
+            writer.Write(entityCount);
+            writer.Write(offsetHashMap);
+            writer.Write(HeaderSize);
+            writer.WriteZeros(12);
+            output.Position = endPosition;
+        }
+
+        public void CalculateHashes()
+        {
+            foreach (var foxEntity in Entities)
+            {
+                foxEntity.CalculateHashes();
+            }
+        }
+
+        public void CollectNames()
+        {
+            List<FoxName> names = new List<FoxName>();
+            foreach (var foxEntity in Entities)
+            {
+                foxEntity.CollectNames(names);
+            }
+            _names.AddRange(names.Distinct());
         }
     }
 }

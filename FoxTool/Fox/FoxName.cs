@@ -6,6 +6,16 @@ namespace FoxTool.Fox
 {
     public class FoxName
     {
+        public FoxName()
+        {
+        }
+
+        public FoxName(string name, FoxHash hash)
+        {
+            Hash = hash;
+            Name = name;
+        }
+
         public FoxHash Hash { get; set; }
         public string Name { get; set; }
 
@@ -32,6 +42,46 @@ namespace FoxTool.Fox
             string name;
             nameMap.TryGetValue(Hash.HashValue, out name);
             Name = name;
+        }
+
+        public void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+
+            byte[] nameBytes;
+            nameBytes = Name == null ? new byte[0] : Encoding.Default.GetBytes(Name);
+
+            Hash.Write(output);
+            writer.Write((uint) nameBytes.Length);
+            writer.Write(nameBytes);
+            // TODO: Write footer / 0 value + oef
+        }
+
+        public void CalculateHash()
+        {
+            ulong hash = Hashing.HashString(Name);
+            Hash = new FoxHash {HashValue = hash};
+        }
+
+        protected bool Equals(FoxName other)
+        {
+            return Equals(Hash, other.Hash) && string.Equals(Name, other.Name);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((FoxName) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Hash != null ? Hash.GetHashCode() : 0)*397) ^ (Name != null ? Name.GetHashCode() : 0);
+            }
         }
     }
 }

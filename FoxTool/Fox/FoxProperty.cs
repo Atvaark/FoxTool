@@ -15,7 +15,6 @@ namespace FoxTool.Fox
         public FoxDataType DataType { get; set; }
         public FoxContainerType ContainerType { get; set; }
         public IFoxContainer Container { get; set; }
-        // TODO: Find which of the values in Read() is the enum type.
         public string EnumName { get; set; }
 
         public XmlSchema GetSchema()
@@ -79,6 +78,38 @@ namespace FoxTool.Fox
         {
             Name = nameMap[NameHash];
             Container.ResolveNames(nameMap);
+        }
+
+        public void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            long headerPosition = output.Position;
+            output.Position += HeaderSize;
+            Container.Write(output);
+            output.AlignWrite(16, 0x00);
+            long endPosition = output.Position;
+            ushort size = (ushort) (endPosition - headerPosition);
+            output.Position = headerPosition;
+            writer.Write(NameHash);
+            writer.Write((byte) DataType);
+            writer.Write((byte) ContainerType);
+            writer.Write((ushort) Container.Count());
+            writer.Write((ushort) HeaderSize);
+            writer.Write(size);
+            writer.WriteZeros(16);
+            output.Position = endPosition;
+        }
+
+        public void CalculateHashes()
+        {
+            NameHash = Hashing.HashString(Name);
+            Container.CalculateHashes();
+        }
+
+        public void CollectNames(List<FoxName> names)
+        {
+            names.Add(new FoxName(Name, new FoxHash(NameHash)));
+            Container.CollectNames(names);
         }
     }
 }

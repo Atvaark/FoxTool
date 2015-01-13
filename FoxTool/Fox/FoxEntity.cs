@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
@@ -11,6 +12,8 @@ namespace FoxTool.Fox
 {
     public class FoxEntity : IXmlSerializable
     {
+        private const short HeaderSize = 64;
+        private const uint MagicNumber = 0x746e65;
         private readonly List<FoxProperty> _dynamicProperties;
         private readonly List<FoxProperty> _staticProperties;
 
@@ -162,6 +165,67 @@ namespace FoxTool.Fox
             foreach (var dynamicProperty in DynamicProperties)
             {
                 dynamicProperty.ResolveNames(nameMap);
+            }
+        }
+
+        public void Write(Stream output)
+        {
+            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
+            long headerPosition = output.Position;
+            output.Position += HeaderSize;
+            foreach (var staticProperty in StaticProperties)
+            {
+                staticProperty.Write(output);
+            }
+            foreach (var dynamicProperty in DynamicProperties)
+            {
+                dynamicProperty.Write(output);
+            }
+            long endPosition = output.Position;
+            uint size = (uint) (endPosition - headerPosition);
+            output.Position = headerPosition;
+            writer.Write(HeaderSize);
+            writer.Write(ClassId);
+            writer.Write(SuperClassId);
+            writer.WriteZeros(2);
+            writer.Write(MagicNumber);
+            writer.Write(Address);
+            writer.WriteZeros(14);
+            writer.Write(ClassNameHash);
+            writer.Write(Convert.ToUInt16(StaticProperties.Count()));
+            writer.Write(Convert.ToUInt16(DynamicProperties.Count()));
+            writer.Write((int) HeaderSize);
+            writer.Write(size);
+            writer.Write(size);
+            output.AlignWrite(16, 0x00);
+            //writer.WriteZeros(12);
+            output.Position = endPosition;
+        }
+
+        public void CalculateHashes()
+        {
+            ClassNameHash = Hashing.HashString(ClassName);
+            foreach (var staticProperty in StaticProperties)
+            {
+                staticProperty.CalculateHashes();
+            }
+
+            foreach (var dynamicProperty in DynamicProperties)
+            {
+                dynamicProperty.CalculateHashes();
+            }
+        }
+
+        public void CollectNames(List<FoxName> names)
+        {
+            names.Add(new FoxName(ClassName, new FoxHash(ClassNameHash)));
+            foreach (var staticProperty in StaticProperties)
+            {
+                staticProperty.CollectNames(names);
+            }
+            foreach (var dynamicProperty in DynamicProperties)
+            {
+                dynamicProperty.CollectNames(names);
             }
         }
     }

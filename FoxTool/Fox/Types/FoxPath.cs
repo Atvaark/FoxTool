@@ -34,6 +34,17 @@ namespace FoxTool.Fox.Types
             Path = name;
         }
 
+        public void CalculateHashes()
+        {
+            ulong hash = Hashing.HashString(Path);
+            PathHash = new FoxHash {HashValue = hash};
+        }
+
+        public void CollectNames(List<FoxName> names)
+        {
+            names.Add(new FoxName(Path, PathHash));
+        }
+
         public void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;

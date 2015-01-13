@@ -642,7 +642,7 @@ namespace CityHash
 		}
 
         // Hash function for a string.
-        public static uint128 CityHash128(string s, Encoding encoding = null)
+        public static uint128 CityHash128(string s, Encoding encoding)
         {
             return CityHash128(encoding.GetBytes(s));
         }

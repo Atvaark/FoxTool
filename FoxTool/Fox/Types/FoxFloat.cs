@@ -33,6 +33,14 @@ namespace FoxTool.Fox.Types
         {
         }
 
+        public void CalculateHashes()
+        {
+        }
+
+        public void CollectNames(List<FoxName> names)
+        {
+        }
+
         public void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;
