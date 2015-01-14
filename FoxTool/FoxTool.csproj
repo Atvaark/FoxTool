@@ -394,7 +394,6 @@
     <Compile Include="Fox\FoxEnumValue.cs" />
     <Compile Include="Fox\FoxKeyValuePair.cs" />
     <Compile Include="Fox\IFoxContainer.cs" />
-    <Compile Include="Fox\FoxContainerVisitor.cs" />
     <Compile Include="Fox\FoxFile.cs" />
     <Compile Include="Fox\FoxHash.cs" />
     <Compile Include="Fox\FoxName.cs" />

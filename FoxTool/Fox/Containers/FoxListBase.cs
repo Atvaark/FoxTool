@@ -51,21 +51,12 @@ namespace FoxTool.Fox.Containers
                 value.ResolveNames(nameMap);
             }
         }
-
-        public void Accept(FoxContainerVisitor visitor)
-        {
-            visitor.Visit((IEnumerable<IFoxValue>) this);
-        }
-
+        
         public int Count()
         {
             return _values.Count;
         }
 
-        public bool Any()
-        {
-            return _values.Any();
-        }
 
         public void CalculateHashes()
         {

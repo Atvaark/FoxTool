@@ -202,8 +202,6 @@ namespace FoxTool.Fox
             reader.Skip(2);
             string eof = reader.ReadString(3);
             input.AlignRead(16);
-
-            // TODO: Read enums
         }
 
         private void ResolveNames(Dictionary<ulong, string> hashNameDictionary)

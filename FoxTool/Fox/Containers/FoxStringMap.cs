@@ -52,20 +52,11 @@ namespace FoxTool.Fox.Containers
             }
         }
 
-        public void Accept(FoxContainerVisitor visitor)
-        {
-            visitor.Visit((IFoxStringMap<IFoxValue>) this);
-        }
-
         public int Count()
         {
             return _map.Count;
         }
 
-        public bool Any()
-        {
-            return _map.Any();
-        }
 
         public void CalculateHashes()
         {

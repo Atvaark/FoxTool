@@ -48,13 +48,11 @@ namespace FoxTool.Fox
         {
             BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
 
-            byte[] nameBytes;
-            nameBytes = Name == null ? new byte[0] : Encoding.Default.GetBytes(Name);
+            byte[] nameBytes = Name == null ? new byte[0] : Encoding.Default.GetBytes(Name);
 
             Hash.Write(output);
             writer.Write((uint) nameBytes.Length);
             writer.Write(nameBytes);
-            // TODO: Write footer / 0 value + oef
         }
 
         public void CalculateHash()
