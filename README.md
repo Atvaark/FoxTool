@@ -1,7 +1,7 @@
 FoxTool
 ========
-A tool for decompiling the following types to Fox Engine XML (.fox):
-
+A tool for compiling and decompiling Fox Engine XML files.
+Compiled XML files have these file extensions:
 BND CLO DES EVF FOX2 FSD LAD PARTS PH PHSD SDF SIM TGT VDP VEH VFXLF
 
 Requirements
@@ -13,7 +13,8 @@ Microsoft .NET Framework 4.5
 Usage
 --------
 ```
-FoxTool file_path|folder_path
+FoxTool -d file_path|folder_path
+FoxTool -c file_path
 ```
 
 Examples
@@ -21,11 +22,17 @@ Examples
 Decompiling a .fox2 file to .fox.
 
 ```
-FoxTool file_path.fox2 
+FoxTool -d file_path.fox2 
 ```
 
 Decompiling all decompilable files in the folder to .fox
 
 ```
-FoxTool folder_path
+FoxTool -d folder_path
+```
+
+Compiling a .fox file to .bin
+
+```
+FoxTool -c file_path.fox
 ```
