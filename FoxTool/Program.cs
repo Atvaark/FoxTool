@@ -12,12 +12,60 @@ namespace FoxTool
 
         private static void Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length != 2)
             {
                 ShowUsageInfo();
                 return;
             }
-            List<string> extensions = new List<string>
+
+            switch (args[0])
+            {
+                case "-c":
+                    CompileFile(args[1]);
+                    break;
+                case "-d":
+                    DecompileFile(args[1]);
+                    break;
+                default:
+                    ShowUsageInfo();
+                    return;
+            }
+
+        }
+
+        private static void CompileFile(string path)
+        {
+            string outFileName = Path.Combine(Path.GetDirectoryName(path), string.Format("{0}.bin", Path.GetFileNameWithoutExtension(path)));
+            using (FileStream input = new FileStream(path, FileMode.Open))
+            using (FileStream output = new FileStream(outFileName, FileMode.Create))
+            {
+                try
+                {
+                    FoxConverter.CompileFox(input, output);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error compiling {0}: {1}", path, e);
+                }
+            }
+        }
+
+        private static void ShowUsageInfo()
+        {
+            Console.WriteLine("FoxTool by Atvaark\n" +
+                              "  A tool for compiling and decompiling Fox Engine XML files." +
+                              "Information:\n" +
+                              "  Compiled XML files have these file extensions:\n" +
+                              "  BND CLO DES EVF FOX2 FSD LAD PARTS PH PHSD SDF SIM TGT VDP VEH VFXLF\n" +
+                              "Usage:\n" +
+                              "  FoxTool -d file_path   - Decompile the file to .fox\n" +
+                              "  FoxTool -d folder_path - Decompile all decompilable files in the folder to .fox\n" +
+                              "  FoxTool -c file_path   - Compile the file to .bin");
+        }
+
+        private static void DecompileFile(string path)
+        {
+            List<string> decompilableExtensions = new List<string>
             {
                 ".bnd",
                 ".clo",
@@ -45,12 +93,12 @@ namespace FoxTool
             catch (Exception e)
             {
                 Console.WriteLine("Error while reading the dictionary: {0}", e);
+                return;
             }
 
-            string path = args[0];
             if (File.Exists(path))
             {
-                if (extensions.Contains(Path.GetExtension(path).ToLower()) == false)
+                if (decompilableExtensions.Contains(Path.GetExtension(path).ToLower()) == false)
                 {
                     Console.WriteLine("The provided file is not decompilable.\n");
                     return;
@@ -58,30 +106,34 @@ namespace FoxTool
 
                 var file = new FileInfo(path);
                 Console.WriteLine("Decompiling {0}", file.FullName);
-                DecompileFile(file);
+                try
+                {
+                    DecompileFile(file);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error decompiling {0}: {1}", path, e);
+                }
             }
             else if (Directory.Exists(path))
             {
-                foreach (var file in GetFileList(new DirectoryInfo(path), true, extensions))
+                foreach (var file in GetFileList(new DirectoryInfo(path), true, decompilableExtensions))
                 {
                     Console.WriteLine("Decompiling {0}", file.FullName);
-                    DecompileFile(file);
+                    try
+                    {
+                        DecompileFile(file);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error decompiling {0}: {1}", path, e);
+                    }
                 }
             }
             else
             {
                 ShowUsageInfo();
             }
-        }
-
-        private static void ShowUsageInfo()
-        {
-            Console.WriteLine("FoxTool by Atvaark\n" +
-                              "  A tool for decompiling the following types to Fox Engine XML .fox:\n" +
-                              "  BND CLO DES EVF FOX2 FSD LAD PARTS PH PHSD SDF SIM TGT VDP VEH VFXLF\n" +
-                              "Usage:\n" +
-                              "  FoxTool file_path   - Decompile the file to .fox\n" +
-                              "  FoxTool folder_path - Decompile all decompilable files in the folder to .fox\n");
         }
 
         private static void DecompileFile(FileInfo file)
