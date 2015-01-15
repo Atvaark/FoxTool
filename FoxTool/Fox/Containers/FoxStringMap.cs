@@ -57,7 +57,6 @@ namespace FoxTool.Fox.Containers
             return _map.Count;
         }
 
-
         public void CalculateHashes()
         {
             foreach (var pair in _map)

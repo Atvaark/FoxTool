@@ -30,12 +30,12 @@ namespace FoxTool
                     ShowUsageInfo();
                     return;
             }
-
         }
 
         private static void CompileFile(string path)
         {
-            string outFileName = Path.Combine(Path.GetDirectoryName(path), string.Format("{0}.bin", Path.GetFileNameWithoutExtension(path)));
+            string outFileName = Path.Combine(Path.GetDirectoryName(path),
+                string.Format("{0}.bin", Path.GetFileNameWithoutExtension(path)));
             using (FileStream input = new FileStream(path, FileMode.Open))
             using (FileStream output = new FileStream(outFileName, FileMode.Create))
             {

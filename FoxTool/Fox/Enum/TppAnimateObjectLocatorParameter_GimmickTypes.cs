@@ -3,7 +3,7 @@
     //name=TppAnimateObjectLocatorParameter_GimmickTypes
     public class TppAnimateObjectLocatorParameterGimmickTypes : FoxSwitch
     {
-        private static readonly TppAnimateObjectLocatorParameterGimmickTypes Instance =
+        public static readonly TppAnimateObjectLocatorParameterGimmickTypes Instance =
             new TppAnimateObjectLocatorParameterGimmickTypes();
 
         public static readonly FoxEnumValue TypeAnimateDefault = new FoxEnumValue("TYPE_ANIMATE_DEFAULT", 0);

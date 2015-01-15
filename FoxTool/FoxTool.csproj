@@ -43,6 +43,11 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FoxConverter.cs" />
+    <Compile Include="Fox\Enum\TppLensFlareFieldInterpType.cs" />
+    <Compile Include="Fox\Enum\TppLensFlareFieldShapeType.cs" />
+    <Compile Include="Fox\Enum\TppLensFlareShapeDistanceScalingMode.cs" />
+    <Compile Include="Fox\Enum\TppLensFlareShapeOffsetType.cs" />
+    <Compile Include="Fox\Enum\TppLensFlareShapeRotateType.cs" />
     <Compile Include="Fox\FoxValueVisitor.cs" />
     <Compile Include="Fox\Classes\AmbientOcclusionSettings.cs" />
     <Compile Include="Fox\Classes\AnimGraphLayerDescription.cs" />
