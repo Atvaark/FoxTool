@@ -4,6 +4,8 @@ using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using FoxTool.Fox.Containers;
+using FoxTool.Fox.Types;
 
 namespace FoxTool.Fox
 {
@@ -31,7 +33,7 @@ namespace FoxTool.Fox
             ContainerType = ExtensionMethods.ParseFoxContainerType(containerType);
             bool emptyElement = reader.IsEmptyElement;
             reader.ReadStartElement("property");
-            Container = FoxContainerFactory.CreateTypedFromTypes(DataType, ContainerType);
+            Container = FoxContainerFactory.CreateTypedContainer(DataType, ContainerType);
             if (emptyElement == false)
             {
                 Container.ReadXml(reader);
@@ -70,7 +72,7 @@ namespace FoxTool.Fox
             int unknown4 = reader.ReadInt32();
             int unknown5 = reader.ReadInt32();
 
-            Container = FoxContainerFactory.ReadContainer(input, DataType, ContainerType, valueCount);
+            Container = FoxContainerFactory.ReadFoxContainer(input, DataType, ContainerType, valueCount);
             input.AlignRead(16);
         }
 

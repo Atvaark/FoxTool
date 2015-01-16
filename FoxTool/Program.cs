@@ -41,6 +41,7 @@ namespace FoxTool
             {
                 try
                 {
+                    Console.WriteLine("Compiling {0}", path);
                     FoxConverter.CompileFox(input, output);
                 }
                 catch (Exception e)

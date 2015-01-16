@@ -1,0 +1,13 @@
+using FoxTool.Fox.Types.Values;
+
+namespace FoxTool.Tpp.Classes
+{
+    public class MbdvcBootData
+    {
+        // Static properties
+        public FoxString Name { get; set; }
+        public FoxEntityHandle DataSet { get; set; }
+        public FoxFilePtr UigFile { get; set; }
+        public FoxFilePtr RawFile { get; set; }
+    }
+}

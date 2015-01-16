@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using FoxTool.Fox;
+using FoxTool.Fox.Containers;
+using FoxTool.Fox.Types;
 
 namespace FoxTool
 {

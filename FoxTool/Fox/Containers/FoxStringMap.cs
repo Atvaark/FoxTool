@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
+using FoxTool.Fox.Types;
 
 namespace FoxTool.Fox.Containers
 {
-    public class FoxStringMap<T> : IFoxStringMap<T> where T : IFoxValue, new()
+    public class FoxStringMap<T> : IFoxContainer where T : IFoxValue, new()
     {
         private readonly Dictionary<FoxName, T> _map;
 
@@ -106,19 +106,6 @@ namespace FoxTool.Fox.Containers
                     writer.WriteEndElement();
                 }
             }
-        }
-
-        public IEnumerator<IFoxKeyValuePair<FoxName, T>> GetEnumerator()
-        {
-            var newPairs = _map.Select(pair => new FoxKeyValuePair<FoxName, T>(pair.Key, pair.Value))
-                .Cast<IFoxKeyValuePair<FoxName, T>>()
-                .ToList();
-            return newPairs.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }
