@@ -66,6 +66,7 @@ namespace FoxTool.Fox.Types.Structs
 
         public override void ReadXml(XmlReader reader)
         {
+            // TODO: Read hash attributes 
             var isEmptyElement = reader.IsEmptyElement;
             PackagePath = reader.GetAttribute("packagePath");
             ArchivePath = reader.GetAttribute("archivePath");
@@ -88,16 +89,21 @@ namespace FoxTool.Fox.Types.Structs
             ArchivePathHash.HashName = "archivePathHash";
             NameInArchiveHash.HashName = "nameInArchiveHash";
 
-
-            if (String.IsNullOrEmpty(PackagePath))
+            if (PackagePath == null)
                 PackagePathHash.WriteXml(writer);
-            writer.WriteAttributeString("packagePath", PackagePath);
-            if (String.IsNullOrEmpty(ArchivePath))
+            else
+                writer.WriteAttributeString("packagePath", PackagePath);
+
+            if (ArchivePath == null)
                 ArchivePathHash.WriteXml(writer);
-            writer.WriteAttributeString("archivePath", ArchivePath);
-            if (String.IsNullOrEmpty(NameInArchive))
+            else
+                writer.WriteAttributeString("archivePath", ArchivePath);
+
+            if (NameInArchive == null)
                 NameInArchiveHash.WriteXml(writer);
-            writer.WriteAttributeString("nameInArchive", NameInArchive);
+            else
+                writer.WriteAttributeString("nameInArchive", NameInArchive);
+
             writer.WriteString(String.Format("0x{0:X8}", EntityHandle));
         }
 

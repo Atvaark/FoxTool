@@ -1,4 +1,5 @@
-﻿/Assets/tpp/chara/nin/Scenes/nin0_main0_def.fmdl
+﻿
+/Assets/tpp/chara/nin/Scenes/nin0_main0_def.fmdl
 /Assets/tpp/chara/nin/Scenes/nin0_main0_def.fcnp
 /Assets/tpp/chara/sna/Scenes/sna2_main0_def.fmdl
 /Assets/tpp/chara/sna/Scenes/sna2_main0_def.fcnp

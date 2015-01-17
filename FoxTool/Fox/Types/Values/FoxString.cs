@@ -47,6 +47,7 @@ namespace FoxTool.Fox.Types.Values
 
         public void ReadXml(XmlReader reader)
         {
+            // TODO: Call ReadXml on StringHash instead
             var isEmptyElement = reader.IsEmptyElement;
             string hash = reader.GetAttribute("hash");
             if (hash != null)
@@ -71,9 +72,10 @@ namespace FoxTool.Fox.Types.Values
 
         public void WriteXml(XmlWriter writer)
         {
-            if (String.IsNullOrEmpty(String))
+            if(String == null)
                 StringHash.WriteXml(writer);
-            writer.WriteString(String);
+            else
+                writer.WriteString(String);
         }
 
         public override string ToString()
