@@ -13,26 +13,26 @@ Microsoft .NET Framework 4.5
 Usage
 --------
 ```
-FoxTool -d file_path|folder_path
-FoxTool -c file_path
+FoxTool [-d|-c] file_path|folder_path
 ```
 
 Examples
 --------
-Decompiling a .fox2 file to .fox.
 
+Compiling an XML file
 ```
-FoxTool -d file_path.fox2 
+FoxTool file_path.XML
+FoxTool -c file_path.XML
 ```
 
-Decompiling all decompilable files in the folder to .fox
-
+Decompiling a file to XML
 ```
+FoxTool file_path
+FoxTool -d file_path
+```
+
+Decompiling all decompilable files in the folder to XML
+```
+FoxTool folder_path
 FoxTool -d folder_path
-```
-
-Compiling a .fox file to .bin
-
-```
-FoxTool -c file_path.fox
 ```
