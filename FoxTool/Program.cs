@@ -10,32 +10,76 @@ namespace FoxTool
     {
         private static readonly Dictionary<ulong, string> HashNameDictionary = new Dictionary<ulong, string>();
 
+        private static readonly List<string> DecompilableExtensions = new List<string>
+        {
+            ".bnd",
+            ".clo",
+            ".des",
+            ".evf",
+            ".fox2",
+            ".fsd",
+            ".lad",
+            ".parts",
+            ".ph",
+            ".phsd",
+            ".sdf",
+            ".sim",
+            ".tgt",
+            ".vdp",
+            ".veh",
+            ".vfxlf"
+        };
+
         private static void Main(string[] args)
         {
-            if (args.Length != 2)
+            if (args.Length == 1)
             {
-                ShowUsageInfo();
-                return;
-            }
-
-            switch (args[0])
-            {
-                case "-c":
-                    CompileFile(args[1]);
-                    break;
-                case "-d":
-                    DecompileFile(args[1]);
-                    break;
-                default:
-                    ShowUsageInfo();
+                string path = args[0];
+                if (File.Exists(path))
+                {
+                    string fileExtension = Path.GetExtension(path);
+                    if (fileExtension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
+                    {
+                        CompileFile(path);
+                        return;
+                    }
+                    if (IsDecompilable(fileExtension))
+                    {
+                        DecompileFile(path);
+                        return;
+                    }
+                    ShowNotDecompilableError();
                     return;
+                }
+                if (Directory.Exists(path))
+                {
+                    DecompileFile(path);
+                    return;
+                }
             }
+            else if (args.Length == 2)
+            {
+                string option = args[0];
+                switch (option)
+                {
+                    case "-c":
+                        CompileFile(args[1]);
+                        return;
+                    case "-d":
+                        DecompileFile(args[1]);
+                        return;
+                    default:
+                        Console.WriteLine("Unknown option: {0}", option);
+                        return;
+                }
+            }
+            ShowUsageInfo();
         }
 
         private static void CompileFile(string path)
         {
-            string outFileName = Path.Combine(Path.GetDirectoryName(path),
-                string.Format("{0}.bin", Path.GetFileNameWithoutExtension(path)));
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            string outFileName = Path.Combine(Path.GetDirectoryName(path), fileNameWithoutExtension);
             using (FileStream input = new FileStream(path, FileMode.Open))
             using (FileStream output = new FileStream(outFileName, FileMode.Create))
             {
@@ -54,38 +98,28 @@ namespace FoxTool
         private static void ShowUsageInfo()
         {
             Console.WriteLine("FoxTool by Atvaark\n" +
-                              "  A tool for compiling and decompiling Fox Engine XML files." +
+                              "  A tool for compiling and decompiling Fox Engine XML files.\n" +
                               "Information:\n" +
                               "  Compiled XML files have these file extensions:\n" +
                               "  BND CLO DES EVF FOX2 FSD LAD PARTS PH PHSD SDF SIM TGT VDP VEH VFXLF\n" +
                               "Usage:\n" +
-                              "  FoxTool -d file_path   - Decompile the file to .fox\n" +
-                              "  FoxTool -d folder_path - Decompile all decompilable files in the folder to .fox\n" +
-                              "  FoxTool -c file_path   - Compile the file to .bin");
+                              "  FoxTool [-d|-c] file_path|folder_path\n" +
+                              "Examples:\n" +
+                              "  FoxTool file_path.xml  - Compile the XML file\n" +
+                              "  FoxTool -c file_path   - Compile the XML file\n" +
+                              "  FoxTool file_path      - Decompile the file to XML\n" +
+                              "  FoxTool -d file_path   - Decompile the file to XML\n" +
+                              "  FoxTool folder_path    - Decompile all suitable files in the folder to XML\n" +
+                              "  FoxTool -d folder_path - Decompile all suitable files in the folder to XML");
+        }
+
+        private static bool IsDecompilable(string fileExtension)
+        {
+            return DecompilableExtensions.Contains(fileExtension, StringComparer.OrdinalIgnoreCase);
         }
 
         private static void DecompileFile(string path)
         {
-            List<string> decompilableExtensions = new List<string>
-            {
-                ".bnd",
-                ".clo",
-                ".des",
-                ".evf",
-                ".fox2",
-                ".fsd",
-                ".lad",
-                ".parts",
-                ".ph",
-                ".phsd",
-                ".sdf",
-                ".sim",
-                ".tgt",
-                ".vdp",
-                ".veh",
-                ".vfxlf"
-            };
-
             try
             {
                 Console.WriteLine("Reading Dictionary.txt");
@@ -99,9 +133,9 @@ namespace FoxTool
 
             if (File.Exists(path))
             {
-                if (decompilableExtensions.Contains(Path.GetExtension(path).ToLower()) == false)
+                if (IsDecompilable(Path.GetExtension(path)) == false)
                 {
-                    Console.WriteLine("The provided file is not decompilable.\n");
+                    ShowNotDecompilableError();
                     return;
                 }
 
@@ -118,7 +152,7 @@ namespace FoxTool
             }
             else if (Directory.Exists(path))
             {
-                foreach (var file in GetFileList(new DirectoryInfo(path), true, decompilableExtensions))
+                foreach (var file in GetFileList(new DirectoryInfo(path), true, DecompilableExtensions))
                 {
                     Console.WriteLine("Decompiling {0}", file.FullName);
                     try
@@ -137,10 +171,14 @@ namespace FoxTool
             }
         }
 
+        private static void ShowNotDecompilableError()
+        {
+            Console.WriteLine("The provided file is not decompilable.");
+        }
+
         private static void DecompileFile(FileInfo file)
         {
-            string fileName = string.Format("{0}_{1}.fox", Path.GetFileNameWithoutExtension(file.Name),
-                Path.GetExtension(file.Name).Replace(".", ""));
+            string fileName = string.Format("{0}.xml", Path.GetFileName(file.Name));
             string outputName = Path.Combine(file.DirectoryName, fileName);
             using (FileStream input = new FileStream(file.FullName, FileMode.Open))
             using (FileStream output = new FileStream(outputName, FileMode.Create))
