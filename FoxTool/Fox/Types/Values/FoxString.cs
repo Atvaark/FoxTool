@@ -72,7 +72,7 @@ namespace FoxTool.Fox.Types.Values
 
         public void WriteXml(XmlWriter writer)
         {
-            if(String == null)
+            if (String == null)
                 StringHash.WriteXml(writer);
             else
                 writer.WriteString(String);

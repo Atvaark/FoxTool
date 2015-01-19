@@ -73,7 +73,7 @@ namespace FoxTool.Fox.Types.Values
 
         public void WriteXml(XmlWriter writer)
         {
-            if(FileName == null)
+            if (FileName == null)
                 FileNameHash.WriteXml(writer);
             else
                 writer.WriteString(FileName);

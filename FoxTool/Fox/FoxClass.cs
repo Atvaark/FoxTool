@@ -8,7 +8,6 @@ namespace FoxTool.Fox
     {
         public string Name { get; set; }
         public string Super { get; set; }
-        public string TestUnknown { get; set; }
         public string Version { get; set; }
 
         public XmlSchema GetSchema()
@@ -33,8 +32,7 @@ namespace FoxTool.Fox
 
         protected bool Equals(FoxClass other)
         {
-            return string.Equals(Name, other.Name) && string.Equals(Super, other.Super) &&
-                   string.Equals(TestUnknown, other.TestUnknown);
+            return string.Equals(Name, other.Name) && string.Equals(Super, other.Super);
         }
 
         public override bool Equals(object obj)
@@ -51,7 +49,6 @@ namespace FoxTool.Fox
             {
                 var hashCode = (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (Super != null ? Super.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (TestUnknown != null ? TestUnknown.GetHashCode() : 0);
                 return hashCode;
             }
         }

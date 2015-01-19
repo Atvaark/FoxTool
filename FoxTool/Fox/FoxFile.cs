@@ -151,8 +151,7 @@ namespace FoxTool.Fox
             {
                 Name = "Entity",
                 Super = "",
-                Version = "2",
-                TestUnknown = ""
+                Version = "2"
             };
             _classes.Add(entityClass);
 
@@ -169,8 +168,7 @@ namespace FoxTool.Fox
                 FoxClass foxClass = new FoxClass
                 {
                     Name = entity.ClassName,
-                    Version = entity.Version.ToString(),
-                    TestUnknown = entity.SuperClassId.ToString()
+                    Version = entity.Version.ToString()
                 };
 
                 if (_classes.Contains(foxClass) == false)
