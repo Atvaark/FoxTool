@@ -64,7 +64,7 @@ namespace FoxTool.Fox.Types.Values
 
         public override string ToString()
         {
-            return String.Format(CultureInfo.InvariantCulture, "{0:N6}", Value);
+            return String.Format(CultureInfo.InvariantCulture, "{0:r}", Value);
         }
     }
 }

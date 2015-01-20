@@ -62,15 +62,16 @@ namespace FoxTool.Fox.Types.Structs
 
         public override void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("x", X.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("y", Y.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("z", Z.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("w", W.ToString("N6", CultureInfo.InvariantCulture));
+            // TODO: Correctly format negative zero. The round-trip specifier appears to print -0 as 0 even though their IEEE values are different.
+            writer.WriteAttributeString("x", X.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("y", Y.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("z", Z.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("w", W.ToString("r", CultureInfo.InvariantCulture));
         }
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "x=\"{0:N6}\", y=\"{1:N6}\", z=\"{2:N6}\", w=\"{3:N6}\"",
+            return string.Format(CultureInfo.InvariantCulture, "x=\"{0:r}\", y=\"{1:r}\", z=\"{2:r}\", w=\"{3:r}\"",
                 X, Y, Z, W);
         }
     }

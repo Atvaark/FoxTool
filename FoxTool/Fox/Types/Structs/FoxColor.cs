@@ -62,15 +62,15 @@ namespace FoxTool.Fox.Types.Structs
 
         public override void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("r", Red.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("g", Green.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("b", Blue.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("a", Alpha.ToString("N6", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("r", Red.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("g", Green.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("b", Blue.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("a", Alpha.ToString("r", CultureInfo.InvariantCulture));
         }
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "r={0:N6}, g={1:N6}, b={2:N6}, a={3:N6}", Red, Green,
+            return string.Format(CultureInfo.InvariantCulture, "r={0:r}, g={1:r}, b={2:r}, a={3:r}", Red, Green,
                 Blue, Alpha);
         }
     }

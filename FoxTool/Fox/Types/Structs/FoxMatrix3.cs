@@ -88,19 +88,19 @@ namespace FoxTool.Fox.Types.Structs
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("Row1");
-            writer.WriteAttributeString("Column1", Row1Value1.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column2", Row1Value2.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column3", Row1Value3.ToString("N6", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column1", Row1Value1.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column2", Row1Value2.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column3", Row1Value3.ToString("r", CultureInfo.InvariantCulture));
             writer.WriteEndElement();
             writer.WriteStartElement("Row2");
-            writer.WriteAttributeString("Column1", Row2Value1.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column2", Row2Value2.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column3", Row2Value3.ToString("N6", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column1", Row2Value1.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column2", Row2Value2.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column3", Row2Value3.ToString("r", CultureInfo.InvariantCulture));
             writer.WriteEndElement();
             writer.WriteStartElement("Row3");
-            writer.WriteAttributeString("Column1", Row3Value1.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column2", Row3Value2.ToString("N6", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column3", Row3Value3.ToString("N6", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column1", Row3Value1.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column2", Row3Value2.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column3", Row3Value3.ToString("r", CultureInfo.InvariantCulture));
             writer.WriteEndElement();
         }
 
