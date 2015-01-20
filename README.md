@@ -2,7 +2,25 @@ FoxTool
 ========
 A tool for compiling and decompiling Fox Engine XML files.
 Compiled XML files have these file extensions:
-BND CLO DES EVF FOX2 FSD LAD PARTS PH PHSD SDF SIM TGT VDP VEH VFXLF
+
+Extension     | Content
+------------- | -----------
+BND           | Graph Bounder Data
+CLO           | Sim Cloth Setting
+DES           | Destruction
+EVF           | Event
+FOX2          | Scene
+FSD           | Facial Settings Data
+LAD           | Lip Adjust Data
+PARTS         | Model Description
+PH            | Physics Object Description
+PHSD          | Physics Sound Parameter
+SDF           | Sound Data File Info
+SIM           | Simulation Object
+TGT           | Geometry Target Description
+VDP           | Vehicle Driving Parameter
+VEH           | Vehicle
+VFXLF         | Visual Effects Lense Flare
 
 Requirements
 --------
