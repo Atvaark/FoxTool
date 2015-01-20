@@ -47,16 +47,8 @@ namespace FoxTool.Fox.Types.Values
         public void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;
-            // TODO: Call ReadXml on FileNameHash
-            string hash = reader.GetAttribute("hash");
-            if (hash != null)
-            {
-                FileNameHash = new FoxHash();
-                FileNameHash.HashValue = hash.StartsWith("0x")
-                    ? ulong.Parse(hash.Substring(2, hash.Length - 2), NumberStyles.AllowHexSpecifier)
-                    : ulong.Parse(hash);
-            }
-
+            FileNameHash = new FoxHash();
+            FileNameHash.ReadXml(reader);
             reader.ReadStartElement("value");
             if (isEmptyElement == false)
             {
