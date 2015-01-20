@@ -36,8 +36,7 @@ namespace FoxTool.Fox.Types.Values
 
         public void CalculateHashes()
         {
-            ulong hash = Hashing.HashString(FileName);
-            FileNameHash = new FoxHash {HashValue = hash};
+            FileNameHash = FileName == null ? FileNameHash : new FoxHash { HashValue = Hashing.HashString(FileName) };
         }
 
         public void CollectNames(List<FoxName> names)

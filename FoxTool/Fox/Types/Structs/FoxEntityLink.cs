@@ -16,6 +16,7 @@ namespace FoxTool.Fox.Types.Structs
         public string PackagePath { get; set; }
         public string ArchivePath { get; set; }
         public string NameInArchive { get; set; }
+        
 
         public override void Read(Stream input)
         {
@@ -49,12 +50,9 @@ namespace FoxTool.Fox.Types.Structs
 
         public override void CalculateHashes()
         {
-            ulong packagePathHash = Hashing.HashString(PackagePath);
-            PackagePathHash = new FoxHash {HashValue = packagePathHash};
-            ulong archivePathHash = Hashing.HashString(ArchivePath);
-            ArchivePathHash = new FoxHash {HashValue = archivePathHash};
-            ulong nameInArchiveHash = Hashing.HashString(NameInArchive);
-            NameInArchiveHash = new FoxHash {HashValue = nameInArchiveHash};
+            PackagePathHash = PackagePath == null ? PackagePathHash : new FoxHash { HashValue = Hashing.HashString(PackagePath) };
+            ArchivePathHash = ArchivePath == null ? ArchivePathHash : new FoxHash { HashValue = Hashing.HashString(ArchivePath) };
+            NameInArchiveHash = NameInArchive == null ? NameInArchiveHash : new FoxHash { HashValue = Hashing.HashString(NameInArchive) };
         }
 
         public override void CollectNames(List<FoxName> names)
@@ -66,8 +64,15 @@ namespace FoxTool.Fox.Types.Structs
 
         public override void ReadXml(XmlReader reader)
         {
-            // TODO: Read hash attributes 
             var isEmptyElement = reader.IsEmptyElement;
+
+            PackagePathHash = new FoxHash("packagePathHash");
+            PackagePathHash.ReadXml(reader);
+            ArchivePathHash = new FoxHash("archivePathHash");
+            ArchivePathHash.ReadXml(reader);
+            NameInArchiveHash = new FoxHash("nameInArchiveHash");
+            NameInArchiveHash.ReadXml(reader);
+
             PackagePath = reader.GetAttribute("packagePath");
             ArchivePath = reader.GetAttribute("archivePath");
             NameInArchive = reader.GetAttribute("nameInArchive");

@@ -22,6 +22,11 @@ namespace FoxTool.Fox
             HashValue = hashValue;
         }
 
+        public FoxHash(string hashName)
+        {
+            _hashName = hashName;
+        }
+
         public ulong HashValue { get; set; }
 
         public string HashName

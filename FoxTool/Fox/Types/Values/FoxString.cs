@@ -36,8 +36,7 @@ namespace FoxTool.Fox.Types.Values
 
         public void CalculateHashes()
         {
-            ulong hash = Hashing.HashString(String);
-            StringHash = new FoxHash {HashValue = hash};
+            StringHash = String == null ? StringHash : new FoxHash {HashValue = Hashing.HashString(String)};
         }
 
         public void CollectNames(List<FoxName> names)
