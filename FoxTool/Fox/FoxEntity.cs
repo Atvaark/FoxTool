@@ -141,8 +141,8 @@ namespace FoxTool.Fox
             ushort staticPropertyCount = reader.ReadUInt16();
             uint dynamicPropetyCount = reader.ReadUInt16();
             int offset = reader.ReadInt32();
-            int size1 = reader.ReadInt32();
-            int size2 = reader.ReadInt32(); // size2 >= size1
+            int staticDataSize = reader.ReadInt32();
+            int dataSize = reader.ReadInt32();
             input.AlignRead(16);
 
             for (int i = 0; i < staticPropertyCount; i++)
@@ -181,12 +181,13 @@ namespace FoxTool.Fox
             {
                 staticProperty.Write(output);
             }
+            uint staticDataSize = (uint)(output.Position - headerPosition);
             foreach (var dynamicProperty in DynamicProperties)
             {
                 dynamicProperty.Write(output);
             }
             long endPosition = output.Position;
-            uint size = (uint) (endPosition - headerPosition);
+            uint dataSize = (uint) (endPosition - headerPosition);
             output.Position = headerPosition;
             writer.Write(HeaderSize);
             writer.Write(Unknown);
@@ -199,8 +200,8 @@ namespace FoxTool.Fox
             writer.Write(Convert.ToUInt16(StaticProperties.Count()));
             writer.Write(Convert.ToUInt16(DynamicProperties.Count()));
             writer.Write((int) HeaderSize);
-            writer.Write(size);
-            writer.Write(size);
+            writer.Write(staticDataSize);
+            writer.Write(dataSize);
             output.AlignWrite(16, 0x00);
             //writer.WriteZeros(12);
             output.Position = endPosition;
