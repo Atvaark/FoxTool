@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class DemoStreamAnimation
+    public class DemoStreamAnimation : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxPath StreamPath { get; set; }
         public FoxUInt32 DemoLength { get; set; }
         public FoxInt32 LocatorTypes { get; set; }

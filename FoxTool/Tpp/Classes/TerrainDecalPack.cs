@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TerrainDecalPack
+    public class TerrainDecalPack : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFilePtr TerrainDecalPackFile { get; set; }
         public List<FoxEntityLink> MaterialLinks { get; set; }
     }

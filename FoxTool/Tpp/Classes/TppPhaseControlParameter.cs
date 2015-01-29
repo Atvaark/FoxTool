@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppPhaseControlParameter
+    public class TppPhaseControlParameter : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFloat Range { get; set; }
         public FoxFloat Sneak1Range { get; set; }
         public FoxFloat Sneak2Range { get; set; }

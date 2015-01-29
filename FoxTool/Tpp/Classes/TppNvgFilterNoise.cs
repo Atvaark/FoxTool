@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppNvgFilterNoise
+    public class TppNvgFilterNoise : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxBool Visibility { get; set; }
         public FoxFloat Scale { get; set; }
         public FoxFloat Offset { get; set; }

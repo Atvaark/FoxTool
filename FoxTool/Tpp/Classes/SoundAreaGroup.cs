@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class SoundAreaGroup
+    public class SoundAreaGroup : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxUInt32 Priority { get; set; }
         public FoxEntityPtr Parameter { get; set; }
         public FoxEntityLink Members { get; set; }

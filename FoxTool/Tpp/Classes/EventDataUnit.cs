@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class EventDataUnit
+    public class EventDataUnit : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString EventName { get; set; }
         public FoxEntityPtr Sections { get; set; }
         public List<FoxString> ParamString { get; set; }

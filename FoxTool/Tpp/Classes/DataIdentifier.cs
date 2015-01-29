@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class DataIdentifier
+    public class DataIdentifier : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString Identifier { get; set; }
         public Dictionary<string, FoxEntityLink> Links { get; set; }
     }

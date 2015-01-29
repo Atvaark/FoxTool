@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class DecalArray
+    public class DecalArray : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxEntityLink Material { get; set; }
         public FoxInt32 ProjectionMode { get; set; }
         public FoxFloat NearClipScale { get; set; }

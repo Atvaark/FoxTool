@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppCombatLocatorSetData
+    public class TppCombatLocatorSetData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFloat Radius { get; set; }
         public FoxFloat LostSearchRadius { get; set; }
         public List<FoxEntityLink> Locators { get; set; }

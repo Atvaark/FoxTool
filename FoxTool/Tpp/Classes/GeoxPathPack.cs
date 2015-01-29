@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class GeoxPathPack
+    public class GeoxPathPack : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxEntityHandle Parent { get; set; }
         public FoxEntityPtr Transform { get; set; }
         public FoxEntityPtr ShearTransform { get; set; }

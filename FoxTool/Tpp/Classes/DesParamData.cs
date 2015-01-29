@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class DesParamData
+    public class DesParamData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFloat Density { get; set; }
         public FoxFloat Friction { get; set; }
         public FoxFloat Restitution { get; set; }

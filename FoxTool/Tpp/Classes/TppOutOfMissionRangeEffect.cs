@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppOutOfMissionRangeEffect
+    public class TppOutOfMissionRangeEffect : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxBool Enable { get; set; }
         public FoxPath LutTexture { get; set; }
         public FoxFloat StartSlope { get; set; }

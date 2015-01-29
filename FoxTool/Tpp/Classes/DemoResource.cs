@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class DemoResource
+    public class DemoResource : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxBool Enable { get; set; }
         public FoxString DemoIdentifierName { get; set; }
         public List<FoxString> DemoIdentifierKey { get; set; }

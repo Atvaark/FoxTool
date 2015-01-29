@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppSoundWorld
+    public class TppSoundWorld : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxUInt32 UpdateSeconds { get; set; }
         public FoxFloat StartMorning { get; set; }
         public FoxFloat MidMorning { get; set; }

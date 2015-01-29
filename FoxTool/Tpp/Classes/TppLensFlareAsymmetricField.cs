@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppLensFlareAsymmetricField
+    public class TppLensFlareAsymmetricField : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxInt32 ShapeType { get; set; }
         public FoxInt32 InterpType { get; set; }
         public FoxColor DebugDrawColor { get; set; }

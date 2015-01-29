@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class PhObjectDesc
+    public class PhObjectDesc : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public List<FoxEntityPtr> Bodies { get; set; }
         public List<FoxEntityPtr> Constraints { get; set; }
         public List<FoxInt32> BodyIndices { get; set; }

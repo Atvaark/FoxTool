@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppMusicParameter
+    public class TppMusicParameter : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString Tag { get; set; }
         public FoxString PlayEvent { get; set; }
         public FoxString DaySwitchEvent { get; set; }

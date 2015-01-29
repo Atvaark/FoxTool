@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class SimClothSettingData
+    public class SimClothSettingData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxUInt32 Iteration { get; set; }
         public FoxFloat Mass { get; set; }
         public FoxFloat VelocityDamp { get; set; }

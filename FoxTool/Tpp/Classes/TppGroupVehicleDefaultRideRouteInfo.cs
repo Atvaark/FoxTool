@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppGroupVehicleDefaultRideRouteInfo
+    public class TppGroupVehicleDefaultRideRouteInfo : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString VehicleRouteId { get; set; }
         public FoxBool IsPreferredMove { get; set; }
         public FoxEntityLink Vehicle { get; set; }

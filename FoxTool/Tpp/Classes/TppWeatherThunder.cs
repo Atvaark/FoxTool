@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppWeatherThunder
+    public class TppWeatherThunder : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxBool Enable { get; set; }
         public FoxColor Color { get; set; }
         public FoxFloat Probability { get; set; }

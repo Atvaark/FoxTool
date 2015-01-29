@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class UiAnimWorkMemoryData
+    public class UiAnimWorkMemoryData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxUInt32 NodeAnimNum { get; set; }
         public FoxUInt32 ShaderAnimNum { get; set; }
         public FoxUInt32 VertexAnimNum { get; set; }

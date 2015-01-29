@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class SimOnPhysics
+    public class SimOnPhysics : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxEntityPtr ObjectParam { get; set; }
         public FoxEntityPtr EngineParam { get; set; }
         public FoxEntityPtr Controls { get; set; }

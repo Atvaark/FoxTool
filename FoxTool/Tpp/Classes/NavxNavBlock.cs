@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class NavxNavBlock
+    public class NavxNavBlock : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString SceneName { get; set; }
         public FoxString WorldName { get; set; }
         public FoxUInt32 TileId { get; set; }

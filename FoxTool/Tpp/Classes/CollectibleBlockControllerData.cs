@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class CollectibleBlockControllerData
+    public class CollectibleBlockControllerData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxBool Enable { get; set; }
         public FoxBool EnableCustomization { get; set; }
         public FoxUInt32 CommonBlockSize { get; set; }

@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class SoundAreaGlobal
+    public class SoundAreaGlobal : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxEntityPtr Parameter { get; set; }
         public FoxString VolumeRtpc { get; set; }
     }

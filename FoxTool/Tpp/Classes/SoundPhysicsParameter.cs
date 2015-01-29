@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class SoundPhysicsParameter
+    public class SoundPhysicsParameter : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString HitEvent { get; set; }
         public FoxString RollStartEvent { get; set; }
         public FoxString RollEndEvent { get; set; }

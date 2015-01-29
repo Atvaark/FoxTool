@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppObjectBrushPluginSkeletonModel
+    public class TppObjectBrushPluginSkeletonModel : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString ParentDataName { get; set; }
         public FoxBool Visibility { get; set; }
         public List<FoxFilePtr> ModelFile { get; set; }

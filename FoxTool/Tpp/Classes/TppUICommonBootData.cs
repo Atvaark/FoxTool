@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppUICommonBootData
+    public class TppUICommonBootData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFilePtr UiFile { get; set; }
         public FoxString WindowName { get; set; }
         public FoxInt32 Dependence { get; set; }

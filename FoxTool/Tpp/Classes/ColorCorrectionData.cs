@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class ColorCorrectionData
+    public class ColorCorrectionData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxPath TextureLUT { get; set; }
         public FoxFloat StartSlope { get; set; }
         public FoxFloat EndSlope { get; set; }

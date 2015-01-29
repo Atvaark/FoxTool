@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class EspionageRadioData
+    public class EspionageRadioData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString Key { get; set; }
         public FoxEntityLink TargetArray { get; set; }
         public FoxString RadioGroupNameArray { get; set; }

@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppModelMarkerFilterSettings
+    public class TppModelMarkerFilterSettings : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFloat TexRepeatsNear { get; set; }
         public FoxFloat TexRepeatsFar { get; set; }
         public FoxFloat TexRepeatsMin { get; set; }

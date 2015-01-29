@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class LipAdjustData
+    public class LipAdjustData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxUInt32 OffsetLipA { get; set; }
         public FoxUInt32 OffsetLipAH { get; set; }
         public FoxUInt32 OffsetLipAY { get; set; }

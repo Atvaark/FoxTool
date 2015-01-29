@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class GzTitleBootData
+    public class GzTitleBootData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFilePtr UigFiles { get; set; }
         public List<FoxFilePtr> RawFiles { get; set; }
     }

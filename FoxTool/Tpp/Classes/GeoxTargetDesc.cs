@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class GeoxTargetDesc
+    public class GeoxTargetDesc : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxVector3 PosArray { get; set; }
         public FoxVector3 ScaleArray { get; set; }
         public FoxQuat RotArray { get; set; }

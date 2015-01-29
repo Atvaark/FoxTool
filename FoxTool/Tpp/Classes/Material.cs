@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class Material
+    public class Material : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxString MaterialName { get; set; }
         public FoxPath Shader { get; set; }
         public FoxPath DiffuseTexture { get; set; }

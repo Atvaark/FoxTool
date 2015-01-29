@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppLensFlareRateGraph
+    public class TppLensFlareRateGraph : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFloat Value0_0 { get; set; }
         public FoxFloat Value0_1 { get; set; }
         public FoxFloat Value0_2 { get; set; }

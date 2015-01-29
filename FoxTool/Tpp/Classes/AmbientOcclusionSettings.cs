@@ -2,11 +2,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class AmbientOcclusionSettings
+    public class AmbientOcclusionSettings : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxInt32 Method { get; set; }
         public FoxInt32 Attachment { get; set; }
         // name=lineSSAOParameters

@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppVehicleDrivingParameter
+    public class TppVehicleDrivingParameter : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxFloat PidSpeedKp { get; set; }
         public FoxFloat PidSpeedTi { get; set; }
         public FoxFloat PidSpeedTd { get; set; }

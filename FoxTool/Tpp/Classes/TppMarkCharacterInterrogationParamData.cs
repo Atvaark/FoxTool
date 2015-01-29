@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppMarkCharacterInterrogationParamData
+    public class TppMarkCharacterInterrogationParamData : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxEntityLink TargetCharacters { get; set; }
         public FoxString TargetCharacterIds { get; set; }
         public FoxUInt8 Radius { get; set; }

@@ -3,11 +3,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppRainFilter
+    public class TppRainFilter : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public FoxBool Enable { get; set; }
         public FoxFloat StartFadeInDistance { get; set; }
         public FoxFloat EndFadeInDistance { get; set; }

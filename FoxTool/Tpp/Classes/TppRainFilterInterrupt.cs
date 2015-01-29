@@ -4,11 +4,9 @@ using FoxTool.Fox.Types.Values;
 
 namespace FoxTool.Tpp.Classes
 {
-    public class TppRainFilterInterrupt
+    public class TppRainFilterInterrupt : Data
     {
         // Static properties
-        public FoxString Name { get; set; }
-        public FoxEntityHandle DataSet { get; set; }
         public List<FoxMatrix4> PlaneMatrices { get; set; }
         public List<FoxPath> MaskTextures { get; set; }
     }
