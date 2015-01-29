@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
@@ -27,11 +26,9 @@ namespace FoxTool.Fox.Types.Values
             return FoxHash.Size;
         }
 
-        public void ResolveNames(Dictionary<ulong, string> nameMap)
+        public void ResolveNames(FoxNameLookupTable lookupTable)
         {
-            string name;
-            nameMap.TryGetValue(StringHash.HashValue, out name);
-            String = name;
+            String = lookupTable.Lookup(StringHash.HashValue);
         }
 
         public void CalculateHashes()

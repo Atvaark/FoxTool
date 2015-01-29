@@ -9,7 +9,7 @@ namespace FoxTool.Fox.Types
         void Read(Stream input);
         void Write(Stream output);
         int Size();
-        void ResolveNames(Dictionary<ulong, string> nameMap);
+        void ResolveNames(FoxNameLookupTable lookupTable);
         void CalculateHashes();
         void CollectNames(List<FoxName> names);
     }

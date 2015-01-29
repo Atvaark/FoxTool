@@ -159,16 +159,16 @@ namespace FoxTool.Fox
             }
         }
 
-        public void ResolveNames(Dictionary<ulong, string> nameMap)
+        public void ResolveNames(FoxNameLookupTable lookupTable)
         {
-            ClassName = nameMap[ClassNameHash];
+            ClassName = lookupTable.Lookup(ClassNameHash);
             foreach (var staticProperty in StaticProperties)
             {
-                staticProperty.ResolveNames(nameMap);
+                staticProperty.ResolveNames(lookupTable);
             }
             foreach (var dynamicProperty in DynamicProperties)
             {
-                dynamicProperty.ResolveNames(nameMap);
+                dynamicProperty.ResolveNames(lookupTable);
             }
         }
 
@@ -181,7 +181,7 @@ namespace FoxTool.Fox
             {
                 staticProperty.Write(output);
             }
-            uint staticDataSize = (uint)(output.Position - headerPosition);
+            uint staticDataSize = (uint) (output.Position - headerPosition);
             foreach (var dynamicProperty in DynamicProperties)
             {
                 dynamicProperty.Write(output);

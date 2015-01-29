@@ -8,7 +8,7 @@ namespace FoxTool
 {
     public static class Program
     {
-        private static readonly Dictionary<ulong, string> HashNameDictionary = new Dictionary<ulong, string>();
+        private static readonly Dictionary<ulong, string> GlobalHashNameDictionary = new Dictionary<ulong, string>();
 
         private static readonly List<string> DecompilableExtensions = new List<string>
         {
@@ -38,6 +38,7 @@ namespace FoxTool
                 if (File.Exists(path))
                 {
                     string fileExtension = Path.GetExtension(path);
+                    // Also fagx, fdmg, fox
                     if (fileExtension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
                     {
                         CompileFile(path);
@@ -123,7 +124,7 @@ namespace FoxTool
             try
             {
                 Console.WriteLine("Reading Dictionary.txt");
-                ReadDictionary("Dictionary.txt");
+                ReadGlobalHashNameDictionary("Dictionary.txt");
             }
             catch (Exception e)
             {
@@ -185,7 +186,8 @@ namespace FoxTool
             {
                 try
                 {
-                    var foxFile = FoxFile.ReadFoxFile(input, HashNameDictionary);
+                    FoxNameLookupTable lookupTable = new FoxNameLookupTable(GlobalHashNameDictionary);
+                    var foxFile = FoxFile.ReadFoxFile(input, lookupTable);
                     FoxConverter.DecompileFox(foxFile, output);
                 }
                 catch (Exception e)
@@ -211,14 +213,14 @@ namespace FoxTool
             return files;
         }
 
-        private static void ReadDictionary(string path)
+        private static void ReadGlobalHashNameDictionary(string path)
         {
             foreach (var line in File.ReadAllLines(path))
             {
                 ulong hash = Hashing.HashString(line);
-                if (HashNameDictionary.ContainsKey(hash) == false)
+                if (GlobalHashNameDictionary.ContainsKey(hash) == false)
                 {
-                    HashNameDictionary.Add(hash, line);
+                    GlobalHashNameDictionary.Add(hash, line);
                 }
             }
         }

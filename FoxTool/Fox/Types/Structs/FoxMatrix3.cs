@@ -51,7 +51,7 @@ namespace FoxTool.Fox.Types.Structs
             return 9*sizeof (float);
         }
 
-        public override void ResolveNames(Dictionary<ulong, string> nameMap)
+        public override void ResolveNames(FoxNameLookupTable lookupTable)
         {
         }
 

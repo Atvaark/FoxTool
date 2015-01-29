@@ -43,12 +43,12 @@ namespace FoxTool.Fox.Containers
             }
         }
 
-        public void ResolveNames(Dictionary<ulong, string> nameMap)
+        public void ResolveNames(FoxNameLookupTable lookupTable)
         {
             foreach (var pair in _map)
             {
-                pair.Key.Resolve(nameMap);
-                pair.Value.ResolveNames(nameMap);
+                pair.Key.Resolve(lookupTable);
+                pair.Value.ResolveNames(lookupTable);
             }
         }
 

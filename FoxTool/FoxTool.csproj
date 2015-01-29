@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FoxConverter.cs" />
+    <Compile Include="Fox\FoxNameLookupTable.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldInterpType.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldShapeType.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareShapeDistanceScalingMode.cs" />

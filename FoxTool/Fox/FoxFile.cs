@@ -136,13 +136,22 @@ namespace FoxTool.Fox
             writer.WriteEndElement();
         }
 
-        public static FoxFile ReadFoxFile(Stream input, Dictionary<ulong, string> hashNameDictionary)
+        public static FoxFile ReadFoxFile(Stream input, FoxNameLookupTable lookupTable)
         {
             FoxFile foxFile = new FoxFile();
             foxFile.Read(input);
-            foxFile.ResolveNames(hashNameDictionary);
+            foxFile.CheckForEncryptedNames();
+            foxFile.ResolveNames(lookupTable);
             foxFile.GenerateClasses();
             return foxFile;
+        }
+
+        private void CheckForEncryptedNames()
+        {
+            foreach (var foxName in Names)
+            {
+                foxName.CheckForEncryption();
+            }
         }
 
         private void GenerateClasses()
@@ -192,7 +201,7 @@ namespace FoxTool.Fox
             }
 
             FoxName name;
-            while ((name = FoxName.ReadFoxHashMapEntry(input)) != null)
+            while ((name = FoxName.ReadFoxName(input)) != null)
             {
                 _names.Add(name);
             }
@@ -202,24 +211,24 @@ namespace FoxTool.Fox
             input.AlignRead(16);
         }
 
-        private void ResolveNames(Dictionary<ulong, string> hashNameDictionary)
+        private void ResolveNames(FoxNameLookupTable lookupTable)
         {
-            var nameMap = GenerateNameMap(hashNameDictionary);
+            lookupTable.LocalLookupTable = GenerateLocalNameMap();
             foreach (var entity in _entities)
             {
-                entity.ResolveNames(nameMap);
+                entity.ResolveNames(lookupTable);
             }
         }
 
-        private Dictionary<ulong, string> GenerateNameMap(Dictionary<ulong, string> hashNameDictionary)
+        private Dictionary<ulong, string> GenerateLocalNameMap()
         {
-            Dictionary<ulong, string> nameMap = new Dictionary<ulong, string>(hashNameDictionary);
-            foreach (var name in _names)
+            Dictionary<ulong, string> nameMap = new Dictionary<ulong, string>();
+
+            foreach (var name in Names)
             {
                 if (nameMap.ContainsKey(name.Hash.HashValue) == false)
                 {
-                    // TODO: What should be done with hashed names that look like: /as/XXXXXX.ftex
-                    if (name.Name.IsPrintable())
+                    if (name.IsEncrypted == false)
                         nameMap.Add(name.Hash.HashValue, name.Name);
                 }
             }
@@ -238,7 +247,9 @@ namespace FoxTool.Fox
             int offsetHashMap = (int) output.Position;
             foreach (var foxName in Names)
             {
-                foxName.Write(output);
+                // TODO: Write the encrypted file name.
+                if (string.IsNullOrEmpty(foxName.Name) == false)
+                    foxName.Write(output);
             }
 
             output.AlignWrite(16, 0x00);

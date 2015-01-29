@@ -76,10 +76,10 @@ namespace FoxTool.Fox
             input.AlignRead(16);
         }
 
-        public void ResolveNames(Dictionary<ulong, string> nameMap)
+        public void ResolveNames(FoxNameLookupTable lookupTable)
         {
-            Name = nameMap[NameHash];
-            Container.ResolveNames(nameMap);
+            Name = lookupTable.Lookup(NameHash);
+            Container.ResolveNames(lookupTable);
         }
 
         public void Write(Stream output)

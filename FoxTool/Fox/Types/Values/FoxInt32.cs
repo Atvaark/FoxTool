@@ -28,7 +28,7 @@ namespace FoxTool.Fox.Types.Values
             return sizeof (int);
         }
 
-        public void ResolveNames(Dictionary<ulong, string> nameMap)
+        public void ResolveNames(FoxNameLookupTable lookupTable)
         {
         }
 

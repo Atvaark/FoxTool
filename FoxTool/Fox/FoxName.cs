@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 
 namespace FoxTool.Fox
@@ -18,8 +17,14 @@ namespace FoxTool.Fox
 
         public FoxHash Hash { get; set; }
         public string Name { get; set; }
+        public byte[] EncryptedName { get; set; }
 
-        public static FoxName ReadFoxHashMapEntry(Stream input)
+        public bool IsEncrypted
+        {
+            get { return EncryptedName != null; }
+        }
+
+        public static FoxName ReadFoxName(Stream input)
         {
             FoxName name = new FoxName();
             name.Read(input);
@@ -37,11 +42,9 @@ namespace FoxTool.Fox
             Name = reader.ReadString(stringLength);
         }
 
-        public void Resolve(Dictionary<ulong, string> nameMap)
+        public void Resolve(FoxNameLookupTable lookupTable)
         {
-            string name;
-            nameMap.TryGetValue(Hash.HashValue, out name);
-            Name = name;
+            Name = lookupTable.Lookup(Hash.HashValue);
         }
 
         public void Write(Stream output)
@@ -79,6 +82,14 @@ namespace FoxTool.Fox
             unchecked
             {
                 return ((Hash != null ? Hash.GetHashCode() : 0)*397) ^ (Name != null ? Name.GetHashCode() : 0);
+            }
+        }
+
+        public void CheckForEncryption()
+        {
+            if (Hashing.HashString(Name) != Hash.HashValue)
+            {
+                EncryptedName = Encoding.Default.GetBytes(Name);
             }
         }
     }

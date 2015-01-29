@@ -36,7 +36,7 @@ namespace FoxTool.Fox.Types.Structs
             return 4*sizeof (float);
         }
 
-        public override void ResolveNames(Dictionary<ulong, string> nameMap)
+        public override void ResolveNames(FoxNameLookupTable lookupTable)
         {
         }
 
@@ -70,7 +70,8 @@ namespace FoxTool.Fox.Types.Structs
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "x=\"{0:r}\", y=\"{1:r}\", z=\"{2:r}\", w=\"{2:r}\"", X, Y, Z, W);
+            return string.Format(CultureInfo.InvariantCulture, "x=\"{0:r}\", y=\"{1:r}\", z=\"{2:r}\", w=\"{2:r}\"", X,
+                Y, Z, W);
         }
     }
 }

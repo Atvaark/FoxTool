@@ -16,7 +16,6 @@ namespace FoxTool.Fox.Types.Structs
         public string PackagePath { get; set; }
         public string ArchivePath { get; set; }
         public string NameInArchive { get; set; }
-        
 
         public override void Read(Stream input)
         {
@@ -41,18 +40,24 @@ namespace FoxTool.Fox.Types.Structs
             return 3*FoxHash.Size + sizeof (ulong);
         }
 
-        public override void ResolveNames(Dictionary<ulong, string> nameMap)
+        public override void ResolveNames(FoxNameLookupTable lookupTable)
         {
-            PackagePath = ResolveName(nameMap, PackagePathHash.HashValue);
-            ArchivePath = ResolveName(nameMap, ArchivePathHash.HashValue);
-            NameInArchive = ResolveName(nameMap, NameInArchiveHash.HashValue);
+            PackagePath = lookupTable.Lookup(PackagePathHash.HashValue);
+            ArchivePath = lookupTable.Lookup(ArchivePathHash.HashValue);
+            NameInArchive = lookupTable.Lookup(NameInArchiveHash.HashValue);
         }
 
         public override void CalculateHashes()
         {
-            PackagePathHash = PackagePath == null ? PackagePathHash : new FoxHash { HashValue = Hashing.HashString(PackagePath) };
-            ArchivePathHash = ArchivePath == null ? ArchivePathHash : new FoxHash { HashValue = Hashing.HashString(ArchivePath) };
-            NameInArchiveHash = NameInArchive == null ? NameInArchiveHash : new FoxHash { HashValue = Hashing.HashString(NameInArchive) };
+            PackagePathHash = PackagePath == null
+                ? PackagePathHash
+                : new FoxHash {HashValue = Hashing.HashString(PackagePath)};
+            ArchivePathHash = ArchivePath == null
+                ? ArchivePathHash
+                : new FoxHash {HashValue = Hashing.HashString(ArchivePath)};
+            NameInArchiveHash = NameInArchive == null
+                ? NameInArchiveHash
+                : new FoxHash {HashValue = Hashing.HashString(NameInArchive)};
         }
 
         public override void CollectNames(List<FoxName> names)
@@ -110,13 +115,6 @@ namespace FoxTool.Fox.Types.Structs
                 writer.WriteAttributeString("nameInArchive", NameInArchive);
 
             writer.WriteString(String.Format("0x{0:X8}", EntityHandle));
-        }
-
-        private string ResolveName(Dictionary<ulong, string> nameMap, ulong hashValue)
-        {
-            string name;
-            nameMap.TryGetValue(hashValue, out name);
-            return name;
         }
 
         public override string ToString()
