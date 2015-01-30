@@ -18,7 +18,7 @@ namespace FoxTool.Fox
         private const uint MagicNumber2 = 0x35;
         private readonly List<FoxClass> _classes;
         private readonly List<FoxEntity> _entities;
-        private readonly List<FoxName> _names;
+        private readonly List<FoxStringLookupLiteral> _stringLookupLiterals;
         private string _fileVersion = "0";
         private string _formatVersion = "2";
         private DateTime _originalVersion = DateTime.Now;
@@ -27,7 +27,7 @@ namespace FoxTool.Fox
         {
             _classes = new List<FoxClass>();
             _entities = new List<FoxEntity>();
-            _names = new List<FoxName>();
+            _stringLookupLiterals = new List<FoxStringLookupLiteral>();
         }
 
         public List<FoxClass> Classes
@@ -40,9 +40,9 @@ namespace FoxTool.Fox
             get { return _entities; }
         }
 
-        public IEnumerable<FoxName> Names
+        public IEnumerable<FoxStringLookupLiteral> StringLookupLiterals
         {
-            get { return _names; }
+            get { return _stringLookupLiterals; }
         }
 
         public string FormatVersion
@@ -136,19 +136,19 @@ namespace FoxTool.Fox
             writer.WriteEndElement();
         }
 
-        public static FoxFile ReadFoxFile(Stream input, FoxNameLookupTable lookupTable)
+        public static FoxFile ReadFoxFile(Stream input, FoxLookupTable lookupTable)
         {
             FoxFile foxFile = new FoxFile();
             foxFile.Read(input);
             foxFile.CheckForEncryptedNames();
-            foxFile.ResolveNames(lookupTable);
+            foxFile.ResolveStringLiterals(lookupTable);
             foxFile.GenerateClasses();
             return foxFile;
         }
 
         private void CheckForEncryptedNames()
         {
-            foreach (var foxName in Names)
+            foreach (var foxName in StringLookupLiterals)
             {
                 foxName.CheckForEncryption();
             }
@@ -200,10 +200,10 @@ namespace FoxTool.Fox
                 _entities.Add(entity);
             }
 
-            FoxName name;
-            while ((name = FoxName.ReadFoxName(input)) != null)
+            FoxStringLookupLiteral stringLookupLiteral;
+            while ((stringLookupLiteral = FoxStringLookupLiteral.ReadFoxStringLookupLiteral(input)) != null)
             {
-                _names.Add(name);
+                _stringLookupLiterals.Add(stringLookupLiteral);
             }
             input.AlignRead(16);
             reader.Skip(2);
@@ -211,28 +211,28 @@ namespace FoxTool.Fox
             input.AlignRead(16);
         }
 
-        private void ResolveNames(FoxNameLookupTable lookupTable)
+        private void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
-            lookupTable.LocalLookupTable = GenerateLocalNameMap();
+            lookupTable.LocalLookupTable = GenerateLocalLookupTable();
             foreach (var entity in _entities)
             {
-                entity.ResolveNames(lookupTable);
+                entity.ResolveStringLiterals(lookupTable);
             }
         }
 
-        private Dictionary<ulong, string> GenerateLocalNameMap()
+        private Dictionary<ulong, string> GenerateLocalLookupTable()
         {
-            Dictionary<ulong, string> nameMap = new Dictionary<ulong, string>();
+            Dictionary<ulong, string> localLookupTable = new Dictionary<ulong, string>();
 
-            foreach (var name in Names)
+            foreach (var literal in StringLookupLiterals)
             {
-                if (nameMap.ContainsKey(name.Hash.HashValue) == false)
+                if (localLookupTable.ContainsKey(literal.Hash.HashValue) == false)
                 {
-                    if (name.IsEncrypted == false)
-                        nameMap.Add(name.Hash.HashValue, name.Name);
+                    if (literal.IsEncrypted == false)
+                        localLookupTable.Add(literal.Hash.HashValue, literal.Literal);
                 }
             }
-            return nameMap;
+            return localLookupTable;
         }
 
         public void Write(Stream output)
@@ -245,11 +245,11 @@ namespace FoxTool.Fox
                 foxEntity.Write(output);
             }
             int offsetHashMap = (int) output.Position;
-            foreach (var foxName in Names)
+            foreach (var foxStringLookupLiteral in StringLookupLiterals)
             {
                 // TODO: Write the encrypted file name.
-                if (string.IsNullOrEmpty(foxName.Name) == false)
-                    foxName.Write(output);
+                if (string.IsNullOrEmpty(foxStringLookupLiteral.Literal) == false)
+                    foxStringLookupLiteral.Write(output);
             }
 
             output.AlignWrite(16, 0x00);
@@ -276,14 +276,14 @@ namespace FoxTool.Fox
             }
         }
 
-        public void CollectNames()
+        public void CollectStringLookupLiterals()
         {
-            List<FoxName> names = new List<FoxName>();
+            List<FoxStringLookupLiteral> literals = new List<FoxStringLookupLiteral>();
             foreach (var foxEntity in Entities)
             {
-                foxEntity.CollectNames(names);
+                foxEntity.CollectStringLookupLiterals(literals);
             }
-            _names.AddRange(names.Distinct());
+            _stringLookupLiterals.AddRange(literals.Distinct());
         }
     }
 }

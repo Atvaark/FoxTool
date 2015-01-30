@@ -186,7 +186,7 @@ namespace FoxTool
             {
                 try
                 {
-                    FoxNameLookupTable lookupTable = new FoxNameLookupTable(GlobalHashNameDictionary);
+                    FoxLookupTable lookupTable = new FoxLookupTable(GlobalHashNameDictionary);
                     var foxFile = FoxFile.ReadFoxFile(input, lookupTable);
                     FoxConverter.DecompileFox(foxFile, output);
                 }

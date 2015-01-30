@@ -2,18 +2,18 @@
 
 namespace FoxTool.Fox
 {
-    public class FoxNameLookupTable
+    public class FoxLookupTable
     {
-        public FoxNameLookupTable() : this(new Dictionary<ulong, string>())
+        public FoxLookupTable() : this(new Dictionary<ulong, string>())
         {
         }
 
-        public FoxNameLookupTable(Dictionary<ulong, string> globalLookupTable)
+        public FoxLookupTable(Dictionary<ulong, string> globalLookupTable)
             : this(globalLookupTable, new Dictionary<ulong, string>())
         {
         }
 
-        public FoxNameLookupTable(Dictionary<ulong, string> globalLookupTable,
+        public FoxLookupTable(Dictionary<ulong, string> globalLookupTable,
             Dictionary<ulong, string> localLookupTable)
         {
             GlobalLookupTable = globalLookupTable;

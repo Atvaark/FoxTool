@@ -8,9 +8,9 @@ namespace FoxTool.Fox.Containers
     {
         void Read(Stream input, short valueCount);
         void Write(Stream output);
-        void ResolveNames(FoxNameLookupTable lookupTable);
+        void ResolveStringLiterals(FoxLookupTable lookupTable);
         int Count();
         void CalculateHashes();
-        void CollectNames(List<FoxName> names);
+        void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals);
     }
 }

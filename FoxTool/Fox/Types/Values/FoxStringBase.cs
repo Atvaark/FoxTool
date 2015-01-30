@@ -1,57 +1,57 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 
 namespace FoxTool.Fox.Types.Values
 {
-    public class FoxEntityPtr : IFoxValue
+    public abstract class FoxStringBase : IFoxValue
     {
-        public ulong EntityPtr { get; set; }
+        private FoxStringLiteral StringLiteral { get; set; }
 
         public void Read(Stream input)
         {
-            BinaryReader reader = new BinaryReader(input, Encoding.Default, true);
-            EntityPtr = reader.ReadUInt64();
+            StringLiteral = FoxStringLiteral.ReadStringLiteral(input);
         }
 
         public void Write(Stream output)
         {
-            BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
-            writer.Write(EntityPtr);
+            StringLiteral.Write(output);
         }
 
         public int Size()
         {
-            return sizeof (ulong);
+            return FoxStringLiteral.Size();
         }
 
         public void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
+            StringLiteral.Resolve(lookupTable);
         }
 
         public void CalculateHashes()
         {
+            StringLiteral.CalculateHash();
         }
 
         public void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
+            literals.Add(new FoxStringLookupLiteral(StringLiteral));
         }
 
         public void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;
+            FoxHash hash = new FoxHash();
+            hash.ReadXml(reader);
             reader.ReadStartElement("value");
+            string literal = null;
             if (isEmptyElement == false)
             {
-                string entityPtr = reader.ReadString();
-                EntityPtr = entityPtr.StartsWith("0x")
-                    ? ulong.Parse(entityPtr.Substring(2, entityPtr.Length - 2), NumberStyles.AllowHexSpecifier)
-                    : ulong.Parse(entityPtr);
+                literal = reader.ReadContentAsString();
                 reader.ReadEndElement();
             }
+            StringLiteral = new FoxStringLiteral(literal, hash);
         }
 
         public XmlSchema GetSchema()
@@ -61,12 +61,15 @@ namespace FoxTool.Fox.Types.Values
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteString(ToString());
+            if (StringLiteral.Literal == null)
+                StringLiteral.Hash.WriteXml(writer);
+            else
+                writer.WriteString(StringLiteral.Literal);
         }
 
         public override string ToString()
         {
-            return string.Format("0x{0:X8}", EntityPtr);
+            return StringLiteral.ToString();
         }
     }
 }

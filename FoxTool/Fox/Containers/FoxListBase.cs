@@ -45,11 +45,11 @@ namespace FoxTool.Fox.Containers
             }
         }
 
-        public void ResolveNames(FoxNameLookupTable lookupTable)
+        public void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
             foreach (var value in _values)
             {
-                value.ResolveNames(lookupTable);
+                value.ResolveStringLiterals(lookupTable);
             }
         }
 
@@ -66,11 +66,11 @@ namespace FoxTool.Fox.Containers
             }
         }
 
-        public void CollectNames(List<FoxName> names)
+        public void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
             foreach (var value in _values)
             {
-                value.CollectNames(names);
+                value.CollectStringLookupLiterals(literals);
             }
         }
 

@@ -10,9 +10,9 @@ namespace FoxTool.Fox.Types
         public abstract void Read(Stream input);
         public abstract void Write(Stream output);
         public abstract int Size();
-        public abstract void ResolveNames(FoxNameLookupTable lookupTable);
+        public abstract void ResolveStringLiterals(FoxLookupTable lookupTable);
         public abstract void CalculateHashes();
-        public abstract void CollectNames(List<FoxName> names);
+        public abstract void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals);
 
         public XmlSchema GetSchema()
         {

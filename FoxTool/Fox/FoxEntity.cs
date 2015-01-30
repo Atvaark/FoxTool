@@ -159,16 +159,16 @@ namespace FoxTool.Fox
             }
         }
 
-        public void ResolveNames(FoxNameLookupTable lookupTable)
+        public void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
             ClassName = lookupTable.Lookup(ClassNameHash);
             foreach (var staticProperty in StaticProperties)
             {
-                staticProperty.ResolveNames(lookupTable);
+                staticProperty.ResolveStringLiterals(lookupTable);
             }
             foreach (var dynamicProperty in DynamicProperties)
             {
-                dynamicProperty.ResolveNames(lookupTable);
+                dynamicProperty.ResolveStringLiterals(lookupTable);
             }
         }
 
@@ -221,16 +221,17 @@ namespace FoxTool.Fox
             }
         }
 
-        public void CollectNames(List<FoxName> names)
+        public void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
-            names.Add(new FoxName(ClassName, new FoxHash(ClassNameHash)));
+            // TODO: Replace ClassName and ClassNameHash with a FoxStringLiteral
+            literals.Add(new FoxStringLookupLiteral(ClassName, new FoxHash(ClassNameHash)));
             foreach (var staticProperty in StaticProperties)
             {
-                staticProperty.CollectNames(names);
+                staticProperty.CollectStringLookupLiterals(literals);
             }
             foreach (var dynamicProperty in DynamicProperties)
             {
-                dynamicProperty.CollectNames(names);
+                dynamicProperty.CollectStringLookupLiterals(literals);
             }
         }
     }

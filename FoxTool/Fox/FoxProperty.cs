@@ -76,10 +76,10 @@ namespace FoxTool.Fox
             input.AlignRead(16);
         }
 
-        public void ResolveNames(FoxNameLookupTable lookupTable)
+        public void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
             Name = lookupTable.Lookup(NameHash);
-            Container.ResolveNames(lookupTable);
+            Container.ResolveStringLiterals(lookupTable);
         }
 
         public void Write(Stream output)
@@ -108,10 +108,11 @@ namespace FoxTool.Fox
             Container.CalculateHashes();
         }
 
-        public void CollectNames(List<FoxName> names)
+        public void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
-            names.Add(new FoxName(Name, new FoxHash(NameHash)));
-            Container.CollectNames(names);
+            // TODO: Replace Name and NameHash with a FoxStringLiteral
+            literals.Add(new FoxStringLookupLiteral(Name, new FoxHash(NameHash)));
+            Container.CollectStringLookupLiterals(literals);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace FoxTool
         {
             FoxFile foxFile = ReadFoxFile(input);
             foxFile.CalculateHashes();
-            foxFile.CollectNames();
+            foxFile.CollectStringLookupLiterals();
             foxFile.Write(output);
         }
 

@@ -10,11 +10,11 @@ namespace FoxTool.Fox.Containers
 {
     public class FoxStringMap<T> : IFoxContainer where T : IFoxValue, new()
     {
-        private readonly Dictionary<FoxName, T> _map;
+        private readonly Dictionary<FoxStringLookupLiteral, T> _map;
 
         public FoxStringMap()
         {
-            _map = new Dictionary<FoxName, T>();
+            _map = new Dictionary<FoxStringLookupLiteral, T>();
         }
 
         public void Read(Stream input, short valueCount)
@@ -22,7 +22,7 @@ namespace FoxTool.Fox.Containers
             for (int i = 0; i < valueCount; i++)
             {
                 FoxHash hash = FoxHash.ReadFoxHash(input);
-                FoxName key = new FoxName
+                FoxStringLookupLiteral key = new FoxStringLookupLiteral
                 {
                     Hash = hash
                 };
@@ -43,12 +43,12 @@ namespace FoxTool.Fox.Containers
             }
         }
 
-        public void ResolveNames(FoxNameLookupTable lookupTable)
+        public void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
             foreach (var pair in _map)
             {
                 pair.Key.Resolve(lookupTable);
-                pair.Value.ResolveNames(lookupTable);
+                pair.Value.ResolveStringLiterals(lookupTable);
             }
         }
 
@@ -66,12 +66,12 @@ namespace FoxTool.Fox.Containers
             }
         }
 
-        public void CollectNames(List<FoxName> names)
+        public void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
             foreach (var pair in _map)
             {
-                names.Add(pair.Key);
-                pair.Value.CollectNames(names);
+                literals.Add(pair.Key);
+                pair.Value.CollectStringLookupLiterals(literals);
             }
         }
 
@@ -84,9 +84,9 @@ namespace FoxTool.Fox.Containers
         {
             while (reader.LocalName == "value")
             {
-                FoxName key = new FoxName();
+                FoxStringLookupLiteral key = new FoxStringLookupLiteral();
                 T value = new T();
-                key.Name = reader.GetAttribute("key");
+                key.Literal = reader.GetAttribute("key");
                 value.ReadXml(reader);
                 _map.Add(key, value);
             }
@@ -101,7 +101,7 @@ namespace FoxTool.Fox.Containers
                 {
                     writer.WriteStartElement("value");
                     writer.WriteAttributeString("key",
-                        pair.Key.Name ?? String.Format("0x{0:X8}", pair.Key.Hash.HashValue));
+                        pair.Key.Literal ?? String.Format("0x{0:X8}", pair.Key.Hash.HashValue));
                     pair.Value.WriteXml(writer);
                     writer.WriteEndElement();
                 }

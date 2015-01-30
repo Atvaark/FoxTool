@@ -9,8 +9,8 @@ namespace FoxTool.Fox.Types
         void Read(Stream input);
         void Write(Stream output);
         int Size();
-        void ResolveNames(FoxNameLookupTable lookupTable);
+        void ResolveStringLiterals(FoxLookupTable lookupTable);
         void CalculateHashes();
-        void CollectNames(List<FoxName> names);
+        void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals);
     }
 }

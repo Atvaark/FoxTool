@@ -9,78 +9,75 @@ namespace FoxTool.Fox.Types.Structs
 {
     public class FoxEntityLink : FoxStruct
     {
-        public FoxHash PackagePathHash { get; set; }
-        public FoxHash ArchivePathHash { get; set; }
-        public FoxHash NameInArchiveHash { get; set; }
         public ulong EntityHandle { get; set; }
-        public string PackagePath { get; set; }
-        public string ArchivePath { get; set; }
-        public string NameInArchive { get; set; }
+        // TODO: 3x StringLiteral
+        private FoxStringLiteral PackagePathLiteral { get; set; }
+        private FoxStringLiteral ArchivePathLiteral { get; set; }
+        private FoxStringLiteral NameInArchiveLiteral { get; set; }
 
         public override void Read(Stream input)
         {
             BinaryReader reader = new BinaryReader(input, Encoding.Default, true);
-            PackagePathHash = FoxHash.ReadFoxHash(input);
-            ArchivePathHash = FoxHash.ReadFoxHash(input);
-            NameInArchiveHash = FoxHash.ReadFoxHash(input);
+            PackagePathLiteral = FoxStringLiteral.ReadStringLiteral(input);
+            ArchivePathLiteral = FoxStringLiteral.ReadStringLiteral(input);
+            NameInArchiveLiteral = FoxStringLiteral.ReadStringLiteral(input);
             EntityHandle = reader.ReadUInt64();
         }
 
         public override void Write(Stream output)
         {
             BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
-            PackagePathHash.Write(output);
-            ArchivePathHash.Write(output);
-            NameInArchiveHash.Write(output);
+            PackagePathLiteral.Write(output);
+            ArchivePathLiteral.Write(output);
+            NameInArchiveLiteral.Write(output);
             writer.Write(EntityHandle);
         }
 
         public override int Size()
         {
-            return 3*FoxHash.Size + sizeof (ulong);
+            return 3*FoxStringLiteral.Size() + sizeof (ulong);
         }
 
-        public override void ResolveNames(FoxNameLookupTable lookupTable)
+        public override void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
-            PackagePath = lookupTable.Lookup(PackagePathHash.HashValue);
-            ArchivePath = lookupTable.Lookup(ArchivePathHash.HashValue);
-            NameInArchive = lookupTable.Lookup(NameInArchiveHash.HashValue);
+            PackagePathLiteral.Resolve(lookupTable);
+            ArchivePathLiteral.Resolve(lookupTable);
+            NameInArchiveLiteral.Resolve(lookupTable);
         }
 
         public override void CalculateHashes()
         {
-            PackagePathHash = PackagePath == null
-                ? PackagePathHash
-                : new FoxHash {HashValue = Hashing.HashString(PackagePath)};
-            ArchivePathHash = ArchivePath == null
-                ? ArchivePathHash
-                : new FoxHash {HashValue = Hashing.HashString(ArchivePath)};
-            NameInArchiveHash = NameInArchive == null
-                ? NameInArchiveHash
-                : new FoxHash {HashValue = Hashing.HashString(NameInArchive)};
+            PackagePathLiteral.CalculateHash();
+            ArchivePathLiteral.CalculateHash();
+            NameInArchiveLiteral.CalculateHash();
         }
 
-        public override void CollectNames(List<FoxName> names)
+        public override void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
-            names.Add(new FoxName(PackagePath, PackagePathHash));
-            names.Add(new FoxName(ArchivePath, ArchivePathHash));
-            names.Add(new FoxName(NameInArchive, NameInArchiveHash));
+            literals.Add(new FoxStringLookupLiteral(PackagePathLiteral));
+            literals.Add(new FoxStringLookupLiteral(NameInArchiveLiteral));
+            literals.Add(new FoxStringLookupLiteral(NameInArchiveLiteral));
         }
 
         public override void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;
 
-            PackagePathHash = new FoxHash("packagePathHash");
-            PackagePathHash.ReadXml(reader);
-            ArchivePathHash = new FoxHash("archivePathHash");
-            ArchivePathHash.ReadXml(reader);
-            NameInArchiveHash = new FoxHash("nameInArchiveHash");
-            NameInArchiveHash.ReadXml(reader);
+            var packagePathHash = new FoxHash("packagePathHash");
+            packagePathHash.ReadXml(reader);
+            var archivePathHash = new FoxHash("archivePathHash");
+            archivePathHash.ReadXml(reader);
+            var nameInArchiveHash = new FoxHash("nameInArchiveHash");
+            nameInArchiveHash.ReadXml(reader);
 
-            PackagePath = reader.GetAttribute("packagePath");
-            ArchivePath = reader.GetAttribute("archivePath");
-            NameInArchive = reader.GetAttribute("nameInArchive");
+            var packagePath = reader.GetAttribute("packagePath");
+            var archivePath = reader.GetAttribute("archivePath");
+            var nameInArchive = reader.GetAttribute("nameInArchive");
+
+            PackagePathLiteral = new FoxStringLiteral(packagePath, packagePathHash);
+            ArchivePathLiteral = new FoxStringLiteral(archivePath, archivePathHash);
+            NameInArchiveLiteral = new FoxStringLiteral(nameInArchive, nameInArchiveHash);
+
             reader.ReadStartElement("value");
             if (isEmptyElement == false)
             {
@@ -95,33 +92,36 @@ namespace FoxTool.Fox.Types.Structs
         public override void WriteXml(XmlWriter writer)
         {
             // HACK: HashName should should only be set once. Either in ReadFoxHash or the constructor of FoxHash.
-            PackagePathHash.HashName = "packagePathHash";
-            ArchivePathHash.HashName = "archivePathHash";
-            NameInArchiveHash.HashName = "nameInArchiveHash";
+            PackagePathLiteral.Hash.HashName = "packagePathHash";
+            ArchivePathLiteral.Hash.HashName = "archivePathHash";
+            NameInArchiveLiteral.Hash.HashName = "nameInArchiveHash";
 
-            if (PackagePath == null)
-                PackagePathHash.WriteXml(writer);
+            if (PackagePathLiteral.Literal == null)
+                PackagePathLiteral.Hash.WriteXml(writer);
             else
-                writer.WriteAttributeString("packagePath", PackagePath);
+                writer.WriteAttributeString("packagePath", PackagePathLiteral.Literal);
 
-            if (ArchivePath == null)
-                ArchivePathHash.WriteXml(writer);
+            if (ArchivePathLiteral.Literal == null)
+                ArchivePathLiteral.Hash.WriteXml(writer);
             else
-                writer.WriteAttributeString("archivePath", ArchivePath);
+                writer.WriteAttributeString("archivePath", ArchivePathLiteral.Literal);
 
-            if (NameInArchive == null)
-                NameInArchiveHash.WriteXml(writer);
+            if (NameInArchiveLiteral.Literal == null)
+                NameInArchiveLiteral.Hash.WriteXml(writer);
             else
-                writer.WriteAttributeString("nameInArchive", NameInArchive);
+                writer.WriteAttributeString("nameInArchive", NameInArchiveLiteral.Literal);
 
             writer.WriteString(String.Format("0x{0:X8}", EntityHandle));
         }
 
         public override string ToString()
         {
-            string packagePath = PackagePath ?? String.Format("0x{0:X8}", PackagePathHash.HashValue);
-            string archivePath = ArchivePath ?? String.Format("0x{0:X8}", ArchivePathHash.HashValue);
-            string nameInArchive = NameInArchive ?? String.Format("0x{0:X8}", NameInArchiveHash.HashValue);
+            string packagePath = PackagePathLiteral.Literal ??
+                                 String.Format("0x{0:X8}", PackagePathLiteral.Hash.HashValue);
+            string archivePath = ArchivePathLiteral.Literal ??
+                                 String.Format("0x{0:X8}", ArchivePathLiteral.Hash.HashValue);
+            string nameInArchive = NameInArchiveLiteral.Literal ??
+                                   String.Format("0x{0:X8}", NameInArchiveLiteral.Hash.HashValue);
             return
                 string.Format(
                     "packagePath=\"{0}\", archivePath=\"{1}\", nameInArchive=\"{2}\", EntityHandle=\"0x{3:X8}\"",

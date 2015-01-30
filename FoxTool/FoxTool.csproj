@@ -49,7 +49,11 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FoxConverter.cs" />
-    <Compile Include="Fox\FoxNameLookupTable.cs" />
+    <Compile Include="Fox\FoxLookupTable.cs" />
+    <Compile Include="Fox\FoxStringLiteral.cs" />
+    <Compile Include="Fox\FoxStringLiteralBase.cs" />
+    <Compile Include="Fox\FoxStringLiteralLookupTable.cs" />
+    <Compile Include="Fox\Types\Values\FoxStringBase.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldInterpType.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldShapeType.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareShapeDistanceScalingMode.cs" />
@@ -406,7 +410,7 @@
     <Compile Include="Fox\Containers\IFoxContainer.cs" />
     <Compile Include="Fox\FoxFile.cs" />
     <Compile Include="Fox\FoxHash.cs" />
-    <Compile Include="Fox\FoxName.cs" />
+    <Compile Include="Fox\FoxStringLookupLiteral.cs" />
     <Compile Include="Fox\FoxEntity.cs" />
     <Compile Include="Fox\FoxProperty.cs" />
     <Compile Include="Fox\Containers\FoxContainerFactory.cs" />

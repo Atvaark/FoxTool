@@ -36,7 +36,7 @@ namespace FoxTool.Fox.Types.Structs
             return 4*sizeof (float);
         }
 
-        public override void ResolveNames(FoxNameLookupTable lookupTable)
+        public override void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
         }
 
@@ -44,7 +44,7 @@ namespace FoxTool.Fox.Types.Structs
         {
         }
 
-        public override void CollectNames(List<FoxName> names)
+        public override void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
         }
 

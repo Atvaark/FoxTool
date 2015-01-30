@@ -28,7 +28,7 @@ namespace FoxTool.Fox.Types.Values
             return sizeof (double);
         }
 
-        public void ResolveNames(FoxNameLookupTable lookupTable)
+        public void ResolveStringLiterals(FoxLookupTable lookupTable)
         {
         }
 
@@ -36,7 +36,7 @@ namespace FoxTool.Fox.Types.Values
         {
         }
 
-        public void CollectNames(List<FoxName> names)
+        public void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
         }
 
