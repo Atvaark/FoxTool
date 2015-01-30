@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -90,25 +89,25 @@ namespace FoxTool.Fox.Types.Structs
             reader.ReadStartElement("value");
             if (isEmptyElement == false)
             {
-                Row1Value1 = float.Parse(reader.GetAttribute("Column1"), CultureInfo.InvariantCulture);
-                Row1Value2 = float.Parse(reader.GetAttribute("Column2"), CultureInfo.InvariantCulture);
-                Row1Value3 = float.Parse(reader.GetAttribute("Column3"), CultureInfo.InvariantCulture);
-                Row1Value4 = float.Parse(reader.GetAttribute("Column4"), CultureInfo.InvariantCulture);
+                Row1Value1 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column1"));
+                Row1Value2 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column2"));
+                Row1Value3 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column3"));
+                Row1Value4 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column4"));
                 reader.ReadStartElement("Row1");
-                Row2Value1 = float.Parse(reader.GetAttribute("Column1"), CultureInfo.InvariantCulture);
-                Row2Value2 = float.Parse(reader.GetAttribute("Column2"), CultureInfo.InvariantCulture);
-                Row2Value3 = float.Parse(reader.GetAttribute("Column3"), CultureInfo.InvariantCulture);
-                Row2Value4 = float.Parse(reader.GetAttribute("Column4"), CultureInfo.InvariantCulture);
+                Row2Value1 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column1"));
+                Row2Value2 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column2"));
+                Row2Value3 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column3"));
+                Row2Value4 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column4"));
                 reader.ReadStartElement("Row2");
-                Row3Value1 = float.Parse(reader.GetAttribute("Column1"), CultureInfo.InvariantCulture);
-                Row3Value2 = float.Parse(reader.GetAttribute("Column2"), CultureInfo.InvariantCulture);
-                Row3Value3 = float.Parse(reader.GetAttribute("Column3"), CultureInfo.InvariantCulture);
-                Row3Value4 = float.Parse(reader.GetAttribute("Column4"), CultureInfo.InvariantCulture);
+                Row3Value1 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column1"));
+                Row3Value2 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column2"));
+                Row3Value3 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column3"));
+                Row3Value4 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column4"));
                 reader.ReadStartElement("Row3");
-                Row4Value1 = float.Parse(reader.GetAttribute("Column1"), CultureInfo.InvariantCulture);
-                Row4Value2 = float.Parse(reader.GetAttribute("Column2"), CultureInfo.InvariantCulture);
-                Row4Value3 = float.Parse(reader.GetAttribute("Column3"), CultureInfo.InvariantCulture);
-                Row4Value4 = float.Parse(reader.GetAttribute("Column4"), CultureInfo.InvariantCulture);
+                Row4Value1 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column1"));
+                Row4Value2 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column2"));
+                Row4Value3 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column3"));
+                Row4Value4 = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("Column4"));
                 reader.ReadStartElement("Row4");
                 reader.ReadEndElement();
             }
@@ -117,28 +116,28 @@ namespace FoxTool.Fox.Types.Structs
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("Row1");
-            writer.WriteAttributeString("Column1", Row1Value1.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column2", Row1Value2.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column3", Row1Value3.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column4", Row1Value4.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column1", Row1Value1.ToStringRoundtrip());
+            writer.WriteAttributeString("Column2", Row1Value2.ToStringRoundtrip());
+            writer.WriteAttributeString("Column3", Row1Value3.ToStringRoundtrip());
+            writer.WriteAttributeString("Column4", Row1Value4.ToStringRoundtrip());
             writer.WriteEndElement();
             writer.WriteStartElement("Row2");
-            writer.WriteAttributeString("Column1", Row2Value1.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column2", Row2Value2.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column3", Row2Value3.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column4", Row2Value4.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column1", Row2Value1.ToStringRoundtrip());
+            writer.WriteAttributeString("Column2", Row2Value2.ToStringRoundtrip());
+            writer.WriteAttributeString("Column3", Row2Value3.ToStringRoundtrip());
+            writer.WriteAttributeString("Column4", Row2Value4.ToStringRoundtrip());
             writer.WriteEndElement();
             writer.WriteStartElement("Row3");
-            writer.WriteAttributeString("Column1", Row3Value1.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column2", Row3Value2.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column3", Row3Value3.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column4", Row3Value4.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column1", Row3Value1.ToStringRoundtrip());
+            writer.WriteAttributeString("Column2", Row3Value2.ToStringRoundtrip());
+            writer.WriteAttributeString("Column3", Row3Value3.ToStringRoundtrip());
+            writer.WriteAttributeString("Column4", Row3Value4.ToStringRoundtrip());
             writer.WriteEndElement();
             writer.WriteStartElement("Row4");
-            writer.WriteAttributeString("Column1", Row4Value1.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column2", Row4Value2.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column3", Row4Value3.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("Column4", Row4Value4.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("Column1", Row4Value1.ToStringRoundtrip());
+            writer.WriteAttributeString("Column2", Row4Value2.ToStringRoundtrip());
+            writer.WriteAttributeString("Column3", Row4Value3.ToStringRoundtrip());
+            writer.WriteAttributeString("Column4", Row4Value4.ToStringRoundtrip());
             writer.WriteEndElement();
         }
 

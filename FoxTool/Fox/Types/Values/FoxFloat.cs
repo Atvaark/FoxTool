@@ -47,7 +47,7 @@ namespace FoxTool.Fox.Types.Values
             reader.ReadStartElement("value");
             if (isEmptyElement == false)
             {
-                Value = float.Parse(reader.ReadString(), CultureInfo.InvariantCulture);
+                Value = ExtensionMethods.ParseFloatRoundtrip(reader.ReadString());
                 reader.ReadEndElement();
             }
         }

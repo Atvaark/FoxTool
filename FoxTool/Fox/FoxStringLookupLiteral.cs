@@ -11,7 +11,6 @@ namespace FoxTool.Fox
 
         public FoxStringLookupLiteral(FoxStringLiteralBase stringLiteral)
         {
-            // TODO: Maybe create a factory method
             Literal = stringLiteral.Literal;
             Hash = stringLiteral.Hash;
             EncryptedLiteral = stringLiteral.EncryptedLiteral;

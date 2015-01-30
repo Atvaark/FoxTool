@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using FoxTool.Fox.Containers;
@@ -171,6 +172,25 @@ namespace FoxTool
                 default:
                     throw new ArgumentOutOfRangeException("type");
             }
+        }
+
+        internal static string ToStringRoundtrip(this float value)
+        {
+            var bytes = BitConverter.GetBytes(value);
+            if (value.Equals(0.0f) && bytes[BitConverter.IsLittleEndian ? 3 : 0] == 0x80)
+            {
+                return "-0";
+            }
+            return value.ToString("r", CultureInfo.InvariantCulture);
+        }
+
+        internal static float ParseFloatRoundtrip(string text)
+        {
+            if (text == "-0")
+            {
+                return -0f;
+            }
+            return float.Parse(text, CultureInfo.InvariantCulture);
         }
     }
 }

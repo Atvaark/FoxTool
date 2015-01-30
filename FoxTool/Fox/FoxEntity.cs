@@ -94,7 +94,6 @@ namespace FoxTool.Fox
             writer.WriteAttributeString("class", ClassName);
             writer.WriteAttributeString("classVersion", Version.ToString());
             writer.WriteAttributeString("addr", String.Format("0x{0:X8}", Address));
-            // TODO: Rename unknown attributes
             writer.WriteAttributeString("unknown", Unknown.ToString());
 
 

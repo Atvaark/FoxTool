@@ -10,7 +10,6 @@ namespace FoxTool.Fox.Types.Structs
     public class FoxEntityLink : FoxStruct
     {
         public ulong EntityHandle { get; set; }
-        // TODO: 3x StringLiteral
         private FoxStringLiteral PackagePathLiteral { get; set; }
         private FoxStringLiteral ArchivePathLiteral { get; set; }
         private FoxStringLiteral NameInArchiveLiteral { get; set; }

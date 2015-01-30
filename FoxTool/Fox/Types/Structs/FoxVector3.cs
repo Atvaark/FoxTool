@@ -51,10 +51,10 @@ namespace FoxTool.Fox.Types.Structs
         public override void ReadXml(XmlReader reader)
         {
             var isEmptyElement = reader.IsEmptyElement;
-            X = float.Parse(reader.GetAttribute("x"), CultureInfo.InvariantCulture);
-            Y = float.Parse(reader.GetAttribute("y"), CultureInfo.InvariantCulture);
-            Z = float.Parse(reader.GetAttribute("z"), CultureInfo.InvariantCulture);
-            W = float.Parse(reader.GetAttribute("w"), CultureInfo.InvariantCulture);
+            X = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("x"));
+            Y = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("y"));
+            Z = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("z"));
+            W = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("w"));
             reader.ReadStartElement("value");
             if (isEmptyElement == false)
                 reader.ReadEndElement();
@@ -62,10 +62,10 @@ namespace FoxTool.Fox.Types.Structs
 
         public override void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("x", X.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("y", Y.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("z", Z.ToString("r", CultureInfo.InvariantCulture));
-            writer.WriteAttributeString("w", W.ToString("r", CultureInfo.InvariantCulture));
+            writer.WriteAttributeString("x", X.ToStringRoundtrip());
+            writer.WriteAttributeString("y", Y.ToStringRoundtrip());
+            writer.WriteAttributeString("z", Z.ToStringRoundtrip());
+            writer.WriteAttributeString("w", W.ToStringRoundtrip());
         }
 
         public override string ToString()
