@@ -6,12 +6,13 @@ using System.Xml;
 
 namespace FoxTool.Fox.Types.Structs
 {
-    public class FoxVector3 : FoxStruct
+    public class FoxWideVector3 : FoxStruct
     {
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
-        private float W { get; set; }
+        public ushort A { get; set; }
+        public ushort B { get; set; }
 
         public override void Read(Stream input)
         {
@@ -19,7 +20,8 @@ namespace FoxTool.Fox.Types.Structs
             X = reader.ReadSingle();
             Y = reader.ReadSingle();
             Z = reader.ReadSingle();
-            W = reader.ReadSingle();
+            A = reader.ReadUInt16();
+            B = reader.ReadUInt16();
         }
 
         public override void Write(Stream output)
@@ -28,12 +30,13 @@ namespace FoxTool.Fox.Types.Structs
             writer.Write(X);
             writer.Write(Y);
             writer.Write(Z);
-            writer.Write(W);
+            writer.Write(A);
+            writer.Write(B);
         }
 
         public override int Size()
         {
-            return 4 * sizeof(float);
+            return 3 * sizeof(float) + 2 * sizeof(ushort);
         }
 
         public override void ResolveStringLiterals(FoxLookupTable lookupTable)
@@ -54,7 +57,8 @@ namespace FoxTool.Fox.Types.Structs
             X = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("x"));
             Y = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("y"));
             Z = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("z"));
-            W = ExtensionMethods.ParseFloatRoundtrip(reader.GetAttribute("w"));
+            A = ushort.Parse(reader.GetAttribute("a"));
+            B = ushort.Parse(reader.GetAttribute("b"));
             reader.ReadStartElement("value");
             if (isEmptyElement == false)
                 reader.ReadEndElement();
@@ -65,13 +69,16 @@ namespace FoxTool.Fox.Types.Structs
             writer.WriteAttributeString("x", X.ToStringRoundtrip());
             writer.WriteAttributeString("y", Y.ToStringRoundtrip());
             writer.WriteAttributeString("z", Z.ToStringRoundtrip());
-            writer.WriteAttributeString("w", W.ToStringRoundtrip());
+            writer.WriteAttributeString("a", A.ToString());
+            writer.WriteAttributeString("b", B.ToString());
+
         }
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "x=\"{0:r}\", y=\"{1:r}\", z=\"{2:r}\", w=\"{3:r}\"", X,
-                Y, Z, W);
+            return string.Format(CultureInfo.InvariantCulture,
+                "x=\"{0:r}\", y=\"{1:r}\", z=\"{2:r}\", a=\"{3}\", b=\"{4}\"", X,
+                Y, Z, A, B);
         }
     }
 }

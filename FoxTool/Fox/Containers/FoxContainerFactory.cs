@@ -90,6 +90,12 @@ namespace FoxTool.Fox.Containers
                 case FoxDataType.FoxEntityLink:
                     container = CreateContainer<FoxEntityLink>(containerType);
                     break;
+                case FoxDataType.FoxPropertyInfo:
+                    container = CreateContainer<FoxPropertyInfo>(containerType);
+                    break;
+                case FoxDataType.FoxWideVector3:
+                    container = CreateContainer<FoxWideVector3>(containerType);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("dataType");
             }

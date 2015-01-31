@@ -53,6 +53,8 @@
     <Compile Include="Fox\FoxStringLiteral.cs" />
     <Compile Include="Fox\FoxStringLiteralBase.cs" />
     <Compile Include="Fox\FoxStringLiteralLookupTable.cs" />
+    <Compile Include="Fox\Types\Structs\FoxPropertyInfo.cs" />
+    <Compile Include="Fox\Types\Structs\FoxWideVector3.cs" />
     <Compile Include="Fox\Types\Values\FoxStringBase.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldInterpType.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldShapeType.cs" />

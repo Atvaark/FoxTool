@@ -27,6 +27,9 @@
         FoxColor = 19,
         FoxFilePtr = 20,
         FoxEntityHandle = 21,
-        FoxEntityLink = 22
+        FoxEntityLink = 22,
+        FoxPropertyInfo = 23,
+        FoxWideVector3 = 24
+
     }
 }

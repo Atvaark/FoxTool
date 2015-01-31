@@ -22,17 +22,17 @@ namespace FoxTool
 
         internal static void AlignRead(this Stream input, int alignment)
         {
-            long alignmentRequired = input.Position%alignment;
+            long alignmentRequired = input.Position % alignment;
             if (alignmentRequired > 0)
                 input.Position += alignment - alignmentRequired;
         }
 
         internal static void AlignWrite(this Stream output, int alignment, byte data)
         {
-            long alignmentRequired = output.Position%alignment;
+            long alignmentRequired = output.Position % alignment;
             if (alignmentRequired > 0)
             {
-                byte[] alignmentBytes = Enumerable.Repeat(data, (int) (alignment - alignmentRequired)).ToArray();
+                byte[] alignmentBytes = Enumerable.Repeat(data, (int)(alignment - alignmentRequired)).ToArray();
                 output.Write(alignmentBytes, 0, alignmentBytes.Length);
             }
         }
@@ -114,6 +114,10 @@ namespace FoxTool
                     return FoxDataType.FoxEntityHandle;
                 case "EntityLink":
                     return FoxDataType.FoxEntityLink;
+                case "PropertyInfo":
+                    return FoxDataType.FoxPropertyInfo;
+                case "WideVector3":
+                    return FoxDataType.FoxWideVector3;
                 default:
                     throw new ArgumentOutOfRangeException("foxDataType");
             }
@@ -169,6 +173,10 @@ namespace FoxTool
                     return "EntityHandle";
                 case FoxDataType.FoxEntityLink:
                     return "EntityLink";
+                case FoxDataType.FoxPropertyInfo:
+                    return "PropertyInfo";
+                case FoxDataType.FoxWideVector3:
+                    return "WideVector3";
                 default:
                     throw new ArgumentOutOfRangeException("type");
             }
@@ -176,8 +184,7 @@ namespace FoxTool
 
         internal static string ToStringRoundtrip(this float value)
         {
-            var bytes = BitConverter.GetBytes(value);
-            if (value.Equals(0.0f) && bytes[BitConverter.IsLittleEndian ? 3 : 0] == 0x80)
+            if (value.Equals(0.0f) && BitConverter.GetBytes(value)[BitConverter.IsLittleEndian ? 3 : 0] == 0x80)
             {
                 return "-0";
             }
