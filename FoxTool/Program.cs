@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using FoxTool.Fox;
 
 namespace FoxTool
@@ -123,8 +124,8 @@ namespace FoxTool
         {
             try
             {
-                Console.WriteLine("Reading Dictionary.txt");
-                ReadGlobalHashNameDictionary("Dictionary.txt");
+                Console.WriteLine("Reading dictionary");
+                ReadGlobalHashNameDictionary();
             }
             catch (Exception e)
             {
@@ -213,8 +214,10 @@ namespace FoxTool
             return files;
         }
 
-        private static void ReadGlobalHashNameDictionary(string path)
+        private static void ReadGlobalHashNameDictionary()
         {
+            string executingAssemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string path = Path.Combine(executingAssemblyLocation, "fox_dictionary.txt");
             foreach (var line in File.ReadAllLines(path))
             {
                 ulong hash = Hashing.HashString(line);
