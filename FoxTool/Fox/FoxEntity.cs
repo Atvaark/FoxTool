@@ -25,7 +25,8 @@ namespace FoxTool.Fox
 
         public ulong ClassNameHash { get; set; }
         public string ClassName { get; set; }
-        public short Unknown { get; set; }
+        public short Unknown1 { get; set; }
+        public int Unknown2 { get; set; }
         public short Version { get; set; }
         public uint Address { get; set; }
 
@@ -52,7 +53,8 @@ namespace FoxTool.Fox
             Address = addr.StartsWith("0x")
                 ? uint.Parse(addr.Substring(2, addr.Length - 2), NumberStyles.AllowHexSpecifier)
                 : uint.Parse(addr);
-            Unknown = short.Parse(reader.GetAttribute("unknown"));
+            Unknown1 = short.Parse(reader.GetAttribute("unknown1"));
+            Unknown2 = int.Parse(reader.GetAttribute("unknown2"));
 
             var isEmptyElement = reader.IsEmptyElement;
             reader.ReadStartElement("entity");
@@ -94,7 +96,8 @@ namespace FoxTool.Fox
             writer.WriteAttributeString("class", ClassName);
             writer.WriteAttributeString("classVersion", Version.ToString());
             writer.WriteAttributeString("addr", String.Format("0x{0:X8}", Address));
-            writer.WriteAttributeString("unknown", Unknown.ToString());
+            writer.WriteAttributeString("unknown1", Unknown1.ToString());
+            writer.WriteAttributeString("unknown2", Unknown2.ToString());
 
 
             writer.WriteStartElement("staticProperties");
@@ -127,14 +130,13 @@ namespace FoxTool.Fox
         {
             BinaryReader reader = new BinaryReader(input, Encoding.Default, true);
             short headerSize = reader.ReadInt16();
-            Unknown = reader.ReadInt16();
+            Unknown1 = reader.ReadInt16();
             short padding1 = reader.ReadInt16();
             uint magicNumber1 = reader.ReadUInt32();
             Address = reader.ReadUInt32();
-            ushort padding2 = reader.ReadUInt16();
-            int unknown4 = reader.ReadInt32();
+            uint padding2 = reader.ReadUInt32();
+            Unknown2 = reader.ReadInt32();
             int unknown5 = reader.ReadInt32();
-            int unknown6 = reader.ReadInt16();
             Version = reader.ReadInt16();
             ClassNameHash = reader.ReadUInt64();
             ushort staticPropertyCount = reader.ReadUInt16();
@@ -189,11 +191,13 @@ namespace FoxTool.Fox
             uint dataSize = (uint) (endPosition - headerPosition);
             output.Position = headerPosition;
             writer.Write(HeaderSize);
-            writer.Write(Unknown);
-            writer.WriteZeros(2);
+            writer.Write(Unknown1);
+            writer.WriteZeros(2); // padding1
             writer.Write(MagicNumber);
             writer.Write(Address);
-            writer.WriteZeros(12);
+            writer.WriteZeros(4); // padding2
+            writer.Write(Unknown2);
+            writer.WriteZeros(4);
             writer.Write(Version);
             writer.Write(ClassNameHash);
             writer.Write(Convert.ToUInt16(StaticProperties.Count()));
