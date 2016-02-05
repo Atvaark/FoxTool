@@ -252,6 +252,7 @@ namespace FoxTool.Fox
                     foxStringLookupLiteral.Write(output);
             }
 
+            writer.Write((long)0);
             output.AlignWrite(16, 0x00);
             writer.Write(new byte[] {0x00, 0x00, 0x65, 0x6E, 0x64});
             output.AlignWrite(16, 0x00);
