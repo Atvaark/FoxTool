@@ -34,9 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CityHash, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CityHash.Net.Legacy.0.1.1\lib\net45\CityHash.dll</HintPath>
+    <Reference Include="CityHash, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CityHash.Net.Legacy.0.1.2.0\lib\net45\CityHash.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,6 +55,7 @@
     <Compile Include="Fox\Types\Structs\FoxPropertyInfo.cs" />
     <Compile Include="Fox\Types\Structs\FoxWideVector3.cs" />
     <Compile Include="Fox\Types\Values\FoxStringBase.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldInterpType.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareFieldShapeType.cs" />
     <Compile Include="Tpp\Enums\TppLensFlareShapeDistanceScalingMode.cs" />

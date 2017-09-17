@@ -61,9 +61,10 @@ namespace FoxTool.Fox
 
         public void CheckForEncryption()
         {
-            if (Hashing.HashString(Literal) != Hash.HashValue)
+            ulong literalHash = Hashing.HashString(Literal);
+            if (literalHash != Hash.HashValue)
             {
-                EncryptedLiteral = Encoding.Default.GetBytes(Literal);
+                EncryptedLiteral = Constants.StringEncoding.GetBytes(Literal);
             }
         }
 

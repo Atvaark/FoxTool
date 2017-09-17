@@ -42,7 +42,7 @@ namespace FoxTool.Fox
         {
             BinaryWriter writer = new BinaryWriter(output, Encoding.Default, true);
 
-            byte[] nameBytes = Literal == null ? new byte[0] : Encoding.Default.GetBytes(Literal);
+            byte[] nameBytes = Literal == null ? new byte[0] : Constants.StringEncoding.GetBytes(Literal);
 
             Hash.Write(output);
             writer.Write((uint) nameBytes.Length);

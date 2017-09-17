@@ -37,9 +37,10 @@ namespace FoxTool
             }
         }
 
-        internal static string ReadString(this BinaryReader binaryReader, int count)
+        internal static string ReadString(this BinaryReader binaryReader, int byteCount)
         {
-            return new string(binaryReader.ReadChars(count));
+            byte[] bytes = binaryReader.ReadBytes(byteCount);
+            return Constants.StringEncoding.GetString(bytes);
         }
 
         internal static bool IsPrintable(this string s)

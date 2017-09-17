@@ -27,9 +27,15 @@ namespace FoxTool.Fox
         {
             string result;
             if (LocalLookupTable.TryGetValue(hash, out result))
+            {
                 return result;
+            }
+
             if (GlobalLookupTable.TryGetValue(hash, out result))
+            {
                 return result;
+            }
+
             return null;
         }
     }

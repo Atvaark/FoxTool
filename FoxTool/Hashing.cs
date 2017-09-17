@@ -7,9 +7,11 @@ namespace FoxTool
         internal static ulong HashString(string text)
         {
             if (text == null) throw new ArgumentNullException("text");
+            byte[] bytes = Constants.StringEncoding.GetBytes(text + "\0");
             const ulong seed0 = 0x9ae16a3b2f90404f;
-            ulong seed1 = text.Length > 0 ? (uint) ((text[0]) << 16) + (uint) text.Length : 0;
-            return CityHash.CityHash.CityHash64WithSeeds(text + "\0", seed0, seed1) & 0xFFFFFFFFFFFF;
+            ulong seed1 = bytes.Length > 0 ? (uint) ((bytes[0]) << 16) + (uint) (bytes.Length - 1) : 0;
+            ulong hash = CityHash.CityHash.CityHash64WithSeeds(bytes, seed0, seed1) & 0xFFFFFFFFFFFF;
+            return hash;
         }
     }
 }

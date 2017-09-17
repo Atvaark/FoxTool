@@ -12,7 +12,7 @@ namespace FoxTool
         {
             var settings = new XmlWriterSettings
             {
-                Encoding = Encoding.UTF8,
+                Encoding = Constants.StringEncoding,
                 Indent = true
             };
 
