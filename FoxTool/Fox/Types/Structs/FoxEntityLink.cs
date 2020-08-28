@@ -54,7 +54,7 @@ namespace FoxTool.Fox.Types.Structs
         public override void CollectStringLookupLiterals(List<FoxStringLookupLiteral> literals)
         {
             literals.Add(new FoxStringLookupLiteral(PackagePathLiteral));
-            literals.Add(new FoxStringLookupLiteral(NameInArchiveLiteral));
+            literals.Add(new FoxStringLookupLiteral(ArchivePathLiteral));
             literals.Add(new FoxStringLookupLiteral(NameInArchiveLiteral));
         }
 
